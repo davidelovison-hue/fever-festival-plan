@@ -525,7 +525,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
 
 const BASE = import.meta.env.BASE_URL;
 
-export const DEFAULT_TICKET_IMAGE = `${BASE}festival-poster.jpg`;
+export const DEFAULT_TICKET_IMAGE = `${BASE}entity-ticket.jpg`;
 
 const CAMP_A_IMG = `${BASE}hero-grid-4.jpg`;
 const CAMP_ZAFIRO_IMG = `${BASE}hero-grid-1.jpg`;

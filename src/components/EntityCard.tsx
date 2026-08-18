@@ -167,7 +167,7 @@ export function EntityCard({ entity }: EntityCardProps) {
                       alt=""
                       draggable={false}
                       onError={(event) => {
-                        event.currentTarget.src = `${import.meta.env.BASE_URL}festival-poster.jpg`;
+                        event.currentTarget.src = `${import.meta.env.BASE_URL}entity-ticket.jpg`;
                       }}
                     />
                   </div>
@@ -212,7 +212,7 @@ export function EntityCard({ entity }: EntityCardProps) {
                 src={images[0]}
                 alt=""
                 onError={(event) => {
-                  event.currentTarget.src = `${import.meta.env.BASE_URL}festival-poster.jpg`;
+                  event.currentTarget.src = `${import.meta.env.BASE_URL}entity-ticket.jpg`;
                 }}
               />
             </div>
