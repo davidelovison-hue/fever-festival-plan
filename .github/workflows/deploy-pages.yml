@@ -2,7 +2,7 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, cursor/bahidora-festival-data-aab5]
   workflow_dispatch:
 
 permissions:
