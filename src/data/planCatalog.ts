@@ -530,8 +530,12 @@ export const DEFAULT_TICKET_IMAGE = `${BASE}festival-poster.jpg`;
 const CAMP_A_IMG = `${BASE}hero-grid-4.jpg`;
 const CAMP_ZAFIRO_IMG = `${BASE}hero-grid-1.jpg`;
 const CAMP_ONIX_IMG = `${BASE}hero-grid-4.jpg`;
-const GLAMP_IMG = `${BASE}hero-grid-1.jpg`;
-const HOTEL_IMG = `${BASE}hero-grid-1.jpg`;
+const AMATISTA_DOBLE_IMG = `${BASE}entity-amatista-doble.jpg`;
+const AMATISTA_QUAD_IMG = `${BASE}entity-amatista-quad.jpg`;
+const NEHIRA_SUITE_IMG = `${BASE}entity-nehira-suite.jpg`;
+const NEHIRA_MASTER_IMG = `${BASE}entity-nehira-master.jpg`;
+const COCOYOC_DOUBLE_IMG = `${BASE}entity-cocoyoc-double.jpg`;
+const COCOYOC_QUAD_IMG = `${BASE}entity-cocoyoc-quad.jpg`;
 const BUS_IMG = `${BASE}entity-bus.jpg`;
 const PARK_IMG = `${BASE}entity-parking.jpg`;
 const SPA_IMG = `${BASE}hero-grid-1.jpg`;
@@ -542,14 +546,14 @@ export const ENTITY_IMAGES: Record<string, string> = {
   'camp-zafiro': CAMP_ZAFIRO_IMG,
   'camp-onix': CAMP_ONIX_IMG,
   'camp-team': CAMP_A_IMG,
-  'glamp-amatista-doble': GLAMP_IMG,
-  'glamp-amatista-cuadruple': GLAMP_IMG,
-  'hotel-nehira-suite-doble': HOTEL_IMG,
-  'hotel-nehira-master-doble': HOTEL_IMG,
-  'hotel-doble-3n': HOTEL_IMG,
-  'hotel-doble-2n': HOTEL_IMG,
-  'hotel-cuadruple-3n': HOTEL_IMG,
-  'hotel-cuadruple-2n': HOTEL_IMG,
+  'glamp-amatista-doble': AMATISTA_DOBLE_IMG,
+  'glamp-amatista-cuadruple': AMATISTA_QUAD_IMG,
+  'hotel-nehira-suite-doble': NEHIRA_SUITE_IMG,
+  'hotel-nehira-master-doble': NEHIRA_MASTER_IMG,
+  'hotel-doble-3n': COCOYOC_DOUBLE_IMG,
+  'hotel-doble-2n': COCOYOC_DOUBLE_IMG,
+  'hotel-cuadruple-3n': COCOYOC_QUAD_IMG,
+  'hotel-cuadruple-2n': COCOYOC_QUAD_IMG,
   'bus-cdmx-viernes': BUS_IMG,
   'bus-cdmx-sabado': BUS_IMG,
   'park-auto-weekend': PARK_IMG,
@@ -567,10 +571,14 @@ export const ENTITY_GALLERIES: Record<string, string[]> = {
   'camp-zafiro': [CAMP_ZAFIRO_IMG, CAMP_ONIX_IMG],
   'camp-onix': [CAMP_ONIX_IMG, CAMP_A_IMG],
   'camp-team': [CAMP_A_IMG, CAMP_ZAFIRO_IMG],
-  'glamp-amatista-doble': [GLAMP_IMG, HOTEL_IMG],
-  'glamp-amatista-cuadruple': [GLAMP_IMG, HOTEL_IMG],
-  'hotel-nehira-suite-doble': [HOTEL_IMG, GLAMP_IMG],
-  'hotel-nehira-master-doble': [HOTEL_IMG, GLAMP_IMG],
+  'glamp-amatista-doble': [AMATISTA_DOBLE_IMG, AMATISTA_QUAD_IMG],
+  'glamp-amatista-cuadruple': [AMATISTA_QUAD_IMG, AMATISTA_DOBLE_IMG],
+  'hotel-nehira-suite-doble': [NEHIRA_SUITE_IMG, NEHIRA_MASTER_IMG],
+  'hotel-nehira-master-doble': [NEHIRA_MASTER_IMG, NEHIRA_SUITE_IMG],
+  'hotel-doble-3n': [COCOYOC_DOUBLE_IMG, COCOYOC_QUAD_IMG],
+  'hotel-doble-2n': [COCOYOC_DOUBLE_IMG, COCOYOC_QUAD_IMG],
+  'hotel-cuadruple-3n': [COCOYOC_QUAD_IMG, COCOYOC_DOUBLE_IMG],
+  'hotel-cuadruple-2n': [COCOYOC_QUAD_IMG, COCOYOC_DOUBLE_IMG],
 };
 
 export function getEntityImages(entityId: string): string[] {
