@@ -26,8 +26,8 @@ export function getEntityMetaLines(entity: {
     return lines;
   }
 
-  if (entity.id.startsWith('park-')) {
-    return ['Festival entry ticket not included'];
+  if (entity.id.startsWith('park-') || entity.id.startsWith('bus-')) {
+    return entity.date ? [entity.date, 'Festival entry ticket not included'] : ['Festival entry ticket not included'];
   }
 
   if (entity.type === 'configurable_multi' && entity.displaySummary) {

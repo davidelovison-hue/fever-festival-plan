@@ -530,26 +530,19 @@ export const PLAN_CATALOG: PlanCategory[] = [
   },
 ];
 
-export const DEFAULT_TICKET_IMAGE = `${import.meta.env.BASE_URL}festival-poster.jpg`;
+const BASE = import.meta.env.BASE_URL;
 
-const CAMP_A_IMG =
-  'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80';
-const CAMP_ZAFIRO_IMG =
-  'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=800&q=80';
-const CAMP_ONIX_IMG =
-  'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=800&q=80';
-const GLAMP_IMG =
-  'https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=800&q=80';
-const HOTEL_IMG =
-  'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80';
-const BUS_IMG =
-  'https://images.unsplash.com/photo-1544620341-11cb2cdcdc9b?auto=format&fit=crop&w=800&q=80';
-const PARK_IMG =
-  'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80';
-const SPA_IMG =
-  'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80';
-const SOUND_IMG =
-  'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80';
+export const DEFAULT_TICKET_IMAGE = `${BASE}festival-poster.jpg`;
+
+const CAMP_A_IMG = `${BASE}hero-grid-4.jpg`;
+const CAMP_ZAFIRO_IMG = `${BASE}hero-grid-1.jpg`;
+const CAMP_ONIX_IMG = `${BASE}hero-grid-4.jpg`;
+const GLAMP_IMG = `${BASE}hero-grid-1.jpg`;
+const HOTEL_IMG = `${BASE}hero-grid-1.jpg`;
+const BUS_IMG = `${BASE}entity-bus.jpg`;
+const PARK_IMG = `${BASE}entity-parking.jpg`;
+const SPA_IMG = `${BASE}hero-grid-1.jpg`;
+const SOUND_IMG = `${BASE}hero-grid-2.jpg`;
 
 export const ENTITY_IMAGES: Record<string, string> = {
   'camp-a': CAMP_A_IMG,
@@ -590,8 +583,16 @@ export const ENTITY_GALLERIES: Record<string, string[]> = {
 export function getEntityImages(entityId: string): string[] {
   if (ENTITY_GALLERIES[entityId]) return ENTITY_GALLERIES[entityId];
   if (ENTITY_IMAGES[entityId]) return [ENTITY_IMAGES[entityId]];
-  if (entityId.startsWith('ticket-') || entityId.startsWith('bundle-')) return [DEFAULT_TICKET_IMAGE];
-  return [];
+  if (
+    entityId.startsWith('ticket-') ||
+    entityId.startsWith('bundle-') ||
+    entityId.startsWith('bus-') ||
+    entityId.startsWith('park-') ||
+    entityId.startsWith('extra-')
+  ) {
+    return [DEFAULT_TICKET_IMAGE];
+  }
+  return [DEFAULT_TICKET_IMAGE];
 }
 
 export function findEntity(entityId: string): PlanEntity | undefined {

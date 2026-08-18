@@ -26,8 +26,7 @@ function listingTagClass(tone: ReturnType<typeof getListingTagTone>) {
 export function EntityCard({ entity }: EntityCardProps) {
   const { getQuantity, setQuantity: setCartQuantity } = useCart();
   const images = getEntityImages(entity.id);
-  const hideImage = entity.id.startsWith('park-') || entity.id.startsWith('bar-');
-  const hasImages = !hideImage && images.length > 0;
+  const hasImages = images.length > 0;
   const hasGallery = hasImages && images.length > 1;
   const listingTone = getListingTagTone(entity.listingTag);
   const isSoldOut = listingTone === 'sold_out';
@@ -141,9 +140,9 @@ export function EntityCard({ entity }: EntityCardProps) {
   return (
     <article
       id={`plan-entity-${entity.id}`}
-      className={isSoldOut ? 'card cardSoldOut' : hideImage ? 'card cardNoImage' : 'card'}
+      className={isSoldOut ? 'card cardSoldOut' : 'card'}
     >
-      {!hideImage && hasImages ? (
+      {hasImages ? (
         <div className="imageWrapper">
           {showImageTag ? (
             <div className="imageTagsCorner">
@@ -160,12 +159,15 @@ export function EntityCard({ entity }: EntityCardProps) {
                 onScroll={syncImageIndex}
               >
                 {images.map((src, index) => (
-                  <div key={src} className="imageSlide">
+                  <div key={`${src}-${index}`} className="imageSlide">
                     <img
                       className="image"
                       src={src}
-                      alt={`${entity.name} — ${index + 1} / ${images.length}`}
+                      alt=""
                       draggable={false}
+                      onError={(event) => {
+                        event.currentTarget.src = `${import.meta.env.BASE_URL}festival-poster.jpg`;
+                      }}
                     />
                   </div>
                 ))}
@@ -204,13 +206,16 @@ export function EntityCard({ entity }: EntityCardProps) {
             </>
           ) : (
             <div className="imageSinglePane">
-              <img className="image" src={images[0]} alt={entity.name} />
+              <img
+                className="image"
+                src={images[0]}
+                alt=""
+                onError={(event) => {
+                  event.currentTarget.src = `${import.meta.env.BASE_URL}festival-poster.jpg`;
+                }}
+              />
             </div>
           )}
-        </div>
-      ) : !hideImage ? (
-        <div className="imageWrapper">
-          <div className="imagePlaceholder" />
         </div>
       ) : null}
 
