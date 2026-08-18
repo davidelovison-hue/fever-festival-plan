@@ -51,7 +51,7 @@ export function OverviewSection() {
           Bahidorá is a boutique music festival on the rivers of Las Estacas, Morelos — three days of
           electronic, live and tropical sounds in an open-air nature park. Swim by day, dance at
           Sonorama, El Cubo and La Estación by night.{' '}
-          <strong className="introBold">Get your tickets now for the 2026 edition!</strong>
+          <strong className="introBold">Get your tickets now for the 2027 edition!</strong>
         </p>
 
         <section className="block" aria-labelledby="overview-general">

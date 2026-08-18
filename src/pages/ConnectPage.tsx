@@ -87,7 +87,7 @@ export function ConnectPage() {
 
   const verifyFooterColumns = useMemo(() => {
     if (!eventId) return []
-    const eventTitle = event?.title ?? 'Bahidorá 2026'
+    const eventTitle = event?.title ?? 'Bahidorá 2027'
     const ticketsHref = planPath(data?.returnHash ?? 'acceso')
     return [
       {

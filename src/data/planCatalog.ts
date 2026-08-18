@@ -73,7 +73,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             price: 3390,
             type: 'configurable_single',
             listingTag: 'SELLING FAST',
-            date: '13–15 Feb 2026',
+            date: '13–15 Feb 2027',
             description: 'Acceso individual viernes, sábado y domingo.',
             cardPreviewBullets: ['Friday, Saturday & Sunday', 'Carbon offset included'],
           },
@@ -83,7 +83,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             price: 6890,
             type: 'configurable_single',
             listingTag: 'LIMITED',
-            date: '13–15 Feb 2026',
+            date: '13–15 Feb 2027',
             description:
               'Weekend access plus Oasis Banamex: shaded backstage lounges at Sonorama, El Cubo and La Estación, comfort bathrooms, Las Estacas restaurant and priority entry.',
             includedItems: [
@@ -98,7 +98,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Half Weekend 2 días',
             price: 2690,
             type: 'configurable_single',
-            date: '14–15 Feb 2026',
+            date: '14–15 Feb 2027',
             description: 'Acceso individual sábado y domingo.',
             cardPreviewBullets: ['Saturday & Sunday'],
           },
@@ -108,7 +108,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             price: 6190,
             type: 'configurable_single',
             listingTag: 'LIMITED',
-            date: '14–15 Feb 2026',
+            date: '14–15 Feb 2027',
             description:
               'Saturday–Sunday access plus Oasis Banamex shaded backstage, comfort bathrooms, restaurant access and priority entry.',
             includedItems: [
@@ -161,7 +161,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             price: 3500,
             type: 'configurable_single',
             listingTag: 'LIMITED',
-            date: '13–15 Feb 2026',
+            date: '13–15 Feb 2027',
             description:
               'Add-on to Acceso General. Shaded backstage at Sonorama, El Cubo and La Estación, lounge and bar, comfort bathrooms, phone charging, cashless top-up, Las Estacas restaurant and priority entry. Does not include lodging.',
             includedItems: [
@@ -444,7 +444,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Auto general camping fin de semana',
             price: 700,
             type: 'configurable_single',
-            date: '13–15 Feb 2026',
+            date: '13–15 Feb 2027',
             description: 'General car parking for the camping weekend. Festival ticket not included.',
           },
           {

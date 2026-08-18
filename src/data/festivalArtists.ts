@@ -12,7 +12,7 @@ const FALLBACK =
   GALLERY_IMAGES[0]?.src ??
   'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1200&q=85';
 
-/** Bahidorá 2026 lineup highlights — replace photos with official artist stills as needed. */
+/** Bahidorá 2027 lineup highlights — replace photos with official artist stills as needed. */
 export const FESTIVAL_ARTISTS: FestivalArtist[] = [
   {
     id: 'four-tet',

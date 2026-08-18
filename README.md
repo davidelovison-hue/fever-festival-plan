@@ -4,7 +4,7 @@ Reusable festival ticketing prototype scaffold (same structure as Les Ardentes p
 
 ## Sample festival
 
-**Bahidorá 2026** — [bahidora.com](https://bahidora.com/) — swap branding in:
+**Bahidorá 2027** — [bahidora.com](https://bahidora.com/) — swap branding in:
 
 - `src/data/festivalConfig.ts` — media, overview info, tabs
 - `src/data/festivalArtists.ts` — lineup carousel

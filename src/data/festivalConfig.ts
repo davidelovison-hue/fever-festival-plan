@@ -28,7 +28,7 @@ export const HERO_GRID_IMAGES = [
 export const GALLERY_IMAGES = [
   {
     src: `${BASE}festival-poster.jpg`,
-    alt: 'Bahidorá 2026 — Las Estacas, Morelos',
+    alt: 'Bahidorá 2027 — Las Estacas, Morelos',
   },
   {
     src: HERO_GRID_IMAGES[0],
@@ -76,7 +76,7 @@ export const OVERVIEW_INFO = [
   {
     icon: '📅',
     label: 'Date',
-    text: '13–15 February 2026 (Friday–Sunday)',
+    text: '13–15 February 2027 (Friday–Sunday)',
   },
   {
     icon: '📍',
