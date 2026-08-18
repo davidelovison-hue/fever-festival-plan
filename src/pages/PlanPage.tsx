@@ -124,6 +124,42 @@ function scheduleActiveTabScroll(tabId: string) {
   };
 }
 
+function getTicketSectionScrollTop() {
+  const nav = document.querySelector<HTMLElement>('.planStickyNav');
+  const tabs = document.querySelector<HTMLElement>('.planTabsSlot');
+  const anchor = document.querySelector<HTMLElement>('.planTabsScrollAnchor');
+  const section = document.getElementById('acceso');
+  const target = tabs ?? anchor ?? section;
+  if (!target) return null;
+
+  const navH = nav?.getBoundingClientRect().height ?? 0;
+  return Math.max(0, target.getBoundingClientRect().top + window.scrollY - navH);
+}
+
+/** Hero "Buy tickets" CTA: always scroll to the ticket tabs + cards. */
+function scrollToTicketSection() {
+  const top = getTicketSectionScrollTop();
+  if (top == null) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top, left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+}
+
+function scheduleScrollToTicketSection() {
+  let cancelled = false;
+  const run = () => {
+    if (!cancelled) scrollToTicketSection();
+  };
+  const rafId = requestAnimationFrame(() => {
+    requestAnimationFrame(run);
+  });
+  const timeoutId = window.setTimeout(run, 80);
+  return () => {
+    cancelled = true;
+    cancelAnimationFrame(rafId);
+    window.clearTimeout(timeoutId);
+  };
+}
+
 export function PlanPage() {
   const location = useLocation();
   const { items } = useCart();
@@ -158,8 +194,8 @@ export function PlanPage() {
       window.history.pushState(null, '', '#acceso');
     } else {
       window.history.replaceState(null, '', '#acceso');
-      requestAnimationFrame(() => scheduleActiveTabScroll('acceso'));
     }
+    scheduleScrollToTicketSection();
   }, [activeTab]);
 
   const handleOverviewToggle = useCallback(() => {
