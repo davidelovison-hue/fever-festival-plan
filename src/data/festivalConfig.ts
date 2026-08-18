@@ -5,13 +5,16 @@ export type PlanCategory = {
 
 export const PLAN_CATEGORIES: PlanCategory[] = [
   { id: 'overview', title: 'Overview' },
-  { id: 'tickets', title: 'Festival Tickets' },
+  { id: 'acceso', title: 'Acceso' },
+  { id: 'bundles', title: 'Bundles' },
   { id: 'camping', title: 'Camping' },
-  { id: 'parking', title: 'Parking' },
-  { id: 'bar', title: 'Bar' },
-  { id: 'merch', title: 'Merch' },
-  { id: 'pmr', title: 'PMR/PSH & Accompagnant' },
+  { id: 'glamping', title: 'Glamping & Hotel' },
+  { id: 'transport', title: 'Autobús & Estacionamiento' },
+  { id: 'extra', title: 'Extra' },
 ];
+
+/** Default plan tab (Acceso). */
+export const DEFAULT_PLAN_TAB = 'acceso';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -24,24 +27,24 @@ export const HERO_GRID_IMAGES = [
 
 export const GALLERY_IMAGES = [
   {
-    src: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=2400&q=90',
-    alt: 'Awakenings Festival — main stage and crowd',
+    src: `${BASE}festival-poster.jpg`,
+    alt: 'Bahidorá 2026 — Las Estacas, Morelos',
   },
   {
     src: HERO_GRID_IMAGES[0],
-    alt: 'Festival crowd facing the main stage',
+    alt: 'Río y manantial en Las Estacas',
   },
   {
     src: HERO_GRID_IMAGES[1],
-    alt: 'Outdoor electronic music festival',
+    alt: 'Escenario al aire libre entre la selva',
   },
   {
     src: HERO_GRID_IMAGES[2],
-    alt: 'Festival crowd with hands up at night',
+    alt: 'Público en Bahidorá al atardecer',
   },
   {
     src: HERO_GRID_IMAGES[3],
-    alt: 'Concert stage with lights and crowd',
+    alt: 'Campamento junto al río',
   },
 ];
 
@@ -55,33 +58,39 @@ export const FESTIVAL_MEDIA_HERO = {
 
 export const GALLERY_IMAGE_URLS = GALLERY_IMAGES.map((image) => image.src);
 
-export const POSTER_IMAGE = `${BASE}festival-poster.png`;
+export const POSTER_IMAGE = `${BASE}festival-poster.jpg`;
 
 export const AVATAR_URL =
   'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=96&h=96&q=80';
 
-export const VENUE_IMAGE =
-  'https://images.unsplash.com/photo-1478147427282-58a87a120781?auto=format&fit=crop&w=900&q=85';
+export const VENUE_IMAGE = `${BASE}hero-grid-1.jpg`;
+
+export const HERO_FACTS = [
+  { label: 'Date', value: '13–15 Feb' },
+  { label: 'Duration', value: '3 days' },
+  { label: 'Format', value: 'Outdoor' },
+  { label: 'City', value: 'Morelos' },
+] as const;
 
 export const OVERVIEW_INFO = [
   {
     icon: '📅',
     label: 'Date',
-    text: '3–5 July 2026 (Friday–Sunday)',
+    text: '13–15 February 2026 (Friday–Sunday)',
   },
   {
     icon: '📍',
     label: 'Location',
-    text: 'Houtrak — Spaarnwoude recreation area (near Amsterdam), Netherlands',
+    text: 'Parque Las Estacas — Tlaltizapán, Morelos, Mexico',
+  },
+  {
+    icon: '🔞',
+    label: 'Age',
+    text: '18+ with valid government-issued ID required at the gate.',
   },
   {
     icon: '♿',
     label: 'Accessibility',
-    text: 'Accessible routes and viewing areas. Contact us for specific requirements before the event.',
-  },
-  {
-    icon: '🎫',
-    label: 'Cultural schemes',
-    text: 'Where applicable, national youth or cultural schemes may be accepted — see checkout for eligibility.',
+    text: 'Contact boletaje@volveraflotar.com for access requirements before the event.',
   },
 ];

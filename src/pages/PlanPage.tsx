@@ -17,13 +17,14 @@ import './PlanPage.css';
 
 function getTabFromHash() {
   const hash = window.location.hash.replace(/^#/, '');
-  if (hash === 'overview') return 'tickets';
-  if (hash === 'transport') return 'parking';
-  if (hash === 'accompagnant') return 'pmr';
+  if (hash === 'overview') return 'acceso';
+  if (hash === 'tickets') return 'acceso';
+  if (hash === 'parking') return 'transport';
+  if (hash === 'accompagnant' || hash === 'pmr') return 'acceso';
   if (hash && PLAN_CATALOG.some((category) => category.id === hash && category.id !== 'overview')) {
     return hash;
   }
-  return 'tickets';
+  return 'acceso';
 }
 
 function shouldOpenOverviewFromHash() {
@@ -152,12 +153,12 @@ export function PlanPage() {
 
   const handleGoToTickets = useCallback(() => {
     setIsOverviewOpen(false);
-    if (activeTab !== 'tickets') {
-      setActiveTab('tickets');
-      window.history.pushState(null, '', '#tickets');
+    if (activeTab !== 'acceso') {
+      setActiveTab('acceso');
+      window.history.pushState(null, '', '#acceso');
     } else {
-      window.history.replaceState(null, '', '#tickets');
-      requestAnimationFrame(() => scheduleActiveTabScroll('tickets'));
+      window.history.replaceState(null, '', '#acceso');
+      requestAnimationFrame(() => scheduleActiveTabScroll('acceso'));
     }
   }, [activeTab]);
 
@@ -192,7 +193,7 @@ export function PlanPage() {
     if (!hasInitialTabScrollRef.current) {
       hasInitialTabScrollRef.current = true;
       const hash = window.location.hash.replace(/^#/, '');
-      if ((activeTab === 'tickets' && !hash) || hash === 'overview') {
+      if ((activeTab === 'acceso' && !hash) || hash === 'overview') {
         return;
       }
     }

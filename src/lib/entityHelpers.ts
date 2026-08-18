@@ -1,5 +1,7 @@
+import { formatPrice } from './formatPrice';
+
 export function formatEntityPrice(price: number): string {
-  return `${price.toFixed(2)} €`;
+  return formatPrice(price);
 }
 
 export function getListingTagTone(tag?: string): 'selling_fast' | 'limited' | 'sold_out' | null {
@@ -41,8 +43,11 @@ export function getPreviewBullets(entity: {
   includedItems?: string[];
   cardPreviewBullets?: string[];
 }): string[] {
-  const isCamp = entity.id.startsWith('camp-');
-  const isVip = entity.id === 'ticket-vip';
+  const isCamp =
+    entity.id.startsWith('camp-') ||
+    entity.id.startsWith('glamp-') ||
+    entity.id.startsWith('hotel-');
+  const isVip = entity.id === 'ticket-vip' || entity.id === 'ticket-oasis-upgrade';
   const items = entity.includedItems ?? entity.cardPreviewBullets ?? [];
   if ((isCamp || isVip) && items.length > 0) {
     return items.slice(0, isVip ? 3 : 2);

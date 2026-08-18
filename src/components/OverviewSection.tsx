@@ -48,9 +48,9 @@ export function OverviewSection() {
     <div className="overview">
       <div className="narrow">
         <p className="intro">
-          Awakenings Festival is one of Europe&apos;s leading electronic music festivals — three days of
-          world-class techno and house in an open-air setting near Amsterdam. Expect iconic stages,
-          immersive production, and a global crowd of dance music fans.{' '}
+          Bahidorá is a boutique music festival on the rivers of Las Estacas, Morelos — three days of
+          electronic, live and tropical sounds in an open-air nature park. Swim by day, dance at
+          Sonorama, El Cubo and La Estación by night.{' '}
           <strong className="introBold">Get your tickets now for the 2026 edition!</strong>
         </p>
 
@@ -69,15 +69,6 @@ export function OverviewSection() {
                 </span>
               </li>
             ))}
-            <li className="infoListItem">
-              <span className="infoIcon" aria-hidden="true">
-                👤
-              </span>
-              <span>
-                <strong className="infoLabel">Minors:</strong> Under 18 must be accompanied by an adult
-                for camping and festival access where required by local regulations.
-              </span>
-            </li>
           </ul>
         </section>
       </div>
@@ -88,9 +79,12 @@ export function OverviewSection() {
             Description
           </h2>
           <p className="bodyText">
-            Awakenings transforms Houtrak into a multi-stage electronic music destination with dedicated
-            areas and spectacular productions. Browse tickets, camping, parking, and merch in the tabs above.
-            Tickets are personalized before the event. By continuing, you agree to our{' '}
+            Browse Acceso, Bundles, Camping, Glamping & Hotel, Autobús & Estacionamiento, and Extra in
+            the tabs above. Tickets are personalized before the event. Payment issues:{' '}
+            <a href="mailto:boletaje@volveraflotar.com" className="link">
+              boletaje@volveraflotar.com
+            </a>
+            . By continuing, you agree to our{' '}
             <a href="https://feverup.com" className="link" target="_blank" rel="noopener noreferrer">
               Privacy Policy
             </a>
@@ -104,9 +98,9 @@ export function OverviewSection() {
             Need help?
           </h2>
           <p className="bodyText">
-            Visit the official FAQ at{' '}
-            <a href="https://www.awakenings.com" className="link" target="_blank" rel="noopener noreferrer">
-              awakenings.com
+            Visit the official site at{' '}
+            <a href="https://bahidora.com/" className="link" target="_blank" rel="noopener noreferrer">
+              bahidora.com
             </a>{' '}
             or contact support via your client area.
           </p>
@@ -119,13 +113,13 @@ export function OverviewSection() {
           </h2>
           <div className="venueGrid venueGrid--textOnly">
             <div className="venueText">
-              <h3 className="subheading">Houtrak — Spaarnwoude</h3>
+              <h3 className="subheading">Parque Las Estacas</h3>
               <p className="bodyText">
-                The festival takes place at Houtrak in the Spaarnwoude recreation area — open parkland near
-                Amsterdam with excellent road and public transport connections from the city.
+                A natural park of rivers, springs and jungle in Tlaltizapán, Morelos — about 90 minutes
+                from Mexico City. Stages sit among swimming holes, camping and glamping.
               </p>
               <a
-                href="https://www.awakenings.com"
+                href="https://bahidora.com/"
                 className="link"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -143,16 +137,16 @@ export function OverviewSection() {
           </h2>
           <div className="gettingGrid">
             <div className="gettingAddress">
-              <h3 className="subheading">Houtrak</h3>
+              <h3 className="subheading">Las Estacas</h3>
               <p className="addressLines">
-                {`Spaarnwoude recreation area\nNear Amsterdam\nNetherlands`}
+                {`Parque Las Estacas\nTlaltizapán, Morelos\nMexico`}
               </p>
             </div>
             <div className="mapWrap">
               <iframe
                 title="Venue location map"
                 className="mapIframe"
-                src="https://maps.google.com/maps?q=Houtrak+Spaarnwoude+Netherlands&z=12&output=embed&hl=en"
+                src="https://maps.google.com/maps?q=Parque+Las+Estacas+Tlaltizapan+Morelos&z=13&output=embed&hl=en"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />

@@ -3,6 +3,7 @@ import {
   FESTIVAL_MEDIA_HERO,
   GALLERY_IMAGE_URLS,
   GALLERY_IMAGES,
+  HERO_FACTS,
 } from '../data/festivalConfig';
 import { FESTIVAL_EVENT } from '../lib/festivalEvent';
 import {
@@ -37,13 +38,6 @@ function GalleryButton({
     </button>
   );
 }
-
-const HERO_FACTS = [
-  { label: 'Date', value: '3–5 Jul' },
-  { label: 'Duration', value: '3 days' },
-  { label: 'Format', value: 'Outdoor' },
-  { label: 'City', value: 'Amsterdam' },
-] as const;
 
 type FestivalGalleryProps = {
   onBuyTickets?: () => void;

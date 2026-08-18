@@ -7,6 +7,7 @@ export type PhoneCountry = {
 }
 
 export const PHONE_COUNTRIES: PhoneCountry[] = [
+  { value: '+52', flag: '🇲🇽', name: 'Mexico', placeholder: '55 1234 5678' },
   { value: '+34', flag: '🇪🇸', name: 'Spain', placeholder: '612 345 678' },
   { value: '+44', flag: '🇬🇧', name: 'United Kingdom', placeholder: '7700 900123' },
   { value: '+1', flag: '🇺🇸', name: 'United States', placeholder: '(201) 555-0123' },

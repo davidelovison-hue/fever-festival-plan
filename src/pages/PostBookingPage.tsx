@@ -35,7 +35,7 @@ export function PostBookingPage() {
   }, [data, eventId, navigate])
 
   if (!eventId || !data || !isOrderConfirmationState(data)) {
-    return <Navigate to={eventId ? planPath('tickets') : '/'} replace />
+    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
   }
 
   return null

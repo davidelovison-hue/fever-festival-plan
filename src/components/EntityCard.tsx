@@ -26,10 +26,7 @@ function listingTagClass(tone: ReturnType<typeof getListingTagTone>) {
 export function EntityCard({ entity }: EntityCardProps) {
   const { getQuantity, setQuantity: setCartQuantity } = useCart();
   const images = getEntityImages(entity.id);
-  const hideImage =
-    entity.id.startsWith('park-') ||
-    entity.id.startsWith('bar-') ||
-    entity.id.startsWith('ticket-');
+  const hideImage = entity.id.startsWith('park-') || entity.id.startsWith('bar-');
   const hasImages = !hideImage && images.length > 0;
   const hasGallery = hasImages && images.length > 1;
   const listingTone = getListingTagTone(entity.listingTag);

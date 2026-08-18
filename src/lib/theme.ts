@@ -53,6 +53,4 @@ export const shadows = {
   button: '0px 2px 4px rgba(0, 0, 0, 0.12)',
 } as const;
 
-export const formatPrice = (price: number): string => {
-  return price.toFixed(2).replace('.', ',') + ' €';
-};
+export { formatPrice } from './formatPrice';

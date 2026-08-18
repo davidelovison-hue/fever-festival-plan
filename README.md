@@ -4,13 +4,15 @@ Reusable festival ticketing prototype scaffold (same structure as Les Ardentes p
 
 ## Sample festival
 
-**Awakenings Festival 2026** — swap branding in:
+**Bahidorá 2026** — [bahidora.com](https://bahidora.com/) — swap branding in:
 
 - `src/data/festivalConfig.ts` — media, overview info, tabs
 - `src/data/festivalArtists.ts` — lineup carousel
 - `src/lib/festivalEvent.ts` — event id, title, logo path
-- `src/data/planCatalog.ts` — ticket / camping / merch catalog
+- `src/data/planCatalog.ts` — Acceso, Bundles, Camping, Glamping & Hotel, Autobús & Estacionamiento, Extra
 - `public/` — logo (`festival-logo.png`), poster, hero video
+
+Prices are in **MXN**.
 
 ## Commands
 

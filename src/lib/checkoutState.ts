@@ -3,7 +3,7 @@
 export type CheckoutLineItem = {
   id: string
   label: string
-  /** Line total in euros */
+  /** Line total in MXN */
   amount: number
 }
 
@@ -236,7 +236,7 @@ function guestDisplayNameFromEmail(email: string, name?: string): string {
 export function placeholderGuestForPostBooking(email: string, name?: string): GuestDetails {
   return {
     fullName: guestDisplayNameFromEmail(email, name),
-    phoneCountryCode: '+34',
+    phoneCountryCode: '+52',
     phoneNational: '',
     dateOfBirth: '',
     gender: '',
@@ -247,7 +247,7 @@ export function placeholderGuestForPostBooking(email: string, name?: string): Gu
 export function placeholderGuestForCheckout(email: string, name?: string): GuestDetails {
   return {
     ...placeholderGuestForPostBooking(email, name),
-    phoneNational: '600000000',
+    phoneNational: '5512345678',
     dateOfBirth: '01/01/1990',
     gender: 'prefer_not',
   }

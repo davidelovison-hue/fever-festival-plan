@@ -36,7 +36,7 @@ export function OrderConfirmationPage() {
   }, [data, clearCart])
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('tickets') : '/'} replace />
+    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
   }
 
   const ticketLine = data.lines.find((l) => l.id === 'ticket') ?? data.lines[0]
@@ -202,7 +202,7 @@ export function OrderConfirmationPage() {
           </footer>
 
           <div className="orderConfirmCtaWrap">
-            <Link className="orderConfirmCta" to={planPath('tickets')}>
+            <Link className="orderConfirmCta" to={planPath('acceso')}>
               View more events
             </Link>
           </div>

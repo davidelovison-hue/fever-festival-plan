@@ -57,7 +57,7 @@ function getContactErrors(form: GuestContactForm): GuestContactErrors {
 function guestFromContact(form: GuestContactForm): GuestDetails {
   return {
     fullName: `${form.firstName.trim()} ${form.lastName.trim()}`.trim(),
-    phoneCountryCode: '+34',
+    phoneCountryCode: '+52',
     phoneNational: '',
     dateOfBirth: '',
     gender: '',
@@ -104,7 +104,7 @@ export function GuestCheckoutPage() {
   }
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('tickets') : '/'} replace />
+    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
   }
 
   if (checkoutRequiresPmrProof(data) && !checkoutHasPmrProof(data)) {
@@ -272,7 +272,7 @@ export function GuestCheckoutPage() {
                   onChange={(e) => update('marketing', e.target.checked)}
                 />
                 <span>
-                  I agree to receive news and recommendations from Awakenings Festival and its partners.
+                  I agree to receive news and recommendations from Bahidorá and its partners.
                 </span>
               </label>
 

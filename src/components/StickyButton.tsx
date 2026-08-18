@@ -1,3 +1,4 @@
+import { formatPrice } from '../lib/formatPrice';
 import { colors, radius } from '../lib/theme';
 
 interface StickyButtonProps {
@@ -14,7 +15,7 @@ export function StickyButton({
   priceLabel = 'Comprar ahora',
 }: StickyButtonProps) {
   const displayText = price && price > 0 
-    ? `${price.toFixed(2).replace('.', ',')} € — ${priceLabel}` 
+    ? `${formatPrice(price)} — ${priceLabel}` 
     : label;
 
   return (

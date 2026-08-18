@@ -34,7 +34,7 @@ export function CheckoutPage() {
   )
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('tickets') : '/'} replace />
+    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
   }
 
   if (checkoutRequiresPmrProof(data) && !checkoutHasPmrProof(data)) {

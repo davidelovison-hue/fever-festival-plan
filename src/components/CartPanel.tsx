@@ -144,7 +144,7 @@ export function CartPanel({ mode }: CartPanelProps) {
   );
 
   const goToCheckout = () => {
-    const returnHash = window.location.hash.replace(/^#/, '') || 'tickets';
+    const returnHash = window.location.hash.replace(/^#/, '') || 'acceso';
     const payload = buildCheckoutFromCart(items, returnHash);
     if (!payload) return;
     persistCheckoutBasket(payload.eventId, payload);

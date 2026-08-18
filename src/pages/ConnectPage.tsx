@@ -87,14 +87,14 @@ export function ConnectPage() {
 
   const verifyFooterColumns = useMemo(() => {
     if (!eventId) return []
-    const eventTitle = event?.title ?? 'Awakenings Festival 2026'
-    const ticketsHref = planPath(data?.returnHash ?? 'tickets')
+    const eventTitle = event?.title ?? 'Bahidorá 2026'
+    const ticketsHref = planPath(data?.returnHash ?? 'acceso')
     return [
       {
         title: 'Tickets',
         links: [
-          { label: `${eventTitle} — General Admission`, href: ticketsHref },
-          { label: `${eventTitle} — VIP`, href: ticketsHref },
+          { label: `${eventTitle} — Acceso General`, href: ticketsHref },
+          { label: `${eventTitle} — Oasis Banamex`, href: ticketsHref },
         ],
       },
       {
@@ -113,7 +113,7 @@ export function ConnectPage() {
   }, [event?.title, eventId])
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('tickets') : '/'} replace />
+    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
   }
 
   const trimmedEmail = email.trim()
