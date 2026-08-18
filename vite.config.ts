@@ -18,5 +18,16 @@ function ghPagesSpa404(): import('vite').Plugin {
 export default defineConfig(({ mode }) => ({
   plugins: [react(), ...(mode === 'production' ? [ghPagesSpa404()] : [])],
   base: mode === 'production' ? '/fever-festival-plan/' : '/',
-  server: { port: 5174 },
+  server: {
+    host: true,
+    port: 5174,
+    strictPort: true,
+    allowedHosts: true,
+  },
+  preview: {
+    host: true,
+    port: 5174,
+    strictPort: true,
+    allowedHosts: true,
+  },
 }));
