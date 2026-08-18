@@ -487,7 +487,6 @@ export const PLAN_CATALOG: PlanCategory[] = [
   {
     id: 'extra',
     title: 'Extra',
-    cardLayout: 'equalRow',
     groups: [
       {
         id: 'extra-wellness',
