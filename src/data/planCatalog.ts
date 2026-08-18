@@ -61,11 +61,11 @@ export const PLAN_CATALOG: PlanCategory[] = [
   },
   {
     id: 'acceso',
-    title: 'Acceso',
+    title: 'Full Weekend',
     groups: [
       {
         id: 'acceso-weekend',
-        title: 'Acceso General',
+        title: 'Full Weekend',
         entities: [
           {
             id: 'ticket-full-weekend',
@@ -182,7 +182,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
     groups: [
       {
         id: 'bundles-5x4',
-        title: '5x4 — compra 4 y el 5.º va por nuestra cuenta',
+        title: '5x4',
         entities: [
           {
             id: 'bundle-full-weekend-5x4',
@@ -249,8 +249,8 @@ export const PLAN_CATALOG: PlanCategory[] = [
     title: 'Camping',
     groups: [
       {
-        id: 'camping-individual',
-        title: 'Campamento individual',
+        id: 'camping-all',
+        title: 'Camping',
         entities: [
           {
             id: 'camp-a',
@@ -284,12 +284,6 @@ export const PLAN_CATALOG: PlanCategory[] = [
             cardPreviewBullets: ['Pools & spring', 'Price per person'],
             includedItems: ['Premium camping outside Las Estacas', 'Fixed showers & bathrooms', 'Pools and spring'],
           },
-        ],
-      },
-      {
-        id: 'camping-team',
-        title: 'Team Camp',
-        entities: [
           {
             id: 'camp-team',
             name: 'Team Camp',
@@ -367,7 +361,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
       },
       {
         id: 'hotel-habitacion',
-        title: 'Habitación — Hotel Hacienda Cocoyoc',
+        title: 'Hotel Hacienda Cocoyoc',
         entities: [
           {
             id: 'hotel-doble-3n',

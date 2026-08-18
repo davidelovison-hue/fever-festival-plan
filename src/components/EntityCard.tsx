@@ -26,7 +26,8 @@ function listingTagClass(tone: ReturnType<typeof getListingTagTone>) {
 export function EntityCard({ entity }: EntityCardProps) {
   const { getQuantity, setQuantity: setCartQuantity } = useCart();
   const images = getEntityImages(entity.id);
-  const hasImages = images.length > 0;
+  const hideImage = entity.id.startsWith('park-') || entity.id.startsWith('bus-');
+  const hasImages = !hideImage && images.length > 0;
   const hasGallery = hasImages && images.length > 1;
   const listingTone = getListingTagTone(entity.listingTag);
   const isSoldOut = listingTone === 'sold_out';
@@ -140,7 +141,7 @@ export function EntityCard({ entity }: EntityCardProps) {
   return (
     <article
       id={`plan-entity-${entity.id}`}
-      className={isSoldOut ? 'card cardSoldOut' : 'card'}
+      className={isSoldOut ? 'card cardSoldOut' : hideImage ? 'card cardNoImage' : 'card'}
     >
       {hasImages ? (
         <div className="imageWrapper">

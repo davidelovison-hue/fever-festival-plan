@@ -5,7 +5,7 @@ export type PlanCategory = {
 
 export const PLAN_CATEGORIES: PlanCategory[] = [
   { id: 'overview', title: 'Overview' },
-  { id: 'acceso', title: 'Acceso' },
+  { id: 'acceso', title: 'Full Weekend' },
   { id: 'bundles', title: 'Bundles' },
   { id: 'camping', title: 'Camping' },
   { id: 'glamping', title: 'Glamping & Hotel' },
