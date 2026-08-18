@@ -52,7 +52,7 @@ export const FESTIVAL_HERO_VIDEO = `${BASE}hero-video-festival.mp4`;
 
 export const FESTIVAL_MEDIA_HERO = {
   video: FESTIVAL_HERO_VIDEO,
-  videoPoster: GALLERY_IMAGES[0]?.src ?? '',
+  videoPoster: `${BASE}hero-video-poster.jpg`,
   grid: GALLERY_IMAGES.slice(1, 5).map((image) => image.src) as [string, string, string, string],
 };
 

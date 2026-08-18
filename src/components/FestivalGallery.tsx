@@ -71,6 +71,7 @@ export function FestivalGallery({ onBuyTickets }: FestivalGalleryProps) {
             <video
               className="eventMediaHero__video"
               src={config.video}
+              poster={config.videoPoster}
               muted
               playsInline
               loop
