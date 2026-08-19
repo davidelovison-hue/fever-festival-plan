@@ -273,7 +273,7 @@ export function EntityCard({ entity }: EntityCardProps) {
               {showUnavailableFooter ? (
                 <div className="priceRowWithStepper">
                   <div className="price">
-                    {formatEntityPrice(unitPrice)}
+                    <span className="priceAmount">{formatEntityPrice(unitPrice)}</span>
                     <span className="fees"> + fees</span>
                   </div>
                   <span className="soldOutPill">Sold out</span>
@@ -281,7 +281,7 @@ export function EntityCard({ entity }: EntityCardProps) {
               ) : (
                 <div className="priceRowWithStepper">
                   <div className="price">
-                    {formatEntityPrice(unitPrice)}
+                    <span className="priceAmount">{formatEntityPrice(unitPrice)}</span>
                     <span className="fees"> + fees</span>
                   </div>
                   <div className="qty" aria-label="Quantity">
@@ -361,7 +361,7 @@ export function EntityCard({ entity }: EntityCardProps) {
             {showUnavailableFooter ? (
               <div className="priceRowWithStepper">
                 <div className="price">
-                  {formatEntityPrice(unitPrice)}
+                  <span className="priceAmount">{formatEntityPrice(unitPrice)}</span>
                   <span className="fees"> + fees</span>
                 </div>
                 <span className="soldOutPill">Sold out</span>
@@ -369,7 +369,7 @@ export function EntityCard({ entity }: EntityCardProps) {
             ) : (
               <div className="priceRowWithStepper">
                 <div className="price">
-                  {formatEntityPrice(unitPrice)}
+                  <span className="priceAmount">{formatEntityPrice(unitPrice)}</span>
                   <span className="fees"> + fees</span>
                 </div>
                 <div className="qty" aria-label="Quantity">

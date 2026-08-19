@@ -616,14 +616,22 @@
 .priceRowWithStepper .price {
   flex: 1 1 auto;
   min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.2rem;
 }
 
 .price {
-  font-size: var(--type-h2-size);
-  line-height: var(--type-h2-line-height);
+  font-size: clamp(0.9375rem, 6.8cqi, 1.125rem);
+  line-height: 1.25;
   font-weight: var(--font-weight-bold);
   color: var(--primary);
   letter-spacing: -0.02em;
+}
+
+.priceAmount {
+  white-space: nowrap;
 }
 
 .fees {
