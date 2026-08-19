@@ -52,6 +52,14 @@ export const FESTIVAL_DAY_AXIS: VariantAxis = {
   options: ['Viernes 13', 'Sábado 14', 'Domingo 15'],
 };
 
+/** Full Weekend tab. Add `'Wave 2'` (and optionPrices / disabledOptions) when the next wave opens. */
+export const TICKET_WAVE_AXIS: VariantAxis = {
+  id: 'wave',
+  label: 'Wave',
+  options: ['Wave 1'],
+  defaultOption: 'Wave 1',
+};
+
 export const PLAN_CATALOG: PlanCategory[] = [
   {
     id: 'overview',
@@ -72,6 +80,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Full Weekend 3 días',
             price: 3390,
             type: 'configurable_single',
+            variantAxes: [TICKET_WAVE_AXIS],
             listingTag: 'SELLING FAST',
             date: '13–15 Feb 2027',
             description: 'Acceso individual viernes, sábado y domingo.',
@@ -82,6 +91,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Full Weekend Oasis Banamex 3 días',
             price: 6890,
             type: 'configurable_single',
+            variantAxes: [TICKET_WAVE_AXIS],
             listingTag: 'LIMITED',
             date: '13–15 Feb 2027',
             description:
@@ -98,6 +108,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Half Weekend 2 días',
             price: 2690,
             type: 'configurable_single',
+            variantAxes: [TICKET_WAVE_AXIS],
             date: '14–15 Feb 2027',
             description: 'Acceso individual sábado y domingo.',
             cardPreviewBullets: ['Saturday & Sunday'],
@@ -107,6 +118,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Half Weekend Oasis Banamex 2 días',
             price: 6190,
             type: 'configurable_single',
+            variantAxes: [TICKET_WAVE_AXIS],
             listingTag: 'LIMITED',
             date: '14–15 Feb 2027',
             description:
@@ -129,6 +141,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Day Pass Viernes',
             price: 1099,
             type: 'configurable_single',
+            variantAxes: [TICKET_WAVE_AXIS],
             date: 'Fri 13 Feb',
             description: 'Acceso individual 1 día — viernes 13 de febrero.',
           },
@@ -137,6 +150,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Day Pass Sábado',
             price: 2290,
             type: 'configurable_single',
+            variantAxes: [TICKET_WAVE_AXIS],
             listingTag: 'SELLING FAST',
             date: 'Sat 14 Feb',
             description: 'Acceso individual 1 día — sábado 14 de febrero.',
@@ -146,6 +160,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Day Pass Domingo',
             price: 1490,
             type: 'configurable_single',
+            variantAxes: [TICKET_WAVE_AXIS],
             date: 'Sun 15 Feb',
             description: 'Acceso individual 1 día — domingo 15 de febrero.',
           },
@@ -160,6 +175,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             name: 'Oasis Banamex Upgrade',
             price: 3500,
             type: 'configurable_single',
+            variantAxes: [TICKET_WAVE_AXIS],
             listingTag: 'LIMITED',
             date: '13–15 Feb 2027',
             description:
