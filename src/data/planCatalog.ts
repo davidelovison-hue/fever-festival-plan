@@ -88,7 +88,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'ticket-full-weekend-oasis',
-            name: '3 días Oasis Banamex',
+            name: '3 días + Oasis Banamex',
             price: 6890,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
@@ -115,7 +115,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'ticket-half-weekend-oasis',
-            name: '2 días Oasis Banamex',
+            name: '2 días + Oasis Banamex',
             price: 6190,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
