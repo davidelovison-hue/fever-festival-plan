@@ -1,7 +1,13 @@
+import { computeServiceFee } from './checkoutState';
 import { formatPrice } from './formatPrice';
 
 export function formatEntityPrice(price: number): string {
   return formatPrice(price);
+}
+
+/** Catalog unit price plus the checkout service fee, for card display. */
+export function formatEntityTotalPrice(basePrice: number): string {
+  return formatPrice(basePrice + computeServiceFee(basePrice));
 }
 
 export function getListingTagTone(tag?: string): 'selling_fast' | 'limited' | 'sold_out' | null {

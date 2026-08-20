@@ -9,6 +9,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react';
+import './CarouselNav.css';
 import './PlanCategorySection.css';
 
 type GroupCarouselProps = {

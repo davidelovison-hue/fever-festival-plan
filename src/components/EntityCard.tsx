@@ -3,7 +3,7 @@ import type { PlanEntity, VariantAxis } from '../data/planCatalog';
 import { getEntityImages, getEntityUnitPrice } from '../data/planCatalog';
 import { getDefaultSelections, useCart } from '../lib/cartContext';
 import {
-  formatEntityPrice,
+  formatEntityTotalPrice,
   getEntityMetaLines,
   getListingTagTone,
   getPreviewBullets,
@@ -273,16 +273,16 @@ export function EntityCard({ entity }: EntityCardProps) {
               {showUnavailableFooter ? (
                 <div className="priceRowWithStepper">
                   <div className="price">
-                    <span className="priceAmount">{formatEntityPrice(unitPrice)}</span>
-                    <span className="fees"> + fees</span>
+                    <span className="priceAmount">{formatEntityTotalPrice(unitPrice)}</span>
+                    <span className="fees"> incl. fees</span>
                   </div>
                   <span className="soldOutPill">Sold out</span>
                 </div>
               ) : (
                 <div className="priceRowWithStepper">
                   <div className="price">
-                    <span className="priceAmount">{formatEntityPrice(unitPrice)}</span>
-                    <span className="fees"> + fees</span>
+                    <span className="priceAmount">{formatEntityTotalPrice(unitPrice)}</span>
+                    <span className="fees"> incl. fees</span>
                   </div>
                   <div className="qty" aria-label="Quantity">
                     <button
@@ -361,16 +361,16 @@ export function EntityCard({ entity }: EntityCardProps) {
             {showUnavailableFooter ? (
               <div className="priceRowWithStepper">
                 <div className="price">
-                  <span className="priceAmount">{formatEntityPrice(unitPrice)}</span>
-                  <span className="fees"> + fees</span>
+                  <span className="priceAmount">{formatEntityTotalPrice(unitPrice)}</span>
+                  <span className="fees"> incl. fees</span>
                 </div>
                 <span className="soldOutPill">Sold out</span>
               </div>
             ) : (
               <div className="priceRowWithStepper">
                 <div className="price">
-                  <span className="priceAmount">{formatEntityPrice(unitPrice)}</span>
-                  <span className="fees"> + fees</span>
+                  <span className="priceAmount">{formatEntityTotalPrice(unitPrice)}</span>
+                  <span className="fees"> incl. fees</span>
                 </div>
                 <div className="qty" aria-label="Quantity">
                   <button

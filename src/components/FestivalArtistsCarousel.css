@@ -29,13 +29,59 @@
   white-space: nowrap;
 }
 
+.festivalArtistsCarousel__outer {
+  --artist-avatar-size: 5.15rem;
+  --artist-track-pad-top: 0.15rem;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.festivalArtistsCarousel__outer[data-scrollable='true']::before,
+.festivalArtistsCarousel__outer[data-scrollable='true']::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: min(3rem, 14%);
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.22s ease;
+}
+
+.festivalArtistsCarousel__outer[data-scrollable='true']::before {
+  left: 0;
+  background: linear-gradient(90deg, #fff 30%, transparent);
+}
+
+.festivalArtistsCarousel__outer[data-scrollable='true'][data-at-start='true']::before {
+  opacity: 0;
+}
+
+.festivalArtistsCarousel__outer[data-scrollable='true']::after {
+  right: 0;
+  background: linear-gradient(270deg, #fff 30%, transparent);
+}
+
+.festivalArtistsCarousel__outer[data-scrollable='true'][data-at-end='true']::after {
+  opacity: 0;
+}
+
+.festivalArtistsCarousel__outer .carouselNavPrev,
+.festivalArtistsCarousel__outer .carouselNavNext {
+  top: calc(var(--artist-track-pad-top) + var(--artist-avatar-size) / 2);
+}
+
 .festivalArtistsCarousel__track {
   display: flex;
   gap: 0.85rem;
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.15rem 0.25rem 0.65rem;
-  margin: 0 -0.25rem;
+  margin: 0;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: 0.25rem;
   -webkit-overflow-scrolling: touch;
@@ -104,5 +150,16 @@
   .festivalArtistChip__avatar {
     width: 5.75rem;
     height: 5.75rem;
+  }
+
+  .festivalArtistsCarousel__outer {
+    --artist-avatar-size: 5.75rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .festivalArtistsCarousel__outer[data-scrollable='true']::before,
+  .festivalArtistsCarousel__outer[data-scrollable='true']::after {
+    display: none;
   }
 }
