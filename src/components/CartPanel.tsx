@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { formatCartSelections, useCart, type CartItem } from '../lib/cartContext';
 import {
   cartHasTicketsWithoutAddons,
+  clearPendingAddonPromptFromCheckout,
   hasAddonCheckoutPromptBeenShown,
+  hasPendingAddonPromptFromCheckout,
   markAddonCheckoutPromptShown,
 } from '../lib/cartAddonPrompt';
 import { buildCheckoutFromCart } from '../lib/buildCheckoutFromCart';
@@ -150,6 +152,16 @@ export function CartPanel({ mode }: CartPanelProps) {
     [cartHasOverflow, cartIsAtBottom],
   );
 
+  useEffect(() => {
+    if (!hasPendingAddonPromptFromCheckout()) return;
+    if (!cartHasTicketsWithoutAddons(items)) {
+      clearPendingAddonPromptFromCheckout();
+      return;
+    }
+    markAddonCheckoutPromptShown();
+    setShowAddonPrompt(true);
+  }, [items]);
+
   const proceedToCheckout = useCallback(() => {
     const returnHash = window.location.hash.replace(/^#/, '') || 'acceso';
     const payload = buildCheckoutFromCart(items, returnHash);
@@ -164,11 +176,13 @@ export function CartPanel({ mode }: CartPanelProps) {
       setShowAddonPrompt(true);
       return;
     }
+    clearPendingAddonPromptFromCheckout();
     proceedToCheckout();
   }, [items, proceedToCheckout]);
 
   const handleAddonTabSelect = useCallback(
     (tabId: string) => {
+      clearPendingAddonPromptFromCheckout();
       setShowAddonPrompt(false);
       closeMobileDrawer();
       const nextHash = `#${tabId}`;
@@ -186,10 +200,14 @@ export function CartPanel({ mode }: CartPanelProps) {
       open={showAddonPrompt}
       onSelectTab={handleAddonTabSelect}
       onContinueCheckout={() => {
+        clearPendingAddonPromptFromCheckout();
         setShowAddonPrompt(false);
         proceedToCheckout();
       }}
-      onDismiss={() => setShowAddonPrompt(false)}
+      onDismiss={() => {
+        clearPendingAddonPromptFromCheckout();
+        setShowAddonPrompt(false);
+      }}
     />
   );
 
