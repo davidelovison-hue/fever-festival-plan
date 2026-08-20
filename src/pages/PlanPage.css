@@ -1,6 +1,6 @@
 .planPage {
   --festival-nav-height: calc(0.5rem + 2rem + 0.5rem);
-  --sticky-tabs-height: 4.25rem;
+  --sticky-tabs-height: 5.35rem;
   --tab-content-scroll-gap: 0.75rem;
   --cart-column-top-gap: 1.25rem;
   min-height: 100vh;
@@ -15,6 +15,13 @@
 @media (max-width: 900px) {
   .planPage {
     --festival-nav-height: calc(0.45rem + 2rem + 0.45rem);
+    --sticky-tabs-height: 5.1rem;
+  }
+}
+
+@media (min-width: 901px) {
+  .planPage {
+    --sticky-tabs-height: 5.7rem;
   }
 }
 
