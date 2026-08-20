@@ -257,7 +257,6 @@ export function PlanPage() {
             <FestivalArtistsCarousel
               artists={FESTIVAL_ARTISTS}
               title="Lineup"
-              hint="Swipe for more"
               hideDay
             />
           </div>
