@@ -56,10 +56,6 @@ export function AddonCheckoutPrompt({
         <h2 id={titleId} className="addonCheckoutPrompt__title">
           Add camping, stays, or extras?
         </h2>
-        <p className="addonCheckoutPrompt__body">
-          Your cart has festival tickets, but nothing from camping, glamping, transport, or extras
-          yet. Pick a category to add one.
-        </p>
         <div className="addonCheckoutPrompt__options">
           {PLAN_ADDON_CATEGORIES.map((category, index) => (
             <button
