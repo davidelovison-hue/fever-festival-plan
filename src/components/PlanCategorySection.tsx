@@ -10,9 +10,14 @@ const ALL_GROUPS = '__all__';
 type PlanCategorySectionProps = {
   category: PlanCategory;
   isActive?: boolean;
+  showTitle?: boolean;
 };
 
-export function PlanCategorySection({ category, isActive = true }: PlanCategorySectionProps) {
+export function PlanCategorySection({
+  category,
+  isActive = true,
+  showTitle = false,
+}: PlanCategorySectionProps) {
   const groups = category.groups;
   const equalRow = category.cardLayout === 'equalRow';
   const hasSingleGroupEntityFilters =
@@ -58,10 +63,16 @@ export function PlanCategorySection({ category, isActive = true }: PlanCategoryS
     <section
       id={category.id}
       className={sectionClassName}
-      aria-label={category.title}
+      aria-labelledby={showTitle ? `${category.id}-heading` : undefined}
+      aria-label={showTitle ? undefined : category.title}
       aria-hidden={!isActive}
       hidden={!isActive}
     >
+      {showTitle ? (
+        <h3 className="categorySectionTitle" id={`${category.id}-heading`}>
+          {category.title}
+        </h3>
+      ) : null}
       {showChips ? (
         <div className="groupChipsWrap" role="group" aria-label={`${category.title} filters`}>
           <div className="groupChipsScroll">

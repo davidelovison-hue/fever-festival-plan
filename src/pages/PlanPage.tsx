@@ -12,24 +12,44 @@ import { useCart } from '../lib/cartContext';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
 import { FESTIVAL_ARTISTS } from '../data/festivalArtists';
-import { PLAN_CATALOG } from '../data/planCatalog';
+import {
+  getEnhanceCategories,
+  getTicketCategories,
+  isEnhanceCategoryId,
+  isTicketCategoryId,
+} from '../data/planCatalog';
 import './PlanPage.css';
 
-function getTabFromHash() {
-  const hash = window.location.hash.replace(/^#/, '');
-  if (hash === 'overview') return 'acceso';
-  if (hash === 'tickets') return 'acceso';
+const TICKET_CATEGORIES = getTicketCategories();
+const ENHANCE_CATEGORIES = getEnhanceCategories();
+const DEFAULT_TICKET_TAB = 'acceso';
+
+function getHash() {
+  return window.location.hash.replace(/^#/, '');
+}
+
+function getTicketTabFromHash() {
+  const hash = getHash();
+  if (hash === 'overview') return DEFAULT_TICKET_TAB;
+  if (hash === 'tickets') return DEFAULT_TICKET_TAB;
+  if (hash === 'accompagnant' || hash === 'pmr') return DEFAULT_TICKET_TAB;
+  if (isTicketCategoryId(hash)) return hash;
+  return DEFAULT_TICKET_TAB;
+}
+
+function getSectionScrollIdFromHash() {
+  const hash = getHash();
+  if (!hash || hash === 'overview') return null;
+  if (hash === 'tickets') return 'tickets';
   if (hash === 'parking') return 'transport';
-  if (hash === 'accompagnant' || hash === 'pmr') return 'acceso';
-  if (hash && PLAN_CATALOG.some((category) => category.id === hash && category.id !== 'overview')) {
-    return hash;
-  }
-  return 'acceso';
+  if (hash === 'accompagnant' || hash === 'pmr') return 'tickets';
+  if (hash === 'enhance') return 'enhance';
+  if (isTicketCategoryId(hash) || isEnhanceCategoryId(hash)) return hash;
+  return null;
 }
 
 function shouldOpenOverviewFromHash() {
-  const hash = window.location.hash.replace(/^#/, '');
-  return hash === 'overview';
+  return getHash() === 'overview';
 }
 
 const TAB_SCROLL_GAP_PX = 12;
@@ -51,21 +71,17 @@ function isTabsBarStickyNow() {
   if (!anchor) return false;
 
   const navH = nav?.getBoundingClientRect().height ?? 0;
-  // Sticky engages once we've scrolled past the anchor point (adjusted by nav height).
   const anchorDocTop = anchor.getBoundingClientRect().top + window.scrollY;
   return window.scrollY >= anchorDocTop - navH - STICKY_CHECK_TOLERANCE_PX;
 }
 
-function getScrollTargetEl(tabId: string) {
-  const section = document.getElementById(tabId);
+function getScrollTargetEl(sectionId: string) {
+  const section = document.getElementById(sectionId);
   if (!section) return null;
-  // Prefer the filters row if it exists; otherwise fall back to section top.
   const chips = section.querySelector<HTMLElement>('.groupChipsWrap');
   if (chips) return chips;
 
-  // Tabs without filters (e.g. Parking) should align to the first visible
-  // content block/title, not the section wrapper, to avoid awkward whitespace.
-  const firstTitle = section.querySelector<HTMLElement>('.groupCarouselTitle');
+  const firstTitle = section.querySelector<HTMLElement>('.groupCarouselTitle, .categorySectionTitle');
   if (firstTitle) return firstTitle;
   const firstBlock = section.querySelector<HTMLElement>('.groupBlock');
   return firstBlock ?? section;
@@ -105,8 +121,30 @@ function scheduleActiveTabScroll(tabId: string) {
     const targetEl = getScrollTargetEl(tabId);
     if (!targetEl) return;
 
-    // Deterministic and robust: scroll the element into view, then compensate for
-    // sticky navbar + tabs so the target isn't hidden underneath.
+    targetEl.scrollIntoView({ block: 'start', behavior: 'auto' });
+    const offset = getStickyOffsetPx();
+    if (offset > 0) window.scrollBy({ top: -offset, left: 0, behavior: 'auto' });
+  };
+
+  rafId = requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      if (!cancelled) runOnce();
+    });
+  });
+
+  return () => {
+    cancelled = true;
+    if (rafId) cancelAnimationFrame(rafId);
+  };
+}
+
+function scheduleSectionScroll(sectionId: string) {
+  let cancelled = false;
+  let rafId = 0;
+
+  const runOnce = () => {
+    const targetEl = getScrollTargetEl(sectionId) ?? document.getElementById(sectionId);
+    if (!targetEl) return;
     targetEl.scrollIntoView({ block: 'start', behavior: 'auto' });
     const offset = getStickyOffsetPx();
     if (offset > 0) window.scrollBy({ top: -offset, left: 0, behavior: 'auto' });
@@ -126,17 +164,18 @@ function scheduleActiveTabScroll(tabId: string) {
 
 function getTicketSectionScrollTop() {
   const nav = document.querySelector<HTMLElement>('.planStickyNav');
+  const intro = document.querySelector<HTMLElement>('.planTicketsIntro');
   const tabs = document.querySelector<HTMLElement>('.planTabsSlot');
   const anchor = document.querySelector<HTMLElement>('.planTabsScrollAnchor');
-  const section = document.getElementById('acceso');
-  const target = tabs ?? anchor ?? section;
+  const section = document.getElementById('tickets');
+  const target = intro ?? tabs ?? anchor ?? section;
   if (!target) return null;
 
   const navH = nav?.getBoundingClientRect().height ?? 0;
   return Math.max(0, target.getBoundingClientRect().top + window.scrollY - navH);
 }
 
-/** Hero "Buy tickets" CTA: always scroll to the ticket tabs + cards. */
+/** Hero "Buy tickets" CTA: always scroll to the ticket section. */
 function scrollToTicketSection() {
   const top = getTicketSectionScrollTop();
   if (top == null) return;
@@ -164,12 +203,11 @@ export function PlanPage() {
   const location = useLocation();
   const { items } = useCart();
   const isMobile = useIsMobile();
-  const [activeTab, setActiveTab] = useState(getTabFromHash);
+  const [activeTab, setActiveTab] = useState(getTicketTabFromHash);
   const [isOverviewOpen, setIsOverviewOpen] = useState(shouldOpenOverviewFromHash);
   const hasInitialTabScrollRef = useRef(false);
   const hasCart = items.length > 0;
 
-  // Logo / home: land at the very top of the page (no section jump).
   useLayoutEffect(() => {
     if (location.pathname !== '/') return;
     const hash = location.hash.replace(/^#/, '');
@@ -189,8 +227,8 @@ export function PlanPage() {
 
   const handleGoToTickets = useCallback(() => {
     setIsOverviewOpen(false);
-    if (activeTab !== 'acceso') {
-      setActiveTab('acceso');
+    if (activeTab !== DEFAULT_TICKET_TAB) {
+      setActiveTab(DEFAULT_TICKET_TAB);
       window.history.pushState(null, '', '#acceso');
     } else {
       window.history.replaceState(null, '', '#acceso');
@@ -204,12 +242,12 @@ export function PlanPage() {
 
   useEffect(() => {
     const syncFromHash = () => {
-      const hash = window.location.hash.replace(/^#/, '');
+      const hash = getHash();
       if (hash === 'overview') {
         setIsOverviewOpen(true);
         return;
       }
-      setActiveTab(getTabFromHash());
+      setActiveTab(getTicketTabFromHash());
     };
 
     window.addEventListener('popstate', syncFromHash);
@@ -226,12 +264,21 @@ export function PlanPage() {
   }, [isOverviewOpen]);
 
   useEffect(() => {
+    const hash = getHash();
+    const sectionId = getSectionScrollIdFromHash();
+
     if (!hasInitialTabScrollRef.current) {
       hasInitialTabScrollRef.current = true;
-      const hash = window.location.hash.replace(/^#/, '');
-      if ((activeTab === 'acceso' && !hash) || hash === 'overview') {
+      if ((activeTab === DEFAULT_TICKET_TAB && !hash) || hash === 'overview') {
         return;
       }
+      if (sectionId && (isEnhanceCategoryId(sectionId) || sectionId === 'enhance')) {
+        return scheduleSectionScroll(sectionId);
+      }
+    }
+
+    if (sectionId && (isEnhanceCategoryId(sectionId) || sectionId === 'enhance')) {
+      return;
     }
 
     return scheduleActiveTabScroll(activeTab);
@@ -262,21 +309,65 @@ export function PlanPage() {
           </div>
         </div>
 
+        <div className="planTicketsIntro">
+          <h2 className="planTicketsIntroTitle" id="plan-tickets-heading">
+            Choose your ticket
+          </h2>
+          <p className="planTicketsIntroCopy">
+            Full Weekend or Bundles first. Camping, stays, and travel are further down.
+          </p>
+        </div>
+
         <div className="planTabsScrollAnchor" aria-hidden="true" />
         <div className="planTabsSlot">
-          <PlanTabs activeTab={activeTab} onTabChange={handleTabChange} />
+          <PlanTabs
+            categories={TICKET_CATEGORIES}
+            activeTab={activeTab}
+            onTabChange={handleTabChange}
+          />
         </div>
 
         <div className="planMainShell">
           <div className="planMainColumn">
             <div className="planContentColumn">
-              {PLAN_CATALOG.filter((category) => category.id !== 'overview').map((category) => (
-                <PlanCategorySection
-                  key={category.id}
-                  category={category}
-                  isActive={activeTab === category.id}
-                />
-              ))}
+              <div
+                className="planTicketsBlock"
+                id="tickets"
+                aria-labelledby="plan-tickets-heading"
+              >
+                {TICKET_CATEGORIES.map((category) => (
+                  <PlanCategorySection
+                    key={category.id}
+                    category={category}
+                    isActive={activeTab === category.id}
+                  />
+                ))}
+              </div>
+
+              <section
+                className="planEnhanceBlock"
+                id="enhance"
+                aria-labelledby="plan-enhance-heading"
+              >
+                <header className="planEnhanceHeader">
+                  <p className="planEnhanceEyebrow">Optional add-ons</p>
+                  <h2 className="planEnhanceTitle" id="plan-enhance-heading">
+                    Enhance your trip
+                  </h2>
+                  <p className="planEnhanceCopy">
+                    Camping, glamping, hotels, buses, parking, and extras — add them after your ticket.
+                  </p>
+                </header>
+
+                {ENHANCE_CATEGORIES.map((category) => (
+                  <PlanCategorySection
+                    key={category.id}
+                    category={category}
+                    isActive
+                    showTitle
+                  />
+                ))}
+              </section>
             </div>
             {isMobile ? <AddToCartToast variant="mobile" /> : null}
           </div>
