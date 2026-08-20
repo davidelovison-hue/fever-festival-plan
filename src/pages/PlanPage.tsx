@@ -7,6 +7,7 @@ import { FestivalGallery } from '../components/FestivalGallery';
 import { FestivalNavbar } from '../components/FestivalNavbar';
 import { OverviewCollapsible } from '../components/OverviewCollapsible';
 import { PlanCategorySection } from '../components/PlanCategorySection';
+import { PlanCrossSellStrip } from '../components/PlanCrossSellStrip';
 import { PlanTabs } from '../components/PlanTabs';
 import { useCart } from '../lib/cartContext';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
@@ -275,6 +276,11 @@ export function PlanPage() {
                   key={category.id}
                   category={category}
                   isActive={activeTab === category.id}
+                  footer={
+                    category.id === 'acceso' ? (
+                      <PlanCrossSellStrip onSelectTab={handleTabChange} />
+                    ) : null
+                  }
                 />
               ))}
             </div>

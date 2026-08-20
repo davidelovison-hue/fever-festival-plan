@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import type { PlanCategory } from '../data/planCatalog';
 import { EntityCard } from './EntityCard';
 import { GroupCarousel } from './GroupCarousel';
@@ -10,9 +10,10 @@ const ALL_GROUPS = '__all__';
 type PlanCategorySectionProps = {
   category: PlanCategory;
   isActive?: boolean;
+  footer?: ReactNode;
 };
 
-export function PlanCategorySection({ category, isActive = true }: PlanCategorySectionProps) {
+export function PlanCategorySection({ category, isActive = true, footer }: PlanCategorySectionProps) {
   const groups = category.groups;
   const equalRow = category.cardLayout === 'equalRow';
   const hasSingleGroupEntityFilters =
@@ -164,6 +165,7 @@ export function PlanCategorySection({ category, isActive = true }: PlanCategoryS
           </GroupCarousel>
         </div>
       ) : null}
+      {footer}
     </section>
   );
 }

@@ -3,15 +3,47 @@ import { PLAN_CATALOG } from '../data/planCatalog';
 import './PlanTabs.css';
 
 const TABBED_CATEGORIES = PLAN_CATALOG.filter((category) => category.id !== 'overview');
+const CORE_TAB_IDS = new Set(['acceso', 'bundles']);
 
 type PlanTabsProps = {
   activeTab: string;
   onTabChange: (tabId: string) => void;
 };
 
+function TabButton({
+  categoryId,
+  title,
+  isActive,
+  group,
+  onTabChange,
+}: {
+  categoryId: string;
+  title: string;
+  isActive: boolean;
+  group: 'core' | 'addon';
+  onTabChange: (tabId: string) => void;
+}) {
+  return (
+    <li className={`tabsItem tabsItem${group === 'core' ? 'Core' : 'Addon'}`} role="none">
+      <button
+        type="button"
+        role="tab"
+        aria-selected={isActive}
+        id={`plan-tab-${categoryId}`}
+        className={`tabsLink ${isActive ? 'tabsLinkActive' : ''}`}
+        onClick={() => onTabChange(categoryId)}
+      >
+        {title}
+      </button>
+    </li>
+  );
+}
+
 export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
   const tabsScrollRef = useRef<HTMLDivElement>(null);
   const tabsBarInnerRef = useRef<HTMLDivElement>(null);
+  const coreTabs = TABBED_CATEGORIES.filter((category) => CORE_TAB_IDS.has(category.id));
+  const addonTabs = TABBED_CATEGORIES.filter((category) => !CORE_TAB_IDS.has(category.id));
 
   useEffect(() => {
     const el = tabsScrollRef.current;
@@ -71,23 +103,27 @@ export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
         <div className="tabsBarInner" ref={tabsBarInnerRef}>
           <div className="tabsScroll" ref={tabsScrollRef}>
             <ul className="tabsList" role="tablist">
-              {TABBED_CATEGORIES.map((category) => {
-                const isActive = activeTab === category.id;
-                return (
-                  <li key={category.id} className="tabsItem" role="none">
-                    <button
-                      type="button"
-                      role="tab"
-                      aria-selected={isActive}
-                      id={`plan-tab-${category.id}`}
-                      className={`tabsLink ${isActive ? 'tabsLinkActive' : ''}`}
-                      onClick={() => onTabChange(category.id)}
-                    >
-                      {category.title}
-                    </button>
-                  </li>
-                );
-              })}
+              {coreTabs.map((category) => (
+                <TabButton
+                  key={category.id}
+                  categoryId={category.id}
+                  title={category.title}
+                  isActive={activeTab === category.id}
+                  group="core"
+                  onTabChange={onTabChange}
+                />
+              ))}
+              <li className="tabsGroupDivider" role="separator" aria-label="Add-ons" />
+              {addonTabs.map((category) => (
+                <TabButton
+                  key={category.id}
+                  categoryId={category.id}
+                  title={category.title}
+                  isActive={activeTab === category.id}
+                  group="addon"
+                  onTabChange={onTabChange}
+                />
+              ))}
             </ul>
           </div>
           <div className="tabsScrollCue" aria-hidden="true">
