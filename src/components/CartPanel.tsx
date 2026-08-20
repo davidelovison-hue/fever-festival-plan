@@ -1,10 +1,16 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatCartSelections, useCart, type CartItem } from '../lib/cartContext';
+import {
+  cartHasTicketsWithoutAddons,
+  hasAddonCheckoutPromptBeenShown,
+  markAddonCheckoutPromptShown,
+} from '../lib/cartAddonPrompt';
 import { buildCheckoutFromCart } from '../lib/buildCheckoutFromCart';
 import { persistCheckoutBasket } from '../lib/checkoutFlowStorage';
 import { connectPath } from '../lib/routes';
 import { formatPrice } from '../lib/theme';
+import { AddonCheckoutPrompt } from './AddonCheckoutPrompt';
 import { AddToCartToast } from './AddToCartToast';
 import './CartPanel.css';
 
@@ -49,6 +55,7 @@ export function CartPanel({ mode }: CartPanelProps) {
   const cartTitleId = useId();
   const { items, setQuantity, removeItem, totalItems, totalPrice } = useCart();
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+  const [showAddonPrompt, setShowAddonPrompt] = useState(false);
   const [hideMobileBarForHero, setHideMobileBarForHero] = useState(false);
   const cartBodyRef = useRef<HTMLDivElement | null>(null);
   const [cartHasOverflow, setCartHasOverflow] = useState(false);
@@ -143,13 +150,48 @@ export function CartPanel({ mode }: CartPanelProps) {
     [cartHasOverflow, cartIsAtBottom],
   );
 
-  const goToCheckout = () => {
+  const proceedToCheckout = useCallback(() => {
     const returnHash = window.location.hash.replace(/^#/, '') || 'acceso';
     const payload = buildCheckoutFromCart(items, returnHash);
     if (!payload) return;
     persistCheckoutBasket(payload.eventId, payload);
     navigate(connectPath(payload.eventId), { state: payload });
-  };
+  }, [items, navigate]);
+
+  const handleCheckoutClick = useCallback(() => {
+    if (!hasAddonCheckoutPromptBeenShown() && cartHasTicketsWithoutAddons(items)) {
+      markAddonCheckoutPromptShown();
+      setShowAddonPrompt(true);
+      return;
+    }
+    proceedToCheckout();
+  }, [items, proceedToCheckout]);
+
+  const handleAddonTabSelect = useCallback(
+    (tabId: string) => {
+      setShowAddonPrompt(false);
+      closeMobileDrawer();
+      const nextHash = `#${tabId}`;
+      if (window.location.hash === nextHash) {
+        window.dispatchEvent(new Event('hashchange'));
+        return;
+      }
+      window.location.hash = tabId;
+    },
+    [closeMobileDrawer],
+  );
+
+  const addonPrompt = (
+    <AddonCheckoutPrompt
+      open={showAddonPrompt}
+      onSelectTab={handleAddonTabSelect}
+      onContinueCheckout={() => {
+        setShowAddonPrompt(false);
+        proceedToCheckout();
+      }}
+      onDismiss={() => setShowAddonPrompt(false)}
+    />
+  );
 
   const cartHeader = (showClose = false) => (
     <div className="cartHeader">
@@ -265,13 +307,14 @@ export function CartPanel({ mode }: CartPanelProps) {
   );
 
   const checkoutButton = (
-    <button type="button" className="cartCheckoutBtn" onClick={goToCheckout}>
+    <button type="button" className="cartCheckoutBtn" onClick={handleCheckoutClick}>
       Go to checkout
     </button>
   );
 
   if (mode === 'desktop') {
     return (
+      <>
       <aside className="planCartColumn" aria-label="Shopping cart">
         <div className="cartPanelReveal">
           <div className="cartPanel cartPanelFloat" role="complementary">
@@ -299,6 +342,8 @@ export function CartPanel({ mode }: CartPanelProps) {
         </div>
         <AddToCartToast variant="desktop" />
       </aside>
+      {addonPrompt}
+      </>
     );
   }
 
@@ -327,7 +372,7 @@ export function CartPanel({ mode }: CartPanelProps) {
             </span>
             <span className="cartMobileTriggerPrice">{formatPrice(totalPrice)}</span>
           </button>
-          <button type="button" className="cartMobileCheckoutPill" onClick={goToCheckout}>
+          <button type="button" className="cartMobileCheckoutPill" onClick={handleCheckoutClick}>
             Go to checkout
           </button>
         </div>
@@ -373,6 +418,7 @@ export function CartPanel({ mode }: CartPanelProps) {
           </div>
         </>
       ) : null}
+      {addonPrompt}
     </>
   );
 }
