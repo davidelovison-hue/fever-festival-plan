@@ -113,7 +113,9 @@ export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
                   onTabChange={onTabChange}
                 />
               ))}
-              <li className="tabsGroupDivider" role="separator" aria-label="Add-ons" />
+              <li className="tabsGroupDivider" role="separator" aria-label="Add-ons">
+                |
+              </li>
               {addonTabs.map((category) => (
                 <TabButton
                   key={category.id}

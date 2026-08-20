@@ -144,20 +144,20 @@
   top: var(--festival-nav-height);
   z-index: 110;
   isolation: isolate;
-  background: #f2f3f3;
+  background: #fff;
   min-width: 0;
   box-sizing: border-box;
   width: 100%;
   margin-top: 0;
   align-self: stretch;
-  border-bottom: 1px solid #e4e6e8;
+  border-bottom: 1px solid #eceeef;
 }
 
 .planTabsSlot::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: #f2f3f3;
+  background: #fff;
   z-index: -1;
   pointer-events: none;
 }
