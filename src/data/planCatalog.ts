@@ -52,7 +52,7 @@ export const FESTIVAL_DAY_AXIS: VariantAxis = {
   options: ['Viernes 13', 'Sábado 14', 'Domingo 15'],
 };
 
-/** Full Weekend tab. Add `'Wave 2'` (and optionPrices / disabledOptions) when the next wave opens. */
+/** Entry pass tab. Add `'Wave 2'` (and optionPrices / disabledOptions) when the next wave opens. */
 export const TICKET_WAVE_AXIS: VariantAxis = {
   id: 'wave',
   label: 'Wave',
@@ -69,15 +69,15 @@ export const PLAN_CATALOG: PlanCategory[] = [
   },
   {
     id: 'acceso',
-    title: 'Full Weekend',
+    title: 'Entry pass',
     groups: [
       {
         id: 'acceso-weekend',
-        title: 'Full Weekend',
+        title: 'Multi Day Pass',
         entities: [
           {
             id: 'ticket-full-weekend',
-            name: 'Full Weekend 3 días',
+            name: '3 días',
             price: 3390,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
@@ -88,14 +88,14 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'ticket-full-weekend-oasis',
-            name: 'Full Weekend Oasis Banamex 3 días',
+            name: '3 días Oasis Banamex',
             price: 6890,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
             listingTag: 'LIMITED',
             date: '13–15 Feb 2027',
             description:
-              'Weekend access plus Oasis Banamex: shaded backstage lounges at Sonorama, El Cubo and La Estación, comfort bathrooms, Las Estacas restaurant and priority entry.',
+              '3-day access plus Oasis Banamex: shaded backstage lounges at Sonorama, El Cubo and La Estación, comfort bathrooms, Las Estacas restaurant and priority entry.',
             includedItems: [
               'Friday–Sunday festival access',
               'Oasis Banamex backstage & lounge',
@@ -105,7 +105,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'ticket-half-weekend',
-            name: 'Half Weekend 2 días',
+            name: '2 días',
             price: 2690,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
@@ -115,7 +115,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'ticket-half-weekend-oasis',
-            name: 'Half Weekend Oasis Banamex 2 días',
+            name: '2 días Oasis Banamex',
             price: 6190,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
