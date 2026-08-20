@@ -37,10 +37,14 @@ export type PlanGroup = {
   entities: PlanEntity[];
 };
 
+export type PlanCatalogSection = 'tickets' | 'enhance';
+
 export type PlanCategory = {
   id: string;
   title: string;
   contentMode?: 'overview';
+  /** Tickets stay primary; enhance categories render in the scroll path below. */
+  section?: PlanCatalogSection;
   /** Equal-width cards in one row (e.g. extras). */
   cardLayout?: 'equalRow';
   groups: PlanGroup[];
@@ -70,6 +74,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
   {
     id: 'acceso',
     title: 'Full Weekend',
+    section: 'tickets',
     groups: [
       {
         id: 'acceso-weekend',
@@ -195,6 +200,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
   {
     id: 'bundles',
     title: 'Bundles',
+    section: 'tickets',
     groups: [
       {
         id: 'bundles-5x4',
@@ -263,6 +269,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
   {
     id: 'camping',
     title: 'Camping',
+    section: 'enhance',
     groups: [
       {
         id: 'camping-all',
@@ -318,6 +325,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
   {
     id: 'glamping',
     title: 'Glamping & Hotel',
+    section: 'enhance',
     groups: [
       {
         id: 'glamp-amatista',
@@ -426,6 +434,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
   {
     id: 'transport',
     title: 'Autobús & Estacionamiento',
+    section: 'enhance',
     groups: [
       {
         id: 'transport-bus',
@@ -503,6 +512,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
   {
     id: 'extra',
     title: 'Extra',
+    section: 'enhance',
     groups: [
       {
         id: 'extra-wellness',
@@ -645,4 +655,20 @@ export function getEntityUnitPrice(
 
 export function formatEntityPrice(price: number): string {
   return formatPrice(price);
+}
+
+export function getTicketCategories(): PlanCategory[] {
+  return PLAN_CATALOG.filter((category) => category.section === 'tickets');
+}
+
+export function getEnhanceCategories(): PlanCategory[] {
+  return PLAN_CATALOG.filter((category) => category.section === 'enhance');
+}
+
+export function isTicketCategoryId(id: string): boolean {
+  return PLAN_CATALOG.some((category) => category.id === id && category.section === 'tickets');
+}
+
+export function isEnhanceCategoryId(id: string): boolean {
+  return PLAN_CATALOG.some((category) => category.id === id && category.section === 'enhance');
 }

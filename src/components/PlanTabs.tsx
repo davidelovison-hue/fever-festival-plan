@@ -1,15 +1,14 @@
 import { useEffect, useRef } from 'react';
-import { PLAN_CATALOG } from '../data/planCatalog';
+import type { PlanCategory } from '../data/planCatalog';
 import './PlanTabs.css';
 
-const TABBED_CATEGORIES = PLAN_CATALOG.filter((category) => category.id !== 'overview');
-
 type PlanTabsProps = {
+  categories: PlanCategory[];
   activeTab: string;
   onTabChange: (tabId: string) => void;
 };
 
-export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
+export function PlanTabs({ categories, activeTab, onTabChange }: PlanTabsProps) {
   const tabsScrollRef = useRef<HTMLDivElement>(null);
   const tabsBarInnerRef = useRef<HTMLDivElement>(null);
 
@@ -48,7 +47,7 @@ export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
       el.removeEventListener('scroll', update);
       window.removeEventListener('resize', update);
     };
-  }, []);
+  }, [categories.length]);
 
   useEffect(() => {
     const tabButton = document.getElementById(`plan-tab-${activeTab}`);
@@ -67,11 +66,11 @@ export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
 
   return (
     <div className="stickyTabsBar">
-      <nav className="tabsNav" aria-label="Plan categories">
+      <nav className="tabsNav" aria-label="Festival tickets">
         <div className="tabsBarInner" ref={tabsBarInnerRef}>
           <div className="tabsScroll" ref={tabsScrollRef}>
-            <ul className="tabsList" role="tablist">
-              {TABBED_CATEGORIES.map((category) => {
+            <ul className="tabsList tabsListTicketChoice" role="tablist">
+              {categories.map((category) => {
                 const isActive = activeTab === category.id;
                 return (
                   <li key={category.id} className="tabsItem" role="none">

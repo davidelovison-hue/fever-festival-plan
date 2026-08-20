@@ -79,8 +79,8 @@ export function OverviewSection() {
             Description
           </h2>
           <p className="bodyText">
-            Browse Acceso, Bundles, Camping, Glamping & Hotel, Autobús & Estacionamiento, and Extra in
-            the tabs above. Tickets are personalized before the event. Payment issues:{' '}
+            Browse Full Weekend or Bundles for festival access, then add camping, stays, and travel
+            in Enhance your trip below. Tickets are personalized before the event. Payment issues:{' '}
             <a href="mailto:boletaje@volveraflotar.com" className="link">
               boletaje@volveraflotar.com
             </a>

@@ -138,6 +138,103 @@
   visibility: hidden;
 }
 
+.planTicketsIntro {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 1.35rem 1rem 0.15rem;
+  background: #fff;
+  scroll-margin-top: calc(var(--festival-nav-height) + 0.5rem);
+}
+
+.planTicketsIntroTitle {
+  margin: 0;
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-line-height);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.03em;
+  color: #031419;
+}
+
+.planTicketsIntroCopy {
+  margin: 0.4rem 0 0;
+  max-width: 36rem;
+  font-size: var(--type-small-size);
+  line-height: var(--type-small-line-height);
+  color: #536b75;
+}
+
+.planTicketsBlock {
+  min-width: 0;
+}
+
+.planEnhanceBlock {
+  margin-top: 1.25rem;
+  padding: 1.5rem 1rem 1.25rem;
+  background: #f4f6f7;
+  border: 1px solid #e6eaed;
+  border-radius: 1.25rem;
+  scroll-margin-top: calc(
+    var(--festival-nav-height) + var(--sticky-tabs-height) + var(--tab-content-scroll-gap, 0.75rem)
+  );
+}
+
+.planEnhanceHeader {
+  margin: 0 0 1.5rem;
+  max-width: 36rem;
+}
+
+.planEnhanceEyebrow {
+  margin: 0 0 0.35rem;
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line-height);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7c84;
+}
+
+.planEnhanceTitle {
+  margin: 0;
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-line-height);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  color: #24363d;
+}
+
+.planEnhanceCopy {
+  margin: 0.4rem 0 0;
+  font-size: var(--type-small-size);
+  line-height: var(--type-small-line-height);
+  color: #5c6f77;
+}
+
+.planEnhanceBlock .categorySection {
+  margin-bottom: 2rem;
+}
+
+.planEnhanceBlock .categorySection:last-child {
+  margin-bottom: 0;
+}
+
+.planEnhanceBlock .categorySectionTitle {
+  color: #24363d;
+}
+
+.planEnhanceBlock .groupCarouselTitle {
+  margin-bottom: 0.85rem;
+  font-size: var(--type-h5-size);
+  line-height: var(--type-h5-line-height);
+  font-weight: var(--font-weight-semibold);
+  color: #3d4f56;
+}
+
+.planEnhanceBlock .groupChipsWrap {
+  background: transparent;
+}
+
 .planTabsSlot {
   flex: 0 0 auto;
   position: sticky;
@@ -220,9 +317,10 @@
   .planDesktopShell {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto auto 1fr;
     grid-template-areas:
       "intro intro"
+      "ticketsHead ticketsHead"
       "tabs tabs"
       "main cart";
     max-width: 1280px;
@@ -267,6 +365,13 @@
   .planArtistsSlot {
     width: 100%;
     padding: 1rem 0 0;
+  }
+
+  .planTicketsIntro {
+    grid-area: ticketsHead;
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 1.6rem 0 0.2rem;
   }
 
   .planTabsScrollAnchor {
@@ -396,6 +501,12 @@
 
   .planMainShell {
     padding: 1.35rem 1rem calc(4.5rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .planEnhanceBlock {
+    margin-left: -0.15rem;
+    margin-right: -0.15rem;
+    padding: 1.35rem 0.85rem 1.1rem;
   }
 
   .categorySection {
