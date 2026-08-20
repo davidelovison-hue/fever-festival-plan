@@ -4,10 +4,8 @@ import {
   findCategoryIdForEntity,
 } from '../data/planCatalog';
 
-const PROMPT_KEY = 'fever-festival-plan:addon-checkout-prompted';
-const RETURN_KEY = 'fever-festival-plan:addon-prompt-on-return';
-
-let lastPathname = '/';
+let lastPathname = '';
+let shownThisPlanVisit = false;
 
 export function cartHasTicketsWithoutAddons(items: { entityId: string }[]): boolean {
   const coreIds = new Set<string>(PLAN_CORE_CATEGORY_IDS);
@@ -29,48 +27,18 @@ function isCheckoutFunnelPath(pathname: string): boolean {
   return pathname.startsWith('/event/');
 }
 
-function writeFlag(key: string, value: boolean): void {
-  try {
-    if (value) sessionStorage.setItem(key, '1');
-    else sessionStorage.removeItem(key);
-  } catch {
-    /* ignore */
-  }
-}
-
-function readFlag(key: string): boolean {
-  try {
-    return sessionStorage.getItem(key) === '1';
-  } catch {
-    return false;
-  }
-}
-
-/** Keep the one-time prompt scoped to a plan-page visit; re-arm after checkout. */
+/** Reset the one-time flag only after a real checkout → plan return. */
 export function trackAddonPromptRoute(pathname: string): void {
-  if (pathname === '/' && isCheckoutFunnelPath(lastPathname)) {
-    writeFlag(RETURN_KEY, true);
-    clearAddonCheckoutPromptShown();
+  if (lastPathname && isCheckoutFunnelPath(lastPathname) && pathname === '/') {
+    shownThisPlanVisit = false;
   }
   lastPathname = pathname;
 }
 
-export function hasPendingAddonPromptFromCheckout(): boolean {
-  return readFlag(RETURN_KEY);
-}
-
-export function clearPendingAddonPromptFromCheckout(): void {
-  writeFlag(RETURN_KEY, false);
-}
-
 export function hasAddonCheckoutPromptBeenShown(): boolean {
-  return readFlag(PROMPT_KEY);
+  return shownThisPlanVisit;
 }
 
 export function markAddonCheckoutPromptShown(): void {
-  writeFlag(PROMPT_KEY, true);
-}
-
-export function clearAddonCheckoutPromptShown(): void {
-  writeFlag(PROMPT_KEY, false);
+  shownThisPlanVisit = true;
 }
