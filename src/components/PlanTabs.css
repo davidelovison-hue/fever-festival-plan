@@ -124,41 +124,6 @@
   pointer-events: none;
 }
 
-.tabsItemCore .tabsLink {
-  background: #fff;
-  color: #111;
-  font-weight: 700;
-  border-color: #e1e4e6;
-}
-
-.tabsItemCore .tabsLinkActive,
-.tabsItemCore .tabsLinkActive:hover {
-  color: #fff;
-  background: #111;
-  border-color: #111;
-}
-
-.tabsItemAddon .tabsLink {
-  background: #fff;
-  border-color: #e1e4e6;
-  color: #6b757b;
-  font-weight: 500;
-}
-
-.tabsItemAddon .tabsLink:hover {
-  background: #fff;
-  border-color: #cfd4d7;
-  color: #111;
-}
-
-.tabsItemAddon .tabsLinkActive,
-.tabsItemAddon .tabsLinkActive:hover {
-  color: #fff;
-  background: #111;
-  border-color: #111;
-  font-weight: 700;
-}
-
 .tabsLink {
   display: inline-flex;
   align-items: center;

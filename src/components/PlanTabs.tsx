@@ -14,17 +14,15 @@ function TabButton({
   categoryId,
   title,
   isActive,
-  group,
   onTabChange,
 }: {
   categoryId: string;
   title: string;
   isActive: boolean;
-  group: 'core' | 'addon';
   onTabChange: (tabId: string) => void;
 }) {
   return (
-    <li className={`tabsItem tabsItem${group === 'core' ? 'Core' : 'Addon'}`} role="none">
+    <li className="tabsItem" role="none">
       <button
         type="button"
         role="tab"
@@ -109,7 +107,6 @@ export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
                   categoryId={category.id}
                   title={category.title}
                   isActive={activeTab === category.id}
-                  group="core"
                   onTabChange={onTabChange}
                 />
               ))}
@@ -122,7 +119,6 @@ export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
                   categoryId={category.id}
                   title={category.title}
                   isActive={activeTab === category.id}
-                  group="addon"
                   onTabChange={onTabChange}
                 />
               ))}
