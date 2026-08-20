@@ -622,6 +622,24 @@ export function findEntity(entityId: string): PlanEntity | undefined {
   return undefined;
 }
 
+export const PLAN_CORE_CATEGORY_IDS = ['acceso', 'bundles'] as const;
+
+export const PLAN_ADDON_CATEGORIES = [
+  { id: 'camping', label: 'Camping' },
+  { id: 'glamping', label: 'Glamping & Hotel' },
+  { id: 'transport', label: 'Bus & Parking' },
+  { id: 'extra', label: 'Extras' },
+] as const;
+
+export function findCategoryIdForEntity(entityId: string): string | undefined {
+  for (const category of PLAN_CATALOG) {
+    for (const group of category.groups) {
+      if (group.entities.some((item) => item.id === entityId)) return category.id;
+    }
+  }
+  return undefined;
+}
+
 /** Unit price for the currently selected chip(s); falls back to base `price`. */
 export function getEntityUnitPrice(
   entity: PlanEntity,
