@@ -125,16 +125,58 @@ function scheduleActiveTabScroll(tabId: string) {
   };
 }
 
-function getTicketSectionScrollTop() {
+function getPlanTabsScrollTop() {
   const nav = document.querySelector<HTMLElement>('.planStickyNav');
   const tabs = document.querySelector<HTMLElement>('.planTabsSlot');
   const anchor = document.querySelector<HTMLElement>('.planTabsScrollAnchor');
-  const section = document.getElementById('acceso');
-  const target = tabs ?? anchor ?? section;
+  const target = tabs ?? anchor;
   if (!target) return null;
 
   const navH = nav?.getBoundingClientRect().height ?? 0;
   return Math.max(0, target.getBoundingClientRect().top + window.scrollY - navH);
+}
+
+function getTicketSectionScrollTop() {
+  const fromTabs = getPlanTabsScrollTop();
+  if (fromTabs != null) return fromTabs;
+
+  const section = document.getElementById('acceso');
+  if (!section) return null;
+  const nav = document.querySelector<HTMLElement>('.planStickyNav');
+  const navH = nav?.getBoundingClientRect().height ?? 0;
+  return Math.max(0, section.getBoundingClientRect().top + window.scrollY - navH);
+}
+
+function focusPlanTab(tabId: string) {
+  const tabButton = document.getElementById(`plan-tab-${tabId}`);
+  tabButton?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'auto' });
+  tabButton?.focus({ preventScroll: true });
+}
+
+/** Scroll the tab bar under the nav and move keyboard/screen focus to that tab. */
+function scheduleScrollToPlanTab(tabId: string) {
+  let cancelled = false;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const run = () => {
+    if (cancelled) return;
+    const top = getPlanTabsScrollTop();
+    if (top != null) {
+      window.scrollTo({ top, left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+    focusPlanTab(tabId);
+  };
+
+  const rafId = requestAnimationFrame(() => {
+    requestAnimationFrame(run);
+  });
+  const timeoutId = window.setTimeout(run, 120);
+
+  return () => {
+    cancelled = true;
+    cancelAnimationFrame(rafId);
+    window.clearTimeout(timeoutId);
+  };
 }
 
 /** Hero "Buy tickets" CTA: always scroll to the ticket tabs + cards. */
@@ -187,6 +229,16 @@ export function PlanPage() {
     },
     [activeTab],
   );
+
+  const selectPlanTab = useCallback((tabId: string) => {
+    setIsOverviewOpen(false);
+    setActiveTab(tabId);
+    const nextHash = `#${tabId}`;
+    if (window.location.hash !== nextHash) {
+      window.history.pushState(null, '', nextHash);
+    }
+    scheduleScrollToPlanTab(tabId);
+  }, []);
 
   const handleGoToTickets = useCallback(() => {
     setIsOverviewOpen(false);
@@ -278,7 +330,7 @@ export function PlanPage() {
                   isActive={activeTab === category.id}
                   footer={
                     category.id === 'acceso' ? (
-                      <PlanCrossSellStrip onSelectTab={handleTabChange} />
+                      <PlanCrossSellStrip onSelectTab={selectPlanTab} />
                     ) : null
                   }
                 />
@@ -288,8 +340,8 @@ export function PlanPage() {
           </div>
         </div>
 
-        {isMobile && hasCart ? <CartPanel mode="mobile" /> : null}
-        {!isMobile ? <CartPanel mode="desktop" /> : null}
+        {isMobile && hasCart ? <CartPanel mode="mobile" onSelectPlanTab={selectPlanTab} /> : null}
+        {!isMobile ? <CartPanel mode="desktop" onSelectPlanTab={selectPlanTab} /> : null}
       </div>
     </div>
   );

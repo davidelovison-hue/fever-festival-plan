@@ -48,9 +48,10 @@ function toCartEntity(item: CartItem) {
 
 type CartPanelProps = {
   mode: 'desktop' | 'mobile';
+  onSelectPlanTab?: (tabId: string) => void;
 };
 
-export function CartPanel({ mode }: CartPanelProps) {
+export function CartPanel({ mode, onSelectPlanTab }: CartPanelProps) {
   const navigate = useNavigate();
   const cartTitleId = useId();
   const { items, setQuantity, removeItem, totalItems, totalPrice } = useCart();
@@ -171,14 +172,9 @@ export function CartPanel({ mode }: CartPanelProps) {
     (tabId: string) => {
       setShowAddonPrompt(false);
       closeMobileDrawer();
-      const nextHash = `#${tabId}`;
-      if (window.location.hash === nextHash) {
-        window.dispatchEvent(new Event('hashchange'));
-        return;
-      }
-      window.location.hash = tabId;
+      onSelectPlanTab?.(tabId);
     },
-    [closeMobileDrawer],
+    [closeMobileDrawer, onSelectPlanTab],
   );
 
   const handleAddonPromptContinue = useCallback(() => {
