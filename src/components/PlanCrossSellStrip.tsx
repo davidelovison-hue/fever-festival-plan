@@ -5,9 +5,8 @@ type PlanCrossSellStripProps = {
 };
 
 const CROSS_SELL_LINKS = [
-  { id: 'camping', label: 'Camping' },
-  { id: 'glamping', label: 'Glamping & Hotel' },
-  { id: 'transport', label: 'Bus & Parking' },
+  { id: 'accommodation', label: 'Camping & stays' },
+  { id: 'bus', label: 'Bus & Parking' },
   { id: 'extra', label: 'Extras' },
 ] as const;
 

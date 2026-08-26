@@ -8,24 +8,26 @@ import { FestivalNavbar } from '../components/FestivalNavbar';
 import { OverviewCollapsible } from '../components/OverviewCollapsible';
 import { PlanCategorySection } from '../components/PlanCategorySection';
 import { PlanCrossSellStrip } from '../components/PlanCrossSellStrip';
-import { PlanTabs } from '../components/PlanTabs';
+import { PlanStepper } from '../components/PlanStepper';
 import { useCart } from '../lib/cartContext';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
 import { FESTIVAL_ARTISTS } from '../data/festivalArtists';
-import { PLAN_CATALOG } from '../data/planCatalog';
+import {
+  PLAN_STEPS,
+  getCategoriesForStep,
+  getPlanStepIndex,
+  getStepIdFromHash,
+  type PlanStepId,
+} from '../data/planCatalog';
 import './PlanPage.css';
 
-function getTabFromHash() {
+const LAST_STEP_INDEX = PLAN_STEPS.length - 1;
+
+function getStepFromHash(): PlanStepId {
   const hash = window.location.hash.replace(/^#/, '');
-  if (hash === 'overview') return 'acceso';
-  if (hash === 'tickets') return 'acceso';
-  if (hash === 'parking') return 'transport';
-  if (hash === 'accompagnant' || hash === 'pmr') return 'acceso';
-  if (hash && PLAN_CATALOG.some((category) => category.id === hash && category.id !== 'overview')) {
-    return hash;
-  }
-  return 'acceso';
+  if (hash === 'overview') return 'pass';
+  return getStepIdFromHash(hash);
 }
 
 function shouldOpenOverviewFromHash() {
@@ -52,21 +54,18 @@ function isTabsBarStickyNow() {
   if (!anchor) return false;
 
   const navH = nav?.getBoundingClientRect().height ?? 0;
-  // Sticky engages once we've scrolled past the anchor point (adjusted by nav height).
   const anchorDocTop = anchor.getBoundingClientRect().top + window.scrollY;
   return window.scrollY >= anchorDocTop - navH - STICKY_CHECK_TOLERANCE_PX;
 }
 
-function getScrollTargetEl(tabId: string) {
-  const section = document.getElementById(tabId);
-  if (!section) return null;
-  // Prefer the filters row if it exists; otherwise fall back to section top.
+function getScrollTargetEl(stepId: string) {
+  const categories = getCategoriesForStep(stepId);
+  const firstId = categories[0]?.id;
+  const section = firstId ? document.getElementById(firstId) : null;
+  if (!section) return document.getElementById(stepId);
   const chips = section.querySelector<HTMLElement>('.groupChipsWrap');
   if (chips) return chips;
-
-  // Tabs without filters (e.g. Parking) should align to the first visible
-  // content block/title, not the section wrapper, to avoid awkward whitespace.
-  const firstTitle = section.querySelector<HTMLElement>('.groupCarouselTitle');
+  const firstTitle = section.querySelector<HTMLElement>('.categorySectionTitle, .groupCarouselTitle');
   if (firstTitle) return firstTitle;
   const firstBlock = section.querySelector<HTMLElement>('.groupBlock');
   return firstBlock ?? section;
@@ -96,18 +95,16 @@ function scheduleOverviewScroll() {
   };
 }
 
-function scheduleActiveTabScroll(tabId: string) {
+function scheduleActiveTabScroll(stepId: string) {
   let cancelled = false;
   let rafId = 0;
 
   const runOnce = () => {
     if (!isTabsBarStickyNow()) return;
 
-    const targetEl = getScrollTargetEl(tabId);
+    const targetEl = getScrollTargetEl(stepId);
     if (!targetEl) return;
 
-    // Deterministic and robust: scroll the element into view, then compensate for
-    // sticky navbar + tabs so the target isn't hidden underneath.
     targetEl.scrollIntoView({ block: 'start', behavior: 'auto' });
     const offset = getStickyOffsetPx();
     if (offset > 0) window.scrollBy({ top: -offset, left: 0, behavior: 'auto' });
@@ -147,14 +144,13 @@ function getTicketSectionScrollTop() {
   return Math.max(0, section.getBoundingClientRect().top + window.scrollY - navH);
 }
 
-function focusPlanTab(tabId: string) {
-  const tabButton = document.getElementById(`plan-tab-${tabId}`);
-  tabButton?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'auto' });
-  tabButton?.focus({ preventScroll: true });
+function focusPlanStep(stepId: string) {
+  const stepButton = document.getElementById(`plan-step-${stepId}`);
+  stepButton?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'auto' });
+  stepButton?.focus({ preventScroll: true });
 }
 
-/** Scroll the tab bar under the nav and move keyboard/screen focus to that tab. */
-function scheduleScrollToPlanTab(tabId: string) {
+function scheduleScrollToPlanStep(stepId: string) {
   let cancelled = false;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -164,7 +160,7 @@ function scheduleScrollToPlanTab(tabId: string) {
     if (top != null) {
       window.scrollTo({ top, left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     }
-    focusPlanTab(tabId);
+    focusPlanStep(stepId);
   };
 
   const rafId = requestAnimationFrame(() => {
@@ -179,7 +175,6 @@ function scheduleScrollToPlanTab(tabId: string) {
   };
 }
 
-/** Hero "Buy tickets" CTA: always scroll to the ticket tabs + cards. */
 function scrollToTicketSection() {
   const top = getTicketSectionScrollTop();
   if (top == null) return;
@@ -207,12 +202,15 @@ export function PlanPage() {
   const location = useLocation();
   const { items } = useCart();
   const isMobile = useIsMobile();
-  const [activeTab, setActiveTab] = useState(getTabFromHash);
+  const [activeStep, setActiveStep] = useState<PlanStepId>(getStepFromHash);
   const [isOverviewOpen, setIsOverviewOpen] = useState(shouldOpenOverviewFromHash);
   const hasInitialTabScrollRef = useRef(false);
   const hasCart = items.length > 0;
+  const stepIndex = getPlanStepIndex(activeStep);
+  const stepCategories = getCategoriesForStep(activeStep);
+  const isLastStep = stepIndex >= LAST_STEP_INDEX;
+  const showCategoryTitles = stepCategories.length > 1;
 
-  // Logo / home: land at the very top of the page (no section jump).
   useLayoutEffect(() => {
     if (location.pathname !== '/') return;
     const hash = location.hash.replace(/^#/, '');
@@ -221,39 +219,56 @@ export function PlanPage() {
     return scrollPageToTop();
   }, [location.pathname, location.hash, location.key]);
 
-  const handleTabChange = useCallback(
-    (tabId: string) => {
-      if (tabId === activeTab) return;
-      setActiveTab(tabId);
-      window.history.pushState(null, '', `#${tabId}`);
-    },
-    [activeTab],
-  );
-
-  const selectPlanTab = useCallback((tabId: string) => {
+  const goToStep = useCallback((stepId: PlanStepId, scrollToBar = false) => {
     setIsOverviewOpen(false);
-    setActiveTab(tabId);
-    const nextHash = `#${tabId}`;
+    setActiveStep(stepId);
+    const nextHash = `#${stepId}`;
     if (window.location.hash !== nextHash) {
       window.history.pushState(null, '', nextHash);
     }
-    scheduleScrollToPlanTab(tabId);
+    if (scrollToBar) scheduleScrollToPlanStep(stepId);
   }, []);
+
+  const handleStepChange = useCallback(
+    (stepId: PlanStepId) => {
+      if (stepId === activeStep) return;
+      goToStep(stepId);
+    },
+    [activeStep, goToStep],
+  );
 
   const handleGoToTickets = useCallback(() => {
     setIsOverviewOpen(false);
-    if (activeTab !== 'acceso') {
-      setActiveTab('acceso');
-      window.history.pushState(null, '', '#acceso');
+    if (activeStep !== 'pass') {
+      setActiveStep('pass');
+      window.history.pushState(null, '', '#pass');
     } else {
-      window.history.replaceState(null, '', '#acceso');
+      window.history.replaceState(null, '', '#pass');
     }
     scheduleScrollToTicketSection();
-  }, [activeTab]);
+  }, [activeStep]);
 
   const handleOverviewToggle = useCallback(() => {
     setIsOverviewOpen((open) => !open);
   }, []);
+
+  const goToNextStep = useCallback(() => {
+    const next = PLAN_STEPS[stepIndex + 1];
+    if (!next) return false;
+    goToStep(next.id, true);
+    return true;
+  }, [goToStep, stepIndex]);
+
+  const goToPrevStep = useCallback(() => {
+    const prev = PLAN_STEPS[stepIndex - 1];
+    if (!prev) return;
+    goToStep(prev.id, true);
+  }, [goToStep, stepIndex]);
+
+  const handleCartContinue = useCallback(() => {
+    if (isLastStep) return false;
+    return goToNextStep();
+  }, [goToNextStep, isLastStep]);
 
   useEffect(() => {
     const syncFromHash = () => {
@@ -262,7 +277,7 @@ export function PlanPage() {
         setIsOverviewOpen(true);
         return;
       }
-      setActiveTab(getTabFromHash());
+      setActiveStep(getStepFromHash());
     };
 
     window.addEventListener('popstate', syncFromHash);
@@ -282,13 +297,13 @@ export function PlanPage() {
     if (!hasInitialTabScrollRef.current) {
       hasInitialTabScrollRef.current = true;
       const hash = window.location.hash.replace(/^#/, '');
-      if ((activeTab === 'acceso' && !hash) || hash === 'overview') {
+      if ((activeStep === 'pass' && !hash) || hash === 'overview') {
         return;
       }
     }
 
-    return scheduleActiveTabScroll(activeTab);
-  }, [activeTab]);
+    return scheduleActiveTabScroll(activeStep);
+  }, [activeStep]);
 
   return (
     <div className="planPage">
@@ -317,31 +332,59 @@ export function PlanPage() {
 
         <div className="planTabsScrollAnchor" aria-hidden="true" />
         <div className="planTabsSlot">
-          <PlanTabs activeTab={activeTab} onTabChange={handleTabChange} />
+          <PlanStepper activeStep={activeStep} onStepChange={handleStepChange} />
         </div>
 
         <div className="planMainShell">
           <div className="planMainColumn">
             <div className="planContentColumn">
-              {PLAN_CATALOG.filter((category) => category.id !== 'overview').map((category) => (
+              {stepCategories.map((category) => (
                 <PlanCategorySection
                   key={category.id}
                   category={category}
-                  isActive={activeTab === category.id}
+                  isActive
+                  showTitle={showCategoryTitles}
                   footer={
                     category.id === 'acceso' ? (
-                      <PlanCrossSellStrip onSelectTab={selectPlanTab} />
+                      <PlanCrossSellStrip onSelectTab={(id) => goToStep(getStepIdFromHash(id), true)} />
                     ) : null
                   }
                 />
               ))}
+
+              <div className="planStepActions">
+                {stepIndex > 0 ? (
+                  <button type="button" className="planStepBack" onClick={goToPrevStep}>
+                    Back
+                  </button>
+                ) : (
+                  <span />
+                )}
+                {!isLastStep ? (
+                  <button type="button" className="planStepContinue" onClick={goToNextStep}>
+                    Continue
+                  </button>
+                ) : null}
+              </div>
             </div>
             {isMobile ? <AddToCartToast variant="mobile" /> : null}
           </div>
         </div>
 
-        {isMobile && hasCart ? <CartPanel mode="mobile" onSelectPlanTab={selectPlanTab} /> : null}
-        {!isMobile ? <CartPanel mode="desktop" onSelectPlanTab={selectPlanTab} /> : null}
+        {isMobile && hasCart ? (
+          <CartPanel
+            mode="mobile"
+            continueInsteadOfCheckout={!isLastStep}
+            onContinue={handleCartContinue}
+          />
+        ) : null}
+        {!isMobile ? (
+          <CartPanel
+            mode="desktop"
+            continueInsteadOfCheckout={!isLastStep}
+            onContinue={handleCartContinue}
+          />
+        ) : null}
       </div>
     </div>
   );

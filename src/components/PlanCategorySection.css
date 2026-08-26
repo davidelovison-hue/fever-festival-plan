@@ -9,6 +9,15 @@
   display: none !important;
 }
 
+.categorySectionTitle {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0a1f26;
+}
+
 .groupChipsWrap {
   margin: 0 0 1.5rem;
   min-width: 0;

@@ -624,12 +624,60 @@ export function findEntity(entityId: string): PlanEntity | undefined {
 
 export const PLAN_CORE_CATEGORY_IDS = ['acceso', 'bundles'] as const;
 
-export const PLAN_ADDON_CATEGORIES = [
-  { id: 'camping', label: 'Camping' },
-  { id: 'glamping', label: 'Glamping & Hotel' },
-  { id: 'transport', label: 'Bus & Parking' },
-  { id: 'extra', label: 'Extras' },
-] as const;
+export type PlanStepId = 'pass' | 'accommodation' | 'bus' | 'extra';
+
+export type PlanStep = {
+  id: PlanStepId;
+  title: string;
+  categoryIds: string[];
+};
+
+export const PLAN_STEPS: PlanStep[] = [
+  { id: 'pass', title: 'Pass', categoryIds: ['acceso', 'bundles'] },
+  { id: 'accommodation', title: 'Accommodation', categoryIds: ['camping', 'glamping'] },
+  { id: 'bus', title: 'Bus', categoryIds: ['transport'] },
+  { id: 'extra', title: 'Extra', categoryIds: ['extra'] },
+];
+
+const CATEGORY_TO_STEP: Record<string, PlanStepId> = {
+  acceso: 'pass',
+  bundles: 'pass',
+  camping: 'accommodation',
+  glamping: 'accommodation',
+  transport: 'bus',
+  extra: 'extra',
+};
+
+const HASH_TO_STEP: Record<string, PlanStepId> = {
+  ...CATEGORY_TO_STEP,
+  pass: 'pass',
+  tickets: 'pass',
+  accommodation: 'accommodation',
+  bus: 'bus',
+  parking: 'bus',
+};
+
+export function getPlanStep(stepId: string): PlanStep | undefined {
+  return PLAN_STEPS.find((step) => step.id === stepId);
+}
+
+export function getPlanStepIndex(stepId: string): number {
+  return PLAN_STEPS.findIndex((step) => step.id === stepId);
+}
+
+export function getCategoriesForStep(stepId: string): PlanCategory[] {
+  const step = getPlanStep(stepId);
+  if (!step) return [];
+  return PLAN_CATALOG.filter((category) => step.categoryIds.includes(category.id));
+}
+
+export function getStepIdFromHash(hash: string): PlanStepId {
+  return HASH_TO_STEP[hash] ?? 'pass';
+}
+
+export function isPlanStepId(id: string): id is PlanStepId {
+  return PLAN_STEPS.some((step) => step.id === id);
+}
 
 export function findCategoryIdForEntity(entityId: string): string | undefined {
   for (const category of PLAN_CATALOG) {
