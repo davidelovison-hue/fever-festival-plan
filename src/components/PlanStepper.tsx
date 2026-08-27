@@ -29,7 +29,12 @@ export function PlanStepper({ activeStep, onStepChange }: PlanStepperProps) {
                   <span className="planStepperIndex" aria-hidden="true">
                     {isDone ? '✓' : index + 1}
                   </span>
-                  <span className="planStepperLabel">{step.title}</span>
+                  <span
+                    className="planStepperLabel"
+                    style={isActive ? { color: '#fff', WebkitTextFillColor: '#fff' } : undefined}
+                  >
+                    {step.title}
+                  </span>
                 </button>
               </li>
             );

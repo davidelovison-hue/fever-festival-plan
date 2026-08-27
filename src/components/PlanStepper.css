@@ -67,7 +67,7 @@
   white-space: nowrap;
 }
 
-.planStepperBtn:hover {
+.planStepperBtn:hover:not(.planStepperBtnActive) {
   color: #111;
 }
 
@@ -96,22 +96,29 @@
   color: #fff;
 }
 
-.planStepperBtnActive,
-.planStepperBtnActive:hover,
-.planStepperBtnActive:focus,
-.planStepperBtnActive:focus-visible {
+.planStepperBtn.planStepperBtnActive,
+.planStepperBtn.planStepperBtnActive:hover,
+.planStepperBtn.planStepperBtnActive:focus,
+.planStepperBtn.planStepperBtnActive:focus-visible,
+.planStepperBtn.planStepperBtnActive:active {
   background: #111;
   color: #fff;
+  -webkit-text-fill-color: #fff;
 }
 
 .planStepperBtnActive .planStepperIndex {
   background: #fff;
   border-color: #fff;
   color: #111;
+  -webkit-text-fill-color: #111;
 }
 
-.planStepperBtnActive .planStepperLabel {
-  color: #fff;
+.planStepperBtnActive .planStepperLabel,
+.planStepperBtnActive:hover .planStepperLabel,
+.planStepperBtnActive:focus .planStepperLabel,
+.planStepperBtnActive:focus-visible .planStepperLabel {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
   font-weight: 700;
 }
 
