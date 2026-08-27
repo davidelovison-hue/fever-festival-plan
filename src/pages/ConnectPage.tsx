@@ -93,7 +93,7 @@ export function ConnectPage() {
       {
         title: 'Tickets',
         links: [
-          { label: `${eventTitle} — Acceso General`, href: ticketsHref },
+          { label: `${eventTitle} — General Admission`, href: ticketsHref },
           { label: `${eventTitle} — Oasis Banamex`, href: ticketsHref },
         ],
       },

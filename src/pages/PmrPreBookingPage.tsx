@@ -13,41 +13,41 @@ import '../CheckoutPage.css';
 import '../GuestCheckoutPage.css';
 import './PmrPreBookingPage.css';
 
-const CHOICE = 'Votre choix';
+const CHOICE = 'Your choice';
 
-const GENDER_OPTIONS = ['Homme', 'Femme', 'Non binaire', 'Préfère ne pas dire'];
-const COUNTRY_OPTIONS = ['Belgique', 'France', 'Luxembourg', 'Pays-Bas', 'Allemagne', 'Autre'];
+const GENDER_OPTIONS = ['Man', 'Woman', 'Non-binary', 'Prefer not to say'];
+const COUNTRY_OPTIONS = ['Mexico', 'United States', 'Canada', 'United Kingdom', 'Spain', 'Other'];
 const SITUATION_OPTIONS = [
-  'Personne en fauteuil roulant',
-  'Mobilité réduite (sans fauteuil)',
-  'Handicap sensoriel',
-  'Handicap invisible',
-  'Blessure / limitation temporaire',
-  'Autre',
+  'Wheelchair user',
+  'Reduced mobility (without a wheelchair)',
+  'Sensory disability',
+  'Invisible disability',
+  'Injury / temporary limitation',
+  'Other',
 ];
 const MOBILITY_OPTIONS = [
-  'Fauteuil roulant manuel',
-  'Fauteuil roulant électrique',
-  'Canne / béquilles',
-  'Aucun aide technique',
-  'Autre',
+  'Manual wheelchair',
+  'Electric wheelchair',
+  'Cane / crutches',
+  'No mobility aid',
+  'Other',
 ];
-const YES_NO_OPTIONS = ['Oui', 'Non'];
+const YES_NO_OPTIONS = ['Yes', 'No'];
 
 const DAYS = Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'));
 const MONTHS = [
-  { value: '01', label: 'Janvier' },
-  { value: '02', label: 'Février' },
-  { value: '03', label: 'Mars' },
-  { value: '04', label: 'Avril' },
-  { value: '05', label: 'Mai' },
-  { value: '06', label: 'Juin' },
-  { value: '07', label: 'Juillet' },
-  { value: '08', label: 'Août' },
-  { value: '09', label: 'Septembre' },
-  { value: '10', label: 'Octobre' },
-  { value: '11', label: 'Novembre' },
-  { value: '12', label: 'Décembre' },
+  { value: '01', label: 'January' },
+  { value: '02', label: 'February' },
+  { value: '03', label: 'March' },
+  { value: '04', label: 'April' },
+  { value: '05', label: 'May' },
+  { value: '06', label: 'June' },
+  { value: '07', label: 'July' },
+  { value: '08', label: 'August' },
+  { value: '09', label: 'September' },
+  { value: '10', label: 'October' },
+  { value: '11', label: 'November' },
+  { value: '12', label: 'December' },
 ];
 const YEARS = Array.from({ length: 100 }, (_, i) => String(new Date().getFullYear() - i));
 
@@ -56,7 +56,7 @@ const emptyAnswers = (): PmrPreBookingAnswers => ({
   birthDay: '',
   birthMonth: '',
   birthYear: '',
-  phoneCountryCode: '+32',
+  phoneCountryCode: '+52',
   phoneNational: '',
   country: '',
   city: '',
@@ -156,7 +156,7 @@ export function PmrPreBookingPage() {
               <div className="pmrPreBookingForm__fields">
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-gender">
-                    Genre <span className="pmrPreBookingField__required">*</span>
+                    Gender <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <select
                     id="pmr-gender"
@@ -175,16 +175,16 @@ export function PmrPreBookingPage() {
 
                 <fieldset className="pmrPreBookingField pmrPreBookingField--dob">
                   <legend className="pmrPreBookingField__label">
-                    Date de naissance <span className="pmrPreBookingField__required">*</span>
+                    Date of birth <span className="pmrPreBookingField__required">*</span>
                   </legend>
                   <div className="pmrPreBookingDob">
                     <select
-                      aria-label="Jour"
+                      aria-label="Day"
                       className="pmrPreBookingField__control"
                       value={answers.birthDay}
                       onChange={(e) => setField('birthDay', e.target.value)}
                     >
-                      <option value="">Jour</option>
+                      <option value="">Day</option>
                       {DAYS.map((d) => (
                         <option key={d} value={d}>
                           {d}
@@ -192,12 +192,12 @@ export function PmrPreBookingPage() {
                       ))}
                     </select>
                     <select
-                      aria-label="Mois"
+                      aria-label="Month"
                       className="pmrPreBookingField__control"
                       value={answers.birthMonth}
                       onChange={(e) => setField('birthMonth', e.target.value)}
                     >
-                      <option value="">Mois</option>
+                      <option value="">Month</option>
                       {MONTHS.map((m) => (
                         <option key={m.value} value={m.value}>
                           {m.label}
@@ -205,12 +205,12 @@ export function PmrPreBookingPage() {
                       ))}
                     </select>
                     <select
-                      aria-label="Année"
+                      aria-label="Year"
                       className="pmrPreBookingField__control"
                       value={answers.birthYear}
                       onChange={(e) => setField('birthYear', e.target.value)}
                     >
-                      <option value="">Année</option>
+                      <option value="">Year</option>
                       {YEARS.map((y) => (
                         <option key={y} value={y}>
                           {y}
@@ -222,20 +222,20 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-phone">
-                    Téléphone mobile <span className="pmrPreBookingField__required">*</span>
+                    Mobile phone <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <div className="pmrPreBookingPhone">
                     <select
-                      aria-label="Indicatif"
+                      aria-label="Country code"
                       className="pmrPreBookingField__control pmrPreBookingPhone__code"
                       value={answers.phoneCountryCode}
                       onChange={(e) => setField('phoneCountryCode', e.target.value)}
                     >
-                      <option value="+32">🇧🇪 +32</option>
+                      <option value="+52">🇲🇽 +52</option>
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+44">🇬🇧 +44</option>
+                      <option value="+34">🇪🇸 +34</option>
                       <option value="+33">🇫🇷 +33</option>
-                      <option value="+352">🇱🇺 +352</option>
-                      <option value="+31">🇳🇱 +31</option>
-                      <option value="+49">🇩🇪 +49</option>
                     </select>
                     <input
                       id="pmr-phone"
@@ -243,7 +243,7 @@ export function PmrPreBookingPage() {
                       className="pmrPreBookingField__control"
                       value={answers.phoneNational}
                       onChange={(e) => setField('phoneNational', e.target.value)}
-                      placeholder="Numéro"
+                      placeholder="Number"
                       autoComplete="tel-national"
                     />
                   </div>
@@ -251,7 +251,7 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-country">
-                    Pays <span className="pmrPreBookingField__required">*</span>
+                    Country <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <select
                     id="pmr-country"
@@ -270,7 +270,7 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-city">
-                    Ville <span className="pmrPreBookingField__required">*</span>
+                    City <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <input
                     id="pmr-city"
@@ -284,7 +284,7 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-postal">
-                    Code postal <span className="pmrPreBookingField__required">*</span>
+                    Postal code <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <input
                     id="pmr-postal"
@@ -298,7 +298,7 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-address">
-                    Adresse <span className="pmrPreBookingField__required">*</span>
+                    Address <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <input
                     id="pmr-address"
@@ -312,7 +312,7 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-situation">
-                    Quelle est votre situation ?{' '}
+                    What is your situation?{' '}
                     <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <select
@@ -332,7 +332,7 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-mobility">
-                    Pour vos déplacements, vous utilisez principalement...{' '}
+                    For getting around, you mainly use...{' '}
                     <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <select
@@ -352,7 +352,7 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-dog">
-                    Êtes-vous accompagné d&apos;un chien d&apos;assistance ?{' '}
+                    Are you travelling with an assistance dog?{' '}
                     <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <select
@@ -372,8 +372,8 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-needs">
-                    Souhaitez-vous préciser votre situation, votre pathologie ou des besoins
-                    spécifiques (espace pour fauteuil, accompagnant...) ?
+                    Would you like to add details about your situation, condition, or specific
+                    needs (wheelchair space, companion, etc.)?
                   </label>
                   <textarea
                     id="pmr-needs"
@@ -386,7 +386,7 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor="pmr-association">
-                    Viendrez-vous avec une association ou un centre spécialisé ?{' '}
+                    Will you be coming with an association or specialized center?{' '}
                     <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <select
@@ -406,8 +406,8 @@ export function PmrPreBookingPage() {
 
                 <div className="pmrPreBookingField">
                   <label className="pmrPreBookingField__label" htmlFor={fileInputId}>
-                    Merci de déposer ici votre justificatif (carte d&apos;invalidité, certificat
-                    médical...) <span className="pmrPreBookingField__required">*</span>
+                    Please upload your supporting document (disability card, medical
+                    certificate, etc.) <span className="pmrPreBookingField__required">*</span>
                   </label>
                   <input
                     ref={fileInputRef}
@@ -422,7 +422,7 @@ export function PmrPreBookingPage() {
                     className={`pmrPreBookingField__dropzone${fileName ? ' pmrPreBookingField__dropzone--filled' : ''}`}
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    {fileName ? fileName : 'Choisissez votre fichier'}
+                    {fileName ? fileName : 'Choose your file'}
                   </button>
                 </div>
               </div>

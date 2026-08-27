@@ -79,7 +79,7 @@ export function OverviewSection() {
             Description
           </h2>
           <p className="bodyText">
-            Browse Acceso, Bundles, Camping, Glamping & Hotel, Autobús & Estacionamiento, and Extra in
+            Browse Entry pass, Bundles, Camping, Glamping & Hotel, Bus & Parking, and Extra in
             the tabs above. Tickets are personalized before the event. Payment issues:{' '}
             <a href="mailto:boletaje@volveraflotar.com" className="link">
               boletaje@volveraflotar.com

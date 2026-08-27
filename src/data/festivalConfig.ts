@@ -9,7 +9,7 @@ export const PLAN_CATEGORIES: PlanCategory[] = [
   { id: 'bundles', title: 'Bundles' },
   { id: 'camping', title: 'Camping' },
   { id: 'glamping', title: 'Glamping & Hotel' },
-  { id: 'transport', title: 'Autobús & Estacionamiento' },
+  { id: 'transport', title: 'Bus & Parking' },
   { id: 'extra', title: 'Extra' },
 ];
 
@@ -32,19 +32,19 @@ export const GALLERY_IMAGES = [
   },
   {
     src: HERO_GRID_IMAGES[0],
-    alt: 'Río y manantial en Las Estacas',
+    alt: 'River and spring at Las Estacas',
   },
   {
     src: HERO_GRID_IMAGES[1],
-    alt: 'Escenario al aire libre entre la selva',
+    alt: 'Outdoor stage in the jungle',
   },
   {
     src: HERO_GRID_IMAGES[2],
-    alt: 'Público en Bahidorá al atardecer',
+    alt: 'Crowd at Bahidorá at sunset',
   },
   {
     src: HERO_GRID_IMAGES[3],
-    alt: 'Campamento junto al río',
+    alt: 'Campsite by the river',
   },
 ];
 

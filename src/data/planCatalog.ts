@@ -18,7 +18,7 @@ export type PlanEntity = {
   variantAxes?: VariantAxis[];
   /**
    * Absolute unit price when a chip/option value is selected.
-   * Keys match option labels (e.g. "Viernes 13").
+   * Keys match option labels (e.g. "Friday 13").
    */
   optionPrices?: Record<string, number>;
   date?: string;
@@ -48,8 +48,8 @@ export type PlanCategory = {
 
 export const FESTIVAL_DAY_AXIS: VariantAxis = {
   id: 'day',
-  label: 'Día',
-  options: ['Viernes 13', 'Sábado 14', 'Domingo 15'],
+  label: 'Day',
+  options: ['Friday 13', 'Saturday 14', 'Sunday 15'],
 };
 
 /** Entry pass tab. Add `'Wave 2'` (and optionPrices / disabledOptions) when the next wave opens. */
@@ -77,18 +77,18 @@ export const PLAN_CATALOG: PlanCategory[] = [
         entities: [
           {
             id: 'ticket-full-weekend',
-            name: '3 días',
+            name: '3 days',
             price: 3390,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
             listingTag: 'SELLING FAST',
             date: '13–15 Feb 2027',
-            description: 'Acceso individual viernes, sábado y domingo.',
+            description: 'Individual access Friday, Saturday and Sunday.',
             cardPreviewBullets: ['Friday, Saturday & Sunday', 'Carbon offset included'],
           },
           {
             id: 'ticket-full-weekend-oasis',
-            name: '3 días + Oasis Banamex',
+            name: '3 days + Oasis Banamex',
             price: 6890,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
@@ -105,17 +105,17 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'ticket-half-weekend',
-            name: '2 días',
+            name: '2 days',
             price: 2690,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
             date: '14–15 Feb 2027',
-            description: 'Acceso individual sábado y domingo.',
+            description: 'Individual access Saturday and Sunday.',
             cardPreviewBullets: ['Saturday & Sunday'],
           },
           {
             id: 'ticket-half-weekend-oasis',
-            name: '2 días + Oasis Banamex',
+            name: '2 days + Oasis Banamex',
             price: 6190,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
@@ -138,31 +138,31 @@ export const PLAN_CATALOG: PlanCategory[] = [
         entities: [
           {
             id: 'ticket-friday',
-            name: 'Day Pass Viernes',
+            name: 'Friday Day Pass',
             price: 1099,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
             date: 'Fri 13 Feb',
-            description: 'Acceso individual 1 día — viernes 13 de febrero.',
+            description: 'One-day individual access — Friday 13 February.',
           },
           {
             id: 'ticket-saturday',
-            name: 'Day Pass Sábado',
+            name: 'Saturday Day Pass',
             price: 2290,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
             listingTag: 'SELLING FAST',
             date: 'Sat 14 Feb',
-            description: 'Acceso individual 1 día — sábado 14 de febrero.',
+            description: 'One-day individual access — Saturday 14 February.',
           },
           {
             id: 'ticket-sunday',
-            name: 'Day Pass Domingo',
+            name: 'Sunday Day Pass',
             price: 1490,
             type: 'configurable_single',
             variantAxes: [TICKET_WAVE_AXIS],
             date: 'Sun 15 Feb',
-            description: 'Acceso individual 1 día — domingo 15 de febrero.',
+            description: 'One-day individual access — Sunday 15 February.',
           },
         ],
       },
@@ -179,13 +179,13 @@ export const PLAN_CATALOG: PlanCategory[] = [
             listingTag: 'LIMITED',
             date: '13–15 Feb 2027',
             description:
-              'Add-on to Acceso General. Shaded backstage at Sonorama, El Cubo and La Estación, lounge and bar, comfort bathrooms, phone charging, cashless top-up, Las Estacas restaurant and priority entry. Does not include lodging.',
+              'Add-on to General Admission. Shaded backstage at Sonorama, El Cubo and La Estación, lounge and bar, comfort bathrooms, phone charging, cashless top-up, Las Estacas restaurant and priority entry. Does not include lodging.',
             includedItems: [
               'Oasis Banamex backstage & lounge',
               'Comfort bathrooms & charging',
               'Priority entry + restaurant',
             ],
-            cardPreviewBullets: ['Requires Acceso General', 'Backstage + priority entry'],
+            cardPreviewBullets: ['Requires General Admission', 'Backstage + priority entry'],
             requires: ['ticket-full-weekend', 'ticket-half-weekend', 'ticket-friday', 'ticket-saturday', 'ticket-sunday'],
           },
         ],
@@ -207,8 +207,8 @@ export const PLAN_CATALOG: PlanCategory[] = [
             type: 'configurable_single',
             listingTag: 'LIMITED',
             description: 'Five Full Weekend tickets for the price of four. Total for the group.',
-            cardPreviewBullets: ['5× Full Weekend 3 días', 'Pay 4, get 1 free'],
-            includedItems: ['5× Full Weekend Acceso General'],
+            cardPreviewBullets: ['5× Full Weekend 3 days', 'Pay 4, get 1 free'],
+            includedItems: ['5× Full Weekend General Admission'],
           },
           {
             id: 'bundle-full-oasis-5x4',
@@ -226,8 +226,8 @@ export const PLAN_CATALOG: PlanCategory[] = [
             price: 10760,
             type: 'configurable_single',
             description: 'Five Half Weekend tickets for the price of four. Total for the group.',
-            cardPreviewBullets: ['5× Half Weekend 2 días', 'Pay 4, get 1 free'],
-            includedItems: ['5× Half Weekend Acceso General'],
+            cardPreviewBullets: ['5× Half Weekend 2 days', 'Pay 4, get 1 free'],
+            includedItems: ['5× Half Weekend General Admission'],
           },
           {
             id: 'bundle-half-oasis-5x4',
@@ -247,14 +247,14 @@ export const PLAN_CATALOG: PlanCategory[] = [
         entities: [
           {
             id: 'bundle-saturday-bus',
-            name: 'Day Pass Sábado + Autobús',
+            name: 'Saturday Day Pass + Bus',
             price: 2890,
             type: 'configurable_single',
             listingTag: 'SELLING FAST',
             date: 'Sat 14 Feb',
             description: 'Saturday festival access plus round-trip CDMX bus, per person.',
-            cardPreviewBullets: ['Day Pass Sábado', 'Autobús redondo CDMX'],
-            includedItems: ['Day Pass Sábado', 'Autobús redondo CDMX sábado'],
+            cardPreviewBullets: ['Saturday Day Pass', 'Round-trip Mexico City bus'],
+            includedItems: ['Saturday Day Pass', 'Round-trip Mexico City bus — Saturday'],
           },
         ],
       },
@@ -275,7 +275,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             type: 'configurable_single',
             listingTag: 'SELLING FAST',
             description:
-              'Camping inside Las Estacas with upgraded showers, premium bathrooms and a fire pit. Tent and Acceso General not included.',
+              'Camping inside Las Estacas with upgraded showers, premium bathrooms and a fire pit. Tent and General Admission not included.',
             cardPreviewBullets: ['Inside Las Estacas', 'Price per person'],
             includedItems: ['Camping zone inside Las Estacas', 'Upgraded showers & premium bathrooms', 'Fire pit'],
           },
@@ -286,7 +286,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             type: 'configurable_single',
             listingTag: 'LIMITED',
             description:
-              'Premium camping in the heart of Las Estacas with fixed showers, bathrooms, changing rooms and an exclusive pool. Tent and Acceso General not included.',
+              'Premium camping in the heart of Las Estacas with fixed showers, bathrooms, changing rooms and an exclusive pool. Tent and General Admission not included.',
             cardPreviewBullets: ['Exclusive pool', 'Price per person'],
             includedItems: ['Premium camping inside Las Estacas', 'Fixed showers, bathrooms & lockers', 'Exclusive pool'],
           },
@@ -296,7 +296,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             price: 1490,
             type: 'configurable_single',
             description:
-              'Premium camping just outside Las Estacas with fixed facilities, exclusive pools and a spring. Tent and Acceso General not included.',
+              'Premium camping just outside Las Estacas with fixed facilities, exclusive pools and a spring. Tent and General Admission not included.',
             cardPreviewBullets: ['Pools & spring', 'Price per person'],
             includedItems: ['Premium camping outside Las Estacas', 'Fixed showers & bathrooms', 'Pools and spring'],
           },
@@ -307,7 +307,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
             type: 'configurable_single',
             listingTag: 'LIMITED',
             description:
-              'Reserved group camping for your crew. Total price for the team plot — Acceso General and tents not included.',
+              'Reserved group camping for your crew. Total price for the team plot — General Admission and tents not included.',
             cardPreviewBullets: ['Reserved group plot', 'Total for the team'],
             includedItems: ['Reserved Team Camp area', 'Shared camping facilities'],
           },
@@ -325,23 +325,23 @@ export const PLAN_CATALOG: PlanCategory[] = [
         entities: [
           {
             id: 'glamp-amatista-doble',
-            name: 'Glamp Amatista Doble',
+            name: 'Amatista Glamp — Double',
             price: 18900,
             type: 'configurable_single',
             listingTag: 'LIMITED',
             description:
-              'Glamping for 2 inside Las Estacas: double bed with linens, furniture, lamp and lock, premium showers and bathrooms, exclusive pool shared with Camp Zafiro. Acceso General not included.',
+              'Glamping for 2 inside Las Estacas: double bed with linens, furniture, lamp and lock, premium showers and bathrooms, exclusive pool shared with Camp Zafiro. General Admission not included.',
             cardPreviewBullets: ['Sleeps 2', 'Pool with Camp Zafiro'],
             includedItems: ['Glamping tent for 2', 'Double bed & linens', 'Exclusive pool access'],
           },
           {
             id: 'glamp-amatista-cuadruple',
-            name: 'Glamp Amatista Cuádruple',
+            name: 'Amatista Glamp — Quadruple',
             price: 29900,
             type: 'configurable_single',
             listingTag: 'LIMITED',
             description:
-              'Glamping for 4 inside Las Estacas: four single beds with linens, furniture, lamp and lock, premium showers and bathrooms, exclusive pool shared with Camp Zafiro. Acceso General not included.',
+              'Glamping for 4 inside Las Estacas: four single beds with linens, furniture, lamp and lock, premium showers and bathrooms, exclusive pool shared with Camp Zafiro. General Admission not included.',
             cardPreviewBullets: ['Sleeps 4', 'Pool with Camp Zafiro'],
             includedItems: ['Glamping tent for 4', 'Four single beds & linens', 'Exclusive pool access'],
           },
@@ -353,23 +353,23 @@ export const PLAN_CATALOG: PlanCategory[] = [
         entities: [
           {
             id: 'hotel-nehira-suite-doble',
-            name: 'Nehirá Suite Doble',
+            name: 'Nehirá Double Suite',
             price: 24900,
             type: 'configurable_single',
             listingTag: 'LIMITED',
             description:
-              'Glamping suite for 2 at Hotel Nehirá inside Las Estacas: king bed, safe, furniture, lamp and fan, private bathroom and shower, exclusive pool shared with Camp Zafiro. Acceso General not included.',
+              'Glamping suite for 2 at Hotel Nehirá inside Las Estacas: king bed, safe, furniture, lamp and fan, private bathroom and shower, exclusive pool shared with Camp Zafiro. General Admission not included.',
             cardPreviewBullets: ['Sleeps 2', 'Private bathroom'],
             includedItems: ['Nehirá suite for 2', 'King bed & private bathroom', 'Exclusive pool access'],
           },
           {
             id: 'hotel-nehira-master-doble',
-            name: 'Nehirá Master Suite Doble',
+            name: 'Nehirá Master Double Suite',
             price: 29900,
             type: 'configurable_single',
             listingTag: 'LIMITED',
             description:
-              'Master suite for 2 at Hotel Nehirá: king bed, safe, furniture, garden, private bathroom with shower and tub, exclusive pool shared with Camp Zafiro. Acceso General not included.',
+              'Master suite for 2 at Hotel Nehirá: king bed, safe, furniture, garden, private bathroom with shower and tub, exclusive pool shared with Camp Zafiro. General Admission not included.',
             cardPreviewBullets: ['Sleeps 2', 'Garden, tub & private bath'],
             includedItems: ['Master suite for 2', 'Garden + tub', 'Exclusive pool access'],
           },
@@ -381,41 +381,41 @@ export const PLAN_CATALOG: PlanCategory[] = [
         entities: [
           {
             id: 'hotel-doble-3n',
-            name: 'Habitación Doble 3 noches',
+            name: 'Double room — 3 nights',
             price: 12990,
             type: 'configurable_single',
             description:
-              'Double room (one double bed) at Hotel Hacienda Cocoyoc for 3 nights. Includes round-trip shuttle to the festival every 30 minutes. Buy one ticket per room. Acceso General not included.',
+              'Double room (one double bed) at Hotel Hacienda Cocoyoc for 3 nights. Includes round-trip shuttle to the festival every 30 minutes. Buy one ticket per room. General Admission not included.',
             cardPreviewBullets: ['Sleeps 2 · 3 nights', 'Shuttle every 30 min'],
             includedItems: ['Double room 3 nights', 'Festival shuttle round-trip'],
           },
           {
             id: 'hotel-doble-2n',
-            name: 'Habitación Doble 2 noches',
+            name: 'Double room — 2 nights',
             price: 9990,
             type: 'configurable_single',
             description:
-              'Double room (one double bed) at Hotel Hacienda Cocoyoc for 2 nights. Includes round-trip shuttle to the festival every 30 minutes. Buy one ticket per room. Acceso General not included.',
+              'Double room (one double bed) at Hotel Hacienda Cocoyoc for 2 nights. Includes round-trip shuttle to the festival every 30 minutes. Buy one ticket per room. General Admission not included.',
             cardPreviewBullets: ['Sleeps 2 · 2 nights', 'Shuttle every 30 min'],
             includedItems: ['Double room 2 nights', 'Festival shuttle round-trip'],
           },
           {
             id: 'hotel-cuadruple-3n',
-            name: 'Habitación Cuádruple 3 noches',
+            name: 'Quadruple room — 3 nights',
             price: 16990,
             type: 'configurable_single',
             description:
-              'Quadruple room at Hotel Hacienda Cocoyoc for 3 nights. Includes round-trip shuttle to the festival every 30 minutes. Buy one ticket per room. Acceso General not included.',
+              'Quadruple room at Hotel Hacienda Cocoyoc for 3 nights. Includes round-trip shuttle to the festival every 30 minutes. Buy one ticket per room. General Admission not included.',
             cardPreviewBullets: ['Sleeps 4 · 3 nights', 'Shuttle every 30 min'],
             includedItems: ['Quadruple room 3 nights', 'Festival shuttle round-trip'],
           },
           {
             id: 'hotel-cuadruple-2n',
-            name: 'Habitación Cuádruple 2 noches',
+            name: 'Quadruple room — 2 nights',
             price: 13990,
             type: 'configurable_single',
             description:
-              'Quadruple room at Hotel Hacienda Cocoyoc for 2 nights. Includes round-trip shuttle to the festival every 30 minutes. Buy one ticket per room. Acceso General not included.',
+              'Quadruple room at Hotel Hacienda Cocoyoc for 2 nights. Includes round-trip shuttle to the festival every 30 minutes. Buy one ticket per room. General Admission not included.',
             cardPreviewBullets: ['Sleeps 4 · 2 nights', 'Shuttle every 30 min'],
             includedItems: ['Quadruple room 2 nights', 'Festival shuttle round-trip'],
           },
@@ -425,39 +425,39 @@ export const PLAN_CATALOG: PlanCategory[] = [
   },
   {
     id: 'transport',
-    title: 'Autobús & Estacionamiento',
+    title: 'Bus & Parking',
     groups: [
       {
         id: 'transport-bus',
-        title: 'Autobús',
+        title: 'Bus',
         entities: [
           {
             id: 'bus-cdmx-viernes',
-            name: 'Autobús redondo CDMX viernes',
+            name: 'Round-trip Mexico City bus — Friday',
             price: 990,
             type: 'configurable_single',
             date: 'Fri 13 Feb',
             description: 'Round-trip bus from Mexico City on Friday. Price per person. Festival ticket not included.',
-            cardPreviewBullets: ['Round-trip from CDMX', 'Price per person'],
+            cardPreviewBullets: ['Round-trip from Mexico City', 'Price per person'],
           },
           {
             id: 'bus-cdmx-sabado',
-            name: 'Autobús redondo CDMX sábado',
+            name: 'Round-trip Mexico City bus — Saturday',
             price: 990,
             type: 'configurable_single',
             date: 'Sat 14 Feb',
             description: 'Round-trip bus from Mexico City on Saturday. Price per person. Festival ticket not included.',
-            cardPreviewBullets: ['Round-trip from CDMX', 'Price per person'],
+            cardPreviewBullets: ['Round-trip from Mexico City', 'Price per person'],
           },
         ],
       },
       {
         id: 'transport-parking',
-        title: 'Estacionamiento',
+        title: 'Parking',
         entities: [
           {
             id: 'park-auto-weekend',
-            name: 'Auto general camping fin de semana',
+            name: 'Weekend camping car parking',
             price: 700,
             type: 'configurable_single',
             date: '13–15 Feb 2027',
@@ -465,7 +465,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'park-auto-day',
-            name: 'Auto general por día',
+            name: 'Daily general car parking',
             price: 500,
             type: 'configurable_single',
             variantAxes: [FESTIVAL_DAY_AXIS],
@@ -473,7 +473,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'park-auto-preferencial-day',
-            name: 'Auto preferencial por día',
+            name: 'Daily preferred car parking',
             price: 600,
             type: 'configurable_single',
             variantAxes: [FESTIVAL_DAY_AXIS],
@@ -482,7 +482,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'park-moto-day',
-            name: 'Moto general por día',
+            name: 'Daily general motorcycle parking',
             price: 200,
             type: 'configurable_single',
             variantAxes: [FESTIVAL_DAY_AXIS],
@@ -490,7 +490,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'park-bus-van-day',
-            name: 'Autobús o van por día',
+            name: 'Daily bus or van parking',
             price: 700,
             type: 'configurable_single',
             variantAxes: [FESTIVAL_DAY_AXIS],
@@ -506,7 +506,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
     groups: [
       {
         id: 'extra-wellness',
-        title: 'Experiencias',
+        title: 'Experiences',
         entities: [
           {
             id: 'extra-flow-sound-bath',
@@ -527,7 +527,7 @@ export const PLAN_CATALOG: PlanCategory[] = [
           },
           {
             id: 'extra-masaje',
-            name: 'Masaje relajante',
+            name: 'Relaxing massage',
             price: 990,
             type: 'configurable_single',
             description: 'Relaxing massage at the festival. Price per person. Festival access not included.',

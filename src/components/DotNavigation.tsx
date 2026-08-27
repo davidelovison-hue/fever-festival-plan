@@ -13,7 +13,7 @@ export function DotNavigation({
   current,
   onChange,
   showSwipeHint = true,
-  swipeHintText = 'Desliza para ver más',
+  swipeHintText = 'Swipe to see more',
 }: DotNavigationProps) {
   return (
     <div className="flex flex-col items-center" style={{ gap: '0.5rem' }}>
