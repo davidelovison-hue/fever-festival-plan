@@ -1,25 +1,24 @@
 import { useEffect, useRef } from 'react';
-import { PLAN_CATALOG } from '../data/planCatalog';
+import { PLAN_STEPS, type PlanStepId } from '../data/planCatalog';
 import './PlanTabs.css';
 
-const TABBED_CATEGORIES = PLAN_CATALOG.filter((category) => category.id !== 'overview');
-const CORE_TAB_IDS = new Set(['acceso', 'bundles']);
+const CORE_TAB_IDS = new Set<PlanStepId>(['pass']);
 
 type PlanTabsProps = {
-  activeTab: string;
-  onTabChange: (tabId: string) => void;
+  activeTab: PlanStepId;
+  onTabChange: (tabId: PlanStepId) => void;
 };
 
 function TabButton({
-  categoryId,
+  tabId,
   title,
   isActive,
   onTabChange,
 }: {
-  categoryId: string;
+  tabId: PlanStepId;
   title: string;
   isActive: boolean;
-  onTabChange: (tabId: string) => void;
+  onTabChange: (tabId: PlanStepId) => void;
 }) {
   return (
     <li className="tabsItem" role="none">
@@ -27,9 +26,9 @@ function TabButton({
         type="button"
         role="tab"
         aria-selected={isActive}
-        id={`plan-tab-${categoryId}`}
+        id={`plan-tab-${tabId}`}
         className={`tabsLink ${isActive ? 'tabsLinkActive' : ''}`}
-        onClick={() => onTabChange(categoryId)}
+        onClick={() => onTabChange(tabId)}
       >
         {title}
       </button>
@@ -40,8 +39,8 @@ function TabButton({
 export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
   const tabsScrollRef = useRef<HTMLDivElement>(null);
   const tabsBarInnerRef = useRef<HTMLDivElement>(null);
-  const coreTabs = TABBED_CATEGORIES.filter((category) => CORE_TAB_IDS.has(category.id));
-  const addonTabs = TABBED_CATEGORIES.filter((category) => !CORE_TAB_IDS.has(category.id));
+  const coreTabs = PLAN_STEPS.filter((step) => CORE_TAB_IDS.has(step.id));
+  const addonTabs = PLAN_STEPS.filter((step) => !CORE_TAB_IDS.has(step.id));
 
   useEffect(() => {
     const el = tabsScrollRef.current;
@@ -101,24 +100,24 @@ export function PlanTabs({ activeTab, onTabChange }: PlanTabsProps) {
         <div className="tabsBarInner" ref={tabsBarInnerRef}>
           <div className="tabsScroll" ref={tabsScrollRef}>
             <ul className="tabsList" role="tablist">
-              {coreTabs.map((category) => (
+              {coreTabs.map((step) => (
                 <TabButton
-                  key={category.id}
-                  categoryId={category.id}
-                  title={category.title}
-                  isActive={activeTab === category.id}
+                  key={step.id}
+                  tabId={step.id}
+                  title={step.title}
+                  isActive={activeTab === step.id}
                   onTabChange={onTabChange}
                 />
               ))}
               <li className="tabsGroupDivider" role="separator" aria-label="Add-ons">
                 |
               </li>
-              {addonTabs.map((category) => (
+              {addonTabs.map((step) => (
                 <TabButton
-                  key={category.id}
-                  categoryId={category.id}
-                  title={category.title}
-                  isActive={activeTab === category.id}
+                  key={step.id}
+                  tabId={step.id}
+                  title={step.title}
+                  isActive={activeTab === step.id}
                   onTabChange={onTabChange}
                 />
               ))}

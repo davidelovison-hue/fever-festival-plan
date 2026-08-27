@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef } from 'react';
-import { PLAN_ADDON_CATEGORIES } from '../data/planCatalog';
+import { PLAN_STEPS } from '../data/planCatalog';
 import './AddonCheckoutPrompt.css';
 
 type AddonCheckoutPromptProps = {
@@ -57,15 +57,15 @@ export function AddonCheckoutPrompt({
           Add camping, stays, or extras?
         </h2>
         <div className="addonCheckoutPrompt__options">
-          {PLAN_ADDON_CATEGORIES.map((category, index) => (
+          {PLAN_STEPS.filter((step) => step.id !== 'pass').map((step, index) => (
             <button
-              key={category.id}
+              key={step.id}
               ref={index === 0 ? firstOptionRef : undefined}
               type="button"
               className="addonCheckoutPrompt__option"
-              onClick={() => onSelectTab(category.id)}
+              onClick={() => onSelectTab(step.id)}
             >
-              {category.label}
+              {step.title}
             </button>
           ))}
         </div>

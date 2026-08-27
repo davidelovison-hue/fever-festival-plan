@@ -1,15 +1,11 @@
+import { PLAN_STEPS } from '../data/planCatalog';
 import './PlanCrossSellStrip.css';
 
 type PlanCrossSellStripProps = {
   onSelectTab: (tabId: string) => void;
 };
 
-const CROSS_SELL_LINKS = [
-  { id: 'camping', label: 'Camping' },
-  { id: 'glamping', label: 'Glamping & Hotel' },
-  { id: 'transport', label: 'Bus & Parking' },
-  { id: 'extra', label: 'Extras' },
-] as const;
+const CROSS_SELL_LINKS = PLAN_STEPS.filter((step) => step.id !== 'pass');
 
 export function PlanCrossSellStrip({ onSelectTab }: PlanCrossSellStripProps) {
   return (
@@ -28,7 +24,7 @@ export function PlanCrossSellStrip({ onSelectTab }: PlanCrossSellStripProps) {
               className="planCrossSellChip"
               onClick={() => onSelectTab(item.id)}
             >
-              {item.label}
+              {item.title}
             </button>
           </li>
         ))}
