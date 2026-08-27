@@ -633,7 +633,7 @@ export type PlanStep = {
 };
 
 export const PLAN_STEPS: PlanStep[] = [
-  { id: 'pass', title: 'Pass', categoryIds: ['acceso', 'bundles'] },
+  { id: 'pass', title: 'Entry pass', categoryIds: ['acceso', 'bundles'] },
   { id: 'accommodation', title: 'Accommodation', categoryIds: ['camping', 'glamping'] },
   { id: 'bus', title: 'Bus', categoryIds: ['transport'] },
   { id: 'extra', title: 'Extra', categoryIds: ['extra'] },
