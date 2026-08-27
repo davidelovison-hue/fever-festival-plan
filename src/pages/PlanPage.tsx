@@ -376,6 +376,7 @@ export function PlanPage() {
             mode="mobile"
             continueInsteadOfCheckout={!isLastStep}
             onContinue={handleCartContinue}
+            onBack={stepIndex > 0 ? goToPrevStep : undefined}
           />
         ) : null}
         {!isMobile ? (
@@ -383,6 +384,7 @@ export function PlanPage() {
             mode="desktop"
             continueInsteadOfCheckout={!isLastStep}
             onContinue={handleCartContinue}
+            onBack={stepIndex > 0 ? goToPrevStep : undefined}
           />
         ) : null}
       </div>

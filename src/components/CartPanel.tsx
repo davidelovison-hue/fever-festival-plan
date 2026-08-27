@@ -27,6 +27,14 @@ function TrashIcon() {
   );
 }
 
+function BackArrowIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function formatSummaryPrice(price: number) {
   return formatPrice(price);
 }
@@ -44,9 +52,15 @@ type CartPanelProps = {
   mode: 'desktop' | 'mobile';
   continueInsteadOfCheckout?: boolean;
   onContinue?: () => boolean | void;
+  onBack?: () => void;
 };
 
-export function CartPanel({ mode, continueInsteadOfCheckout = false, onContinue }: CartPanelProps) {
+export function CartPanel({
+  mode,
+  continueInsteadOfCheckout = false,
+  onContinue,
+  onBack,
+}: CartPanelProps) {
   const navigate = useNavigate();
   const cartTitleId = useId();
   const { items, setQuantity, removeItem, totalItems, totalPrice } = useCart();
@@ -283,6 +297,17 @@ export function CartPanel({ mode, continueInsteadOfCheckout = false, onContinue 
     </button>
   );
 
+  const checkoutRow = (
+    <div className={onBack ? 'cartCheckout cartCheckout--withBack' : 'cartCheckout'}>
+      {onBack ? (
+        <button type="button" className="cartBackBtn" aria-label="Back" onClick={onBack}>
+          <BackArrowIcon />
+        </button>
+      ) : null}
+      {checkoutButton}
+    </div>
+  );
+
   if (mode === 'desktop') {
     return (
       <aside className="planCartColumn" aria-label="Shopping cart">
@@ -306,7 +331,7 @@ export function CartPanel({ mode, continueInsteadOfCheckout = false, onContinue 
             <div className="cartFooter" aria-label="Cart summary and checkout">
               {showScrollHint ? <div className="cartScrollHint">Scroll to see more tickets</div> : null}
               {cartSummary}
-              <div className="cartCheckout">{checkoutButton}</div>
+              {checkoutRow}
             </div>
           </div>
         </div>
@@ -319,7 +344,7 @@ export function CartPanel({ mode, continueInsteadOfCheckout = false, onContinue 
     <>
       {!isMobileDrawerOpen ? (
         <div
-          className={`cartMobileBar${hideMobileBarForHero ? ' cartMobileBar--heroImmersive' : ''}`}
+          className={`cartMobileBar${hideMobileBarForHero ? ' cartMobileBar--heroImmersive' : ''}${onBack ? ' cartMobileBar--withBack' : ''}`}
           role="region"
           aria-label="Cart actions"
           aria-hidden={hideMobileBarForHero}
@@ -340,6 +365,11 @@ export function CartPanel({ mode, continueInsteadOfCheckout = false, onContinue 
             </span>
             <span className="cartMobileTriggerPrice">{formatPrice(totalPrice)}</span>
           </button>
+          {onBack ? (
+            <button type="button" className="cartMobileBackBtn" aria-label="Back" onClick={onBack}>
+              <BackArrowIcon />
+            </button>
+          ) : null}
           <button type="button" className="cartMobileCheckoutPill" onClick={handleCheckoutClick}>
             {continueInsteadOfCheckout ? 'Continue' : 'Go to checkout'}
           </button>
@@ -380,7 +410,7 @@ export function CartPanel({ mode, continueInsteadOfCheckout = false, onContinue 
               <div className="cartFooter">
                 {showScrollHint ? <div className="cartScrollHint">Scroll to see more tickets</div> : null}
                 {cartSummary}
-                <div className="cartCheckout">{checkoutButton}</div>
+                {checkoutRow}
               </div>
             </div>
           </div>
