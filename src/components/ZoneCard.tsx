@@ -144,7 +144,7 @@ export function ZoneCard({
               marginBottom: 0,
             }}
           >
-            desde {zone.price} MXN
+            from {zone.price} MXN
           </p>
           <p
             style={{
@@ -155,7 +155,7 @@ export function ZoneCard({
               margin: 0,
             }}
           >
-            Para {zone.capacity} personas
+            For {zone.capacity} people
           </p>
         </div>
 
