@@ -96,7 +96,10 @@
   color: #fff;
 }
 
-.planStepperBtnActive {
+.planStepperBtnActive,
+.planStepperBtnActive:hover,
+.planStepperBtnActive:focus,
+.planStepperBtnActive:focus-visible {
   background: #111;
   color: #fff;
 }
@@ -108,6 +111,7 @@
 }
 
 .planStepperBtnActive .planStepperLabel {
+  color: #fff;
   font-weight: 700;
 }
 
