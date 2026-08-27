@@ -13,7 +13,7 @@ export const PLAN_CATEGORIES: PlanCategory[] = [
   { id: 'extra', title: 'Extra' },
 ];
 
-/** Default plan tab (Pass). */
+/** Default plan tab (Entry pass). */
 export const DEFAULT_PLAN_TAB = 'pass';
 
 const BASE = import.meta.env.BASE_URL;
