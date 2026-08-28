@@ -18,6 +18,7 @@ import { FESTIVAL_ARTISTS } from '../data/festivalArtists';
 import {
   PLAN_STEPS,
   getCategoriesForStep,
+  getPlanStep,
   getPlanStepIndex,
   getStepIdFromHash,
   type PlanStepId,
@@ -341,6 +342,12 @@ export function PlanPage({ guided = false }: { guided?: boolean }) {
               hideDay
             />
           </div>
+          {guided ? (
+            <p className="planIntroHandoff">
+              Ready to book? Start with an entry pass, then add stays, bus, and extras one step at a
+              time.
+            </p>
+          ) : null}
         </div>
 
         <div className="planTabsScrollAnchor" aria-hidden="true" />
@@ -360,7 +367,11 @@ export function PlanPage({ guided = false }: { guided?: boolean }) {
                   key={category.id}
                   category={category}
                   isActive
-                  showTitle={showCategoryTitles}
+                  showTitle={
+                    guided
+                      ? showCategoryTitles && category.title !== getPlanStep(activeStep)?.title
+                      : showCategoryTitles
+                  }
                   footer={
                     !guided && category.id === 'acceso' ? (
                       <PlanCrossSellStrip onSelectTab={(id) => goToStep(getStepIdFromHash(id), true)} />
@@ -379,7 +390,9 @@ export function PlanPage({ guided = false }: { guided?: boolean }) {
                 )}
                 {!isLastStep ? (
                   <button type="button" className="planStepContinue" onClick={goToNextStep}>
-                    Continue
+                    {guided && PLAN_STEPS[stepIndex + 1]
+                      ? `Continue to ${PLAN_STEPS[stepIndex + 1].title}`
+                      : 'Continue'}
                   </button>
                 ) : null}
               </div>
