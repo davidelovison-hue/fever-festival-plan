@@ -94,6 +94,7 @@
   padding: 1rem 1rem 1.1rem;
   background: #fff;
   border-bottom: 1px solid #e8ecef;
+  scroll-margin-top: var(--festival-nav-height);
 }
 
 .planArtistsSlot {
