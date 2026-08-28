@@ -1,8 +1,9 @@
 name: Deploy GitHub Pages
 
-# Two live URLs from this one repo (GitHub Pages is one site per repo):
-#   Original tabs:  https://davidelovison-hue.github.io/fever-festival-plan/
-#   Stepper preview: https://davidelovison-hue.github.io/fever-festival-plan/stepper/
+# Three live URLs from this one repo (GitHub Pages is one site per repo):
+#   Original tabs:     https://davidelovison-hue.github.io/fever-festival-plan/
+#   Stepper preview:   https://davidelovison-hue.github.io/fever-festival-plan/stepper/
+#   Forced stepper:    https://davidelovison-hue.github.io/fever-festival-plan/ForcedStepper/
 on:
   push:
     branches: [main, cursor/bahidora-festival-data-aab5, cursor/dual-pages-aab5]
@@ -33,6 +34,12 @@ jobs:
           ref: cursor/plan-stepper-aab5
           path: stepper
 
+      - name: Checkout ForcedStepper preview
+        uses: actions/checkout@v4
+        with:
+          ref: cursor/forced-stepper-aab5
+          path: forced
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -52,12 +59,21 @@ jobs:
           npx tsc
           npx vite build --base /fever-festival-plan/stepper/
 
+      - name: Build ForcedStepper preview
+        working-directory: forced
+        run: |
+          npm ci
+          npx tsc
+          VITE_GUIDED_PLAN=true npx vite build --base /fever-festival-plan/ForcedStepper/
+
       - name: Combine sites
         run: |
           set -euo pipefail
           cp -R stepper/dist original/dist/stepper
+          cp -R forced/dist original/dist/ForcedStepper
           touch original/dist/.nojekyll
           cp original/dist/stepper/index.html original/dist/stepper/404.html
+          cp original/dist/ForcedStepper/index.html original/dist/ForcedStepper/404.html
           cat > original/dist/404.html << 'EOF'
           <!DOCTYPE html>
           <html lang="en">
@@ -67,12 +83,21 @@ jobs:
             <title>Bahidorá 2027</title>
             <script>
               (function () {
+                var forcedPrefix = '/fever-festival-plan/ForcedStepper';
                 var stepperPrefix = '/fever-festival-plan/stepper';
                 var path = location.pathname || '';
+                var isForced = path === forcedPrefix || path.indexOf(forcedPrefix + '/') === 0;
                 var isStepper = path === stepperPrefix || path.indexOf(stepperPrefix + '/') === 0;
-                var indexUrl = isStepper
-                  ? '/fever-festival-plan/stepper/index.html'
-                  : '/fever-festival-plan/index.html';
+                var indexUrl = isForced
+                  ? forcedPrefix + '/index.html'
+                  : isStepper
+                    ? stepperPrefix + '/index.html'
+                    : '/fever-festival-plan/index.html';
+                var fallback = isForced
+                  ? forcedPrefix + '/'
+                  : isStepper
+                    ? stepperPrefix + '/'
+                    : '/fever-festival-plan/';
                 fetch(indexUrl, { cache: 'no-store' })
                   .then(function (r) { return r.text(); })
                   .then(function (html) {
@@ -81,7 +106,7 @@ jobs:
                     document.close();
                   })
                   .catch(function () {
-                    location.replace(isStepper ? stepperPrefix + '/' : '/fever-festival-plan/');
+                    location.replace(fallback);
                   });
               })();
             </script>
