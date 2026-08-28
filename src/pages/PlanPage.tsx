@@ -12,6 +12,7 @@ import { PlanStepper } from '../components/PlanStepper';
 import { useCart } from '../lib/cartContext';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
+import { usePlanStickyChrome } from '../lib/usePlanStickyChrome';
 import { FESTIVAL_ARTISTS } from '../data/festivalArtists';
 import {
   PLAN_STEPS,
@@ -202,6 +203,7 @@ export function PlanPage() {
   const location = useLocation();
   const { items } = useCart();
   const isMobile = useIsMobile();
+  usePlanStickyChrome();
   const [activeStep, setActiveStep] = useState<PlanStepId>(getStepFromHash);
   const [isOverviewOpen, setIsOverviewOpen] = useState(shouldOpenOverviewFromHash);
   const hasInitialTabScrollRef = useRef(false);
