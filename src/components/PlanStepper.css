@@ -1,165 +1,163 @@
 .planStepperBar {
   margin: 0;
   padding: 0;
-  background: #fff;
+  background: #f2f3f3;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
 }
 
-.planStepperHeader {
+.planStepperBar .tabsNav {
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.planStepperList {
   display: flex;
   align-items: center;
-  gap: 0.95rem;
-  max-width: 1280px;
+  justify-content: flex-start;
+  gap: 0;
+  list-style: none;
   margin: 0 auto;
   padding: 0.85rem 1rem;
+  max-width: 1280px;
   box-sizing: border-box;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.planStepperList::-webkit-scrollbar {
+  display: none;
+}
+
+.planStepperItem {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
   min-width: 0;
 }
 
-.planStepperRing {
-  position: relative;
-  flex: 0 0 auto;
-  width: 4.75rem;
-  height: 4.75rem;
+.planStepperConnector {
+  width: 1.25rem;
+  height: 1px;
+  margin: 0 0.35rem;
+  background: #c5cbce;
+  flex-shrink: 0;
 }
 
-.planStepperRingSvg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.planStepperRingTrack {
-  stroke: #e6e8ea;
-}
-
-.planStepperRingProgress {
-  stroke: #22c55e;
-  stroke-linecap: round;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-  transition: stroke-dashoffset 0.35s ease;
-}
-
-.planStepperCount {
-  position: absolute;
-  inset: 0;
-  display: flex;
+.planStepperBtn {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.45rem 0.7rem 0.45rem 0.45rem;
+  border: none;
+  border-radius: 9999px;
+  background: transparent;
+  color: #536b75;
+  font: inherit;
   font-family: 'Montserrat', system-ui, sans-serif;
   font-size: 0.8125rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: #111;
-  pointer-events: none;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
   white-space: nowrap;
 }
 
-.planStepperCopy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.2rem;
-  min-width: 0;
-}
-
-.planStepperTitle {
-  margin: 0;
-  font-family: 'Montserrat', system-ui, sans-serif;
-  font-size: 1.375rem;
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
+.planStepperBtn:hover:not(.planStepperBtnActive) {
   color: #111;
 }
 
-.planStepperNext,
-.planStepperNextHint {
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: none;
-  text-align: left;
-  font-family: 'Montserrat', system-ui, sans-serif;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  line-height: 1.3;
-  color: #8a9296;
-}
-
-.planStepperNext {
-  cursor: pointer;
-  width: fit-content;
-  max-width: 100%;
-}
-
-.planStepperNext:hover,
-.planStepperNext:focus-visible {
-  color: #111;
-}
-
-.planStepperNext:focus-visible {
+.planStepperBtn:focus-visible {
   outline: 2px solid #0079ca;
   outline-offset: 2px;
-  border-radius: 0.2rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .planStepperRingProgress {
-    transition: none;
-  }
+.planStepperIndex {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background: #fff;
+  border: 1px solid #d5dadc;
+  color: #536b75;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.planStepperBtnDone .planStepperIndex {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+
+.planStepperBtn.planStepperBtnActive,
+.planStepperBtn.planStepperBtnActive:hover,
+.planStepperBtn.planStepperBtnActive:focus,
+.planStepperBtn.planStepperBtnActive:focus-visible,
+.planStepperBtn.planStepperBtnActive:active {
+  background: #111;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+.planStepperBtnActive .planStepperIndex {
+  background: #fff;
+  border-color: #fff;
+  color: #111;
+  -webkit-text-fill-color: #111;
+}
+
+.planStepperBtnActive .planStepperLabel,
+.planStepperBtnActive:hover .planStepperLabel,
+.planStepperBtnActive:focus .planStepperLabel,
+.planStepperBtnActive:focus-visible .planStepperLabel {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  font-weight: 700;
 }
 
 @media (max-width: 900px) {
-  .planStepperHeader {
-    padding: 0.75rem 1rem;
-    gap: 0.8rem;
+  .planStepperList {
+    padding: 0.7rem 1rem;
   }
 
-  .planStepperRing {
-    width: 4.35rem;
-    height: 4.35rem;
+  .planStepperConnector {
+    width: 0.7rem;
+    margin: 0 0.15rem;
   }
 
-  .planStepperCount {
+  .planStepperBtn {
+    padding: 0.4rem 0.55rem 0.4rem 0.35rem;
     font-size: 0.75rem;
+    gap: 0.3rem;
   }
 
-  .planStepperTitle {
-    font-size: 1.2rem;
-  }
-
-  .planStepperNext,
-  .planStepperNextHint {
-    font-size: 0.875rem;
+  .planStepperIndex {
+    width: 1.35rem;
+    height: 1.35rem;
+    font-size: 0.6875rem;
   }
 }
 
 @media (min-width: 901px) {
-  .planStepperHeader {
-    padding: 0.95rem 1rem;
-    gap: 1.1rem;
+  .planStepperList {
+    padding: 0.9rem 1rem;
+    justify-content: flex-start;
   }
 
-  .planStepperRing {
-    width: 5rem;
-    height: 5rem;
+  .planStepperConnector {
+    width: 1.75rem;
+    margin: 0 0.45rem;
   }
 
-  .planStepperCount {
+  .planStepperBtn {
+    padding: 0.55rem 0.9rem 0.55rem 0.5rem;
     font-size: 0.875rem;
-  }
-
-  .planStepperTitle {
-    font-size: 1.5rem;
-  }
-
-  .planStepperNext,
-  .planStepperNextHint {
-    font-size: 1rem;
   }
 }
