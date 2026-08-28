@@ -6,6 +6,17 @@ type PlanStepperProps = {
   onStepChange: (stepId: PlanStepId) => void;
 };
 
+function StepLabel({ title, isActive }: { title: string; isActive: boolean }) {
+  const style = isActive ? { color: '#fff', WebkitTextFillColor: '#fff' } : undefined;
+  const label = title === 'Accommodation' ? <>Accommoda{'\u00ad'}tion</> : title;
+
+  return (
+    <span className="planStepperLabel" style={style}>
+      {label}
+    </span>
+  );
+}
+
 export function PlanStepper({ activeStep, onStepChange }: PlanStepperProps) {
   const activeIndex = PLAN_STEPS.findIndex((step) => step.id === activeStep);
 
@@ -29,12 +40,7 @@ export function PlanStepper({ activeStep, onStepChange }: PlanStepperProps) {
                   <span className="planStepperIndex" aria-hidden="true">
                     {isDone ? '✓' : index + 1}
                   </span>
-                  <span
-                    className="planStepperLabel"
-                    style={isActive ? { color: '#fff', WebkitTextFillColor: '#fff' } : undefined}
-                  >
-                    {step.title}
-                  </span>
+                  <StepLabel title={step.title} isActive={isActive} />
                 </button>
               </li>
             );

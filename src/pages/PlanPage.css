@@ -15,7 +15,7 @@
 @media (max-width: 900px) {
   .planPage {
     --festival-nav-height: calc(0.45rem + 2rem + 0.45rem);
-    --sticky-tabs-height: 5.1rem;
+    --sticky-tabs-height: 5.85rem;
   }
 }
 
