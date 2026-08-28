@@ -6,10 +6,12 @@ import { FestivalArtistsCarousel } from '../components/FestivalArtistsCarousel';
 import { FestivalGallery } from '../components/FestivalGallery';
 import { FestivalNavbar } from '../components/FestivalNavbar';
 import { OverviewCollapsible } from '../components/OverviewCollapsible';
+import { ForcedPlanProgress } from '../components/ForcedPlanProgress';
 import { PlanCategorySection } from '../components/PlanCategorySection';
 import { PlanCrossSellStrip } from '../components/PlanCrossSellStrip';
 import { PlanStepper } from '../components/PlanStepper';
 import { useCart } from '../lib/cartContext';
+import { isForcedStepperPath, rememberPlanOrigin } from '../lib/routes';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
 import { FESTIVAL_ARTISTS } from '../data/festivalArtists';
@@ -198,7 +200,7 @@ function scheduleScrollToTicketSection() {
   };
 }
 
-export function PlanPage() {
+export function PlanPage({ guided = false }: { guided?: boolean }) {
   const location = useLocation();
   const { items } = useCart();
   const isMobile = useIsMobile();
@@ -211,8 +213,12 @@ export function PlanPage() {
   const isLastStep = stepIndex >= LAST_STEP_INDEX;
   const showCategoryTitles = stepCategories.length > 1;
 
+  useEffect(() => {
+    rememberPlanOrigin(location.pathname);
+  }, [location.pathname]);
+
   useLayoutEffect(() => {
-    if (location.pathname !== '/') return;
+    if (location.pathname !== '/' && !isForcedStepperPath(location.pathname)) return;
     const hash = location.hash.replace(/^#/, '');
     if (hash) return;
     setIsOverviewOpen(false);
@@ -220,6 +226,8 @@ export function PlanPage() {
   }, [location.pathname, location.hash, location.key]);
 
   const goToStep = useCallback((stepId: PlanStepId, scrollToBar = false) => {
+    const targetIndex = getPlanStepIndex(stepId);
+    if (guided && targetIndex > stepIndex + 1) return;
     setIsOverviewOpen(false);
     setActiveStep(stepId);
     const nextHash = `#${stepId}`;
@@ -227,7 +235,7 @@ export function PlanPage() {
       window.history.pushState(null, '', nextHash);
     }
     if (scrollToBar) scheduleScrollToPlanStep(stepId);
-  }, []);
+  }, [guided, stepIndex]);
 
   const handleStepChange = useCallback(
     (stepId: PlanStepId) => {
@@ -277,7 +285,12 @@ export function PlanPage() {
         setIsOverviewOpen(true);
         return;
       }
-      setActiveStep(getStepFromHash());
+      const next = getStepFromHash();
+      if (guided) {
+        const nextIndex = getPlanStepIndex(next);
+        if (nextIndex > stepIndex + 1) return;
+      }
+      setActiveStep(next);
     };
 
     window.addEventListener('popstate', syncFromHash);
@@ -286,7 +299,7 @@ export function PlanPage() {
       window.removeEventListener('popstate', syncFromHash);
       window.removeEventListener('hashchange', syncFromHash);
     };
-  }, []);
+  }, [guided, stepIndex]);
 
   useEffect(() => {
     if (!isOverviewOpen) return;
@@ -331,8 +344,12 @@ export function PlanPage() {
         </div>
 
         <div className="planTabsScrollAnchor" aria-hidden="true" />
-        <div className="planTabsSlot">
-          <PlanStepper activeStep={activeStep} onStepChange={handleStepChange} />
+        <div className={`planTabsSlot${guided ? ' planTabsSlot--forced' : ''}`}>
+          {guided ? (
+            <ForcedPlanProgress activeStep={activeStep} />
+          ) : (
+            <PlanStepper activeStep={activeStep} onStepChange={handleStepChange} />
+          )}
         </div>
 
         <div className="planMainShell">
@@ -345,7 +362,7 @@ export function PlanPage() {
                   isActive
                   showTitle={showCategoryTitles}
                   footer={
-                    category.id === 'acceso' ? (
+                    !guided && category.id === 'acceso' ? (
                       <PlanCrossSellStrip onSelectTab={(id) => goToStep(getStepIdFromHash(id), true)} />
                     ) : null
                   }

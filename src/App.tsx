@@ -25,6 +25,7 @@ export default function App() {
           <CartAddToastBridge />
           <Routes>
             <Route path="/" element={<PlanPage />} />
+            <Route path="/ForcedStepper" element={<PlanPage guided />} />
             <Route element={<CheckoutLayout />}>
               <Route path="/event/:eventId/connect" element={<ConnectPage />} />
               <Route path="/event/:eventId/pmr-questions" element={<PmrPreBookingPage />} />
