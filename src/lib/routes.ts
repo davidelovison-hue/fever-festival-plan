@@ -1,7 +1,42 @@
 /** Paths for React Router (basename applied by BrowserRouter). */
 
+export const FORCED_STEPPER_PATH = '/ForcedStepper';
+export const GUIDED_PLAN_SITE = import.meta.env.VITE_GUIDED_PLAN === 'true';
+
+const PLAN_ORIGIN_KEY = 'fever.planOrigin';
+
+export function isForcedStepperPath(pathname: string): boolean {
+  return pathname.replace(/\/$/, '') === FORCED_STEPPER_PATH;
+}
+
+export function rememberPlanOrigin(pathname: string): void {
+  const origin = GUIDED_PLAN_SITE
+    ? '/'
+    : isForcedStepperPath(pathname)
+      ? FORCED_STEPPER_PATH
+      : '/';
+  try {
+    sessionStorage.setItem(PLAN_ORIGIN_KEY, origin);
+  } catch {
+    /* ignore */
+  }
+}
+
+export function planHomePath(): string {
+  if (GUIDED_PLAN_SITE) return '/';
+  try {
+    if (sessionStorage.getItem(PLAN_ORIGIN_KEY) === FORCED_STEPPER_PATH) {
+      return FORCED_STEPPER_PATH;
+    }
+  } catch {
+    /* ignore */
+  }
+  return '/';
+}
+
 export function planPath(hash?: string): string {
-  return hash ? `/#${hash.replace(/^#/, '')}` : '/';
+  const home = planHomePath();
+  return hash ? `${home}#${hash.replace(/^#/, '')}` : home;
 }
 
 export function eventPath(eventId: string, hash?: string): string {

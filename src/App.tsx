@@ -15,6 +15,7 @@ import { AccountPage } from './pages/AccountPage';
 import './checkoutTheme.css';
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
+const guidedByDefault = import.meta.env.VITE_GUIDED_PLAN === 'true';
 
 export default function App() {
   return (
@@ -24,7 +25,8 @@ export default function App() {
         <CartProvider>
           <CartAddToastBridge />
           <Routes>
-            <Route path="/" element={<PlanPage />} />
+            <Route path="/" element={<PlanPage guided={guidedByDefault} />} />
+            <Route path="/ForcedStepper" element={<PlanPage guided />} />
             <Route element={<CheckoutLayout />}>
               <Route path="/event/:eventId/connect" element={<ConnectPage />} />
               <Route path="/event/:eventId/pmr-questions" element={<PmrPreBookingPage />} />
