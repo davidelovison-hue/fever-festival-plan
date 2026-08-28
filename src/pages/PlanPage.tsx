@@ -362,7 +362,7 @@ export function PlanPage() {
                 )}
                 {!isLastStep ? (
                   <button type="button" className="planStepContinue" onClick={goToNextStep}>
-                    Continue
+                    Next
                   </button>
                 ) : null}
               </div>
