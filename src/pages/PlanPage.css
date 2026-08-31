@@ -84,6 +84,7 @@
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
+  border-bottom: 1px solid #e8ecef;
 }
 
 .planIntroBand {
@@ -91,9 +92,17 @@
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  padding: 1rem 1rem 1.1rem;
+  padding: 1rem 1rem 0.6rem;
   background: #fff;
-  border-bottom: 1px solid #e8ecef;
+}
+
+.planTicketsHeading {
+  margin: 1.25rem 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #031419;
 }
 
 .planArtistsSlot {
@@ -262,7 +271,7 @@
     grid-area: intro;
     grid-column: 1 / -1;
     width: 100%;
-    padding: 1.15rem 0 1.25rem;
+    padding: 1.15rem 0 0.6rem;
   }
 
   .planOverviewSlot {
@@ -363,7 +372,7 @@
   }
 
   .planIntroBand {
-    padding: 0.95rem 1rem 1rem;
+    padding: 0.95rem 1rem 0.55rem;
   }
 
   .planHeroSlot--immersive {

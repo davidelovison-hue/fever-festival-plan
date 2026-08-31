@@ -313,6 +313,7 @@ export function PlanPage() {
             <OverviewCollapsible isOpen={isOverviewOpen} onToggle={handleOverviewToggle} />
           </div>
 
+          <h2 className="planTicketsHeading">Tickets</h2>
         </div>
 
         <div className="planTabsScrollAnchor" aria-hidden="true" />
