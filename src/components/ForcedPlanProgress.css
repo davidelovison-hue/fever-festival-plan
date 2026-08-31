@@ -11,25 +11,16 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 0.28rem;
+  margin-bottom: 0;
 }
 
-.forcedPlanProgressKicker,
 .forcedPlanProgressCount {
   margin: 0;
   font-family: 'Montserrat', system-ui, sans-serif;
   font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #8a1343;
-}
-
-.forcedPlanProgressCount {
   font-weight: 600;
+  line-height: 1.2;
   letter-spacing: 0.02em;
-  text-transform: none;
   color: #536b75;
 }
 
