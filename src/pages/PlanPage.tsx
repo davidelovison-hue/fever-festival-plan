@@ -358,21 +358,6 @@ export function PlanPage() {
                   }
                 />
               ))}
-
-              <div className="planStepActions">
-                {stepIndex > 0 ? (
-                  <button type="button" className="planStepBack" onClick={goToPrevStep}>
-                    Back
-                  </button>
-                ) : (
-                  <span />
-                )}
-                {!isLastStep ? (
-                  <button type="button" className="planStepContinue" onClick={goToNextStep}>
-                    Continue
-                  </button>
-                ) : null}
-              </div>
             </div>
             {isMobile ? <AddToCartToast variant="mobile" /> : null}
           </div>
