@@ -671,6 +671,26 @@ export function getCategoriesForStep(stepId: string): PlanCategory[] {
   return PLAN_CATALOG.filter((category) => step.categoryIds.includes(category.id));
 }
 
+export const ALL_CAROUSELS = '__all__';
+
+export type PlanCarouselOption = {
+  id: string;
+  label: string;
+  categoryId: string;
+};
+
+export function getCarouselsForCategories(categories: PlanCategory[]): PlanCarouselOption[] {
+  return categories.flatMap((category) =>
+    category.groups
+      .filter((group) => group.entities.length > 0)
+      .map((group) => ({
+        id: group.id,
+        label: group.title,
+        categoryId: category.id,
+      })),
+  );
+}
+
 export function getStepIdFromHash(hash: string): PlanStepId {
   return HASH_TO_STEP[hash] ?? 'pass';
 }
