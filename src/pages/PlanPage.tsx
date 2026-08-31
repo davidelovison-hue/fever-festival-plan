@@ -347,7 +347,9 @@ export function PlanPage({ guided = false }: { guided?: boolean }) {
               Ready to book? Start with an entry pass, then add stays, bus, and extras one step at a
               time.
             </p>
-          ) : null}
+          ) : (
+            <h2 className="planTicketsHeading">Tickets</h2>
+          )}
         </div>
 
         <div className="planTabsScrollAnchor" aria-hidden="true" />
