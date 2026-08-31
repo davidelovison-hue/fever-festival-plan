@@ -5,6 +5,7 @@ import { CartPanel } from '../components/CartPanel';
 import { FestivalGallery } from '../components/FestivalGallery';
 import { FestivalNavbar } from '../components/FestivalNavbar';
 import { OverviewCollapsible } from '../components/OverviewCollapsible';
+import { PlanCarouselFilter } from '../components/PlanCarouselFilter';
 import { PlanCategorySection } from '../components/PlanCategorySection';
 import { PlanCrossSellStrip } from '../components/PlanCrossSellStrip';
 import { PlanStepper } from '../components/PlanStepper';
@@ -12,7 +13,9 @@ import { useCart } from '../lib/cartContext';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
 import {
+  ALL_CAROUSELS,
   PLAN_STEPS,
+  getCarouselsForCategories,
   getCategoriesForStep,
   getPlanStepIndex,
   getStepIdFromHash,
@@ -57,12 +60,12 @@ function isTabsBarStickyNow() {
 }
 
 function getScrollTargetEl(stepId: string) {
+  const filter = document.querySelector<HTMLElement>('.planCarouselFilter');
+  if (filter) return filter;
   const categories = getCategoriesForStep(stepId);
   const firstId = categories[0]?.id;
   const section = firstId ? document.getElementById(firstId) : null;
   if (!section) return document.getElementById(stepId);
-  const chips = section.querySelector<HTMLElement>('.groupChipsWrap');
-  if (chips) return chips;
   const firstTitle = section.querySelector<HTMLElement>('.categorySectionTitle, .groupCarouselTitle');
   if (firstTitle) return firstTitle;
   const firstBlock = section.querySelector<HTMLElement>('.groupBlock');
@@ -202,10 +205,12 @@ export function PlanPage() {
   const isMobile = useIsMobile();
   const [activeStep, setActiveStep] = useState<PlanStepId>(getStepFromHash);
   const [isOverviewOpen, setIsOverviewOpen] = useState(shouldOpenOverviewFromHash);
+  const [activeCarouselId, setActiveCarouselId] = useState(ALL_CAROUSELS);
   const hasInitialTabScrollRef = useRef(false);
   const hasCart = items.length > 0;
   const stepIndex = getPlanStepIndex(activeStep);
   const stepCategories = getCategoriesForStep(activeStep);
+  const stepCarousels = getCarouselsForCategories(stepCategories);
   const isLastStep = stepIndex >= LAST_STEP_INDEX;
   const showCategoryTitles = stepCategories.length > 1;
 
@@ -234,6 +239,10 @@ export function PlanPage() {
     },
     [activeStep, goToStep],
   );
+
+  useEffect(() => {
+    setActiveCarouselId(ALL_CAROUSELS);
+  }, [activeStep]);
 
   const handleGoToTickets = useCallback(() => {
     setIsOverviewOpen(false);
@@ -329,11 +338,17 @@ export function PlanPage() {
         <div className="planMainShell">
           <div className="planMainColumn">
             <div className="planContentColumn">
+              <PlanCarouselFilter
+                value={activeCarouselId}
+                options={stepCarousels}
+                onChange={setActiveCarouselId}
+              />
               {stepCategories.map((category) => (
                 <PlanCategorySection
                   key={category.id}
                   category={category}
                   isActive
+                  visibleGroupId={activeCarouselId}
                   showTitle={showCategoryTitles}
                   footer={
                     category.id === 'acceso' ? (
