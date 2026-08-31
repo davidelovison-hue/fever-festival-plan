@@ -57,9 +57,19 @@ export function PlanCategorySection({
     );
   }
 
-  const showChips = groups.length > 1 || hasSingleGroupEntityFilters;
+  const showGroupFilter = groups.length > 1 || hasSingleGroupEntityFilters;
   const activeGroup =
     activeGroupId === ALL_GROUPS ? null : groups.find((group) => group.id === activeGroupId) ?? groups[0];
+  const filterValue = hasSingleGroupEntityFilters ? activeEntityId : activeGroupId;
+  const filterOptions = hasSingleGroupEntityFilters
+    ? [
+        { id: ALL_GROUPS, label: 'All' },
+        ...groups[0].entities.map((entity) => ({ id: entity.id, label: entity.name })),
+      ]
+    : [
+        { id: ALL_GROUPS, label: 'All' },
+        ...groups.map((group) => ({ id: group.id, label: group.title })),
+      ];
 
   return (
     <section
@@ -75,52 +85,27 @@ export function PlanCategorySection({
           {category.title}
         </h3>
       ) : null}
-      {showChips ? (
-        <div className="groupChipsWrap" role="group" aria-label={`${category.title} filters`}>
-          <div className="groupChipsScroll">
-            <button
-              type="button"
-              className={
-                (hasSingleGroupEntityFilters ? activeEntityId : activeGroupId) === ALL_GROUPS
-                  ? 'groupChip groupChipSelected'
-                  : 'groupChip'
-              }
-              aria-pressed={(hasSingleGroupEntityFilters ? activeEntityId : activeGroupId) === ALL_GROUPS}
-              onClick={() => {
-                if (hasSingleGroupEntityFilters) setActiveEntityId(ALL_GROUPS);
-                else setActiveGroupId(ALL_GROUPS);
+      {showGroupFilter ? (
+        <div className="groupChipsWrap">
+          <label className="groupFilterLabel">
+            <span className="sr-only">{category.title} filters</span>
+            <select
+              className="groupFilterSelect"
+              value={filterValue}
+              aria-label={`${category.title} filters`}
+              onChange={(event) => {
+                const next = event.target.value;
+                if (hasSingleGroupEntityFilters) setActiveEntityId(next);
+                else setActiveGroupId(next);
               }}
             >
-              All
-            </button>
-            {hasSingleGroupEntityFilters
-              ? groups[0].entities.map((entity) => (
-                  <button
-                    key={entity.id}
-                    type="button"
-                    className={
-                      activeEntityId === entity.id ? 'groupChip groupChipSelected' : 'groupChip'
-                    }
-                    aria-pressed={activeEntityId === entity.id}
-                    onClick={() => setActiveEntityId(entity.id)}
-                  >
-                    {entity.name}
-                  </button>
-                ))
-              : groups.map((group) => (
-                  <button
-                    key={group.id}
-                    type="button"
-                    className={
-                      activeGroupId === group.id ? 'groupChip groupChipSelected' : 'groupChip'
-                    }
-                    aria-pressed={activeGroupId === group.id}
-                    onClick={() => setActiveGroupId(group.id)}
-                  >
-                    {group.title}
-                  </button>
-                ))}
-          </div>
+              {filterOptions.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
       ) : null}
 
@@ -142,7 +127,7 @@ export function PlanCategorySection({
             ))}
           </GroupCarousel>
         </div>
-      ) : activeGroupId === ALL_GROUPS && showChips ? (
+      ) : activeGroupId === ALL_GROUPS && showGroupFilter ? (
         <div className="groupStackAll">
           {groups.map((group) =>
             group.entities.length === 0 ? null : (
