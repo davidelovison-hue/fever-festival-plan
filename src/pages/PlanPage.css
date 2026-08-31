@@ -237,54 +237,6 @@
   line-height: var(--type-base-line-height);
 }
 
-.planStepActions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin: 0.25rem 0 0.5rem;
-  padding-top: 0.5rem;
-}
-
-.planStepBack,
-.planStepContinue {
-  font: inherit;
-  font-family: 'Montserrat', system-ui, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1.2;
-  cursor: pointer;
-  border-radius: 9999px;
-  padding: 0.75rem 1.25rem;
-}
-
-.planStepBack {
-  color: #111;
-  background: #fff;
-  border: 1px solid #d5dadc;
-}
-
-.planStepBack:hover {
-  border-color: #111;
-}
-
-.planStepContinue {
-  color: #fff;
-  background: #111;
-  border: 1px solid #111;
-  margin-left: auto;
-}
-
-.planStepContinue:hover {
-  background: #000;
-}
-
-.planStepBack:focus-visible,
-.planStepContinue:focus-visible {
-  outline: 2px solid #0079ca;
-  outline-offset: 2px;
-}
-
 @media (min-width: 901px) {
   .planDesktopShell {
     display: grid;

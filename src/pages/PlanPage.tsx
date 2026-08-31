@@ -381,22 +381,6 @@ export function PlanPage({ guided = false }: { guided?: boolean }) {
                 />
               ))}
 
-              <div className="planStepActions">
-                {stepIndex > 0 ? (
-                  <button type="button" className="planStepBack" onClick={goToPrevStep}>
-                    Back
-                  </button>
-                ) : (
-                  <span />
-                )}
-                {!isLastStep ? (
-                  <button type="button" className="planStepContinue" onClick={goToNextStep}>
-                    {guided && PLAN_STEPS[stepIndex + 1]
-                      ? `Continue to ${PLAN_STEPS[stepIndex + 1].title}`
-                      : 'Continue'}
-                  </button>
-                ) : null}
-              </div>
             </div>
             {isMobile ? <AddToCartToast variant="mobile" /> : null}
           </div>
