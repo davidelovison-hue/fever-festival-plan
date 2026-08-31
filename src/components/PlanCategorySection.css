@@ -25,58 +25,64 @@
   border-bottom: 1px solid #e8e8e8;
 }
 
-.groupChipsScroll {
+.groupFilterLabel {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 0.5rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: 0.35rem;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-  scrollbar-width: thin;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  max-width: 100%;
+  min-width: 0;
 }
 
-.groupChipsScroll::-webkit-scrollbar {
-  height: 4px;
+.groupFilterCaption {
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line-height);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.02em;
+  color: #536b75;
 }
 
-.groupChipsScroll::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
-  border-radius: 9999px;
-}
-
-.groupChip {
-  flex: 0 0 auto;
+.groupFilterSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: inline-block;
+  box-sizing: border-box;
+  width: min(100%, 18rem);
+  min-width: 12rem;
+  min-height: 2.5rem;
   font: inherit;
   font-size: var(--type-small-size);
   line-height: var(--type-small-line-height);
   font-weight: var(--font-weight-regular);
-  padding: calc(0.55rem - 1px) calc(0.85rem - 1px) calc(0.5rem - 1px);
-  border-radius: 9999px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  color: #0a0a0a;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid #9aa6af;
+  background-color: #f3f1ec;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23031419' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 0.75rem 0.5rem;
+  color: #031419;
   cursor: pointer;
-  white-space: nowrap;
 }
 
-.groupChip:hover:not(:disabled) {
-  background: rgb(10 31 38 / 0.06);
-  border-color: #0a0a0a;
+.groupFilterSelect:hover {
+  background-color: #fff;
+  border-color: #6b7780;
 }
 
-.groupChipSelected {
-  font-weight: var(--font-weight-bold);
-  background: #0a1f26;
-  border-color: #0a1f26;
-  color: #fff;
+.groupFilterSelect:focus {
+  outline: none;
+  background-color: #fff;
+  border-color: #0079ca;
+  box-shadow: 0 0 0 3px rgba(0, 121, 202, 0.18);
 }
 
-.groupChipSelected:hover:not(:disabled) {
-  background: #152a33;
-  border-color: #152a33;
-  color: #fff;
+.groupFilterSelect option {
+  color: #031419;
+  background-color: #fff;
+  font-weight: var(--font-weight-regular);
 }
 
 .groupStackAll {
