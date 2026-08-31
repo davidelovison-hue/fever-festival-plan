@@ -190,7 +190,7 @@
 
 .planTabsSlot--forced,
 .planTabsSlot--forced::before {
-  background: #f7f7f8;
+  background: #fff;
 }
 
 .planMainShell {
