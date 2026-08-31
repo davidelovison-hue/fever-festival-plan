@@ -88,11 +88,10 @@ export function PlanCategorySection({
       {showGroupFilter ? (
         <div className="groupChipsWrap">
           <label className="groupFilterLabel">
-            <span className="sr-only">{category.title} filters</span>
+            <span className="groupFilterCaption">Filter</span>
             <select
               className="groupFilterSelect"
               value={filterValue}
-              aria-label={`${category.title} filters`}
               onChange={(event) => {
                 const next = event.target.value;
                 if (hasSingleGroupEntityFilters) setActiveEntityId(next);
