@@ -2,7 +2,6 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { useLocation } from 'react-router-dom';
 import { AddToCartToast } from '../components/AddToCartToast';
 import { CartPanel } from '../components/CartPanel';
-import { FestivalArtistsCarousel } from '../components/FestivalArtistsCarousel';
 import { FestivalGallery } from '../components/FestivalGallery';
 import { FestivalNavbar } from '../components/FestivalNavbar';
 import { OverviewCollapsible } from '../components/OverviewCollapsible';
@@ -14,7 +13,6 @@ import { useCart } from '../lib/cartContext';
 import { isForcedStepperPath, rememberPlanOrigin } from '../lib/routes';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
-import { FESTIVAL_ARTISTS } from '../data/festivalArtists';
 import {
   PLAN_STEPS,
   getCategoriesForStep,
@@ -335,13 +333,6 @@ export function PlanPage({ guided = false }: { guided?: boolean }) {
             <OverviewCollapsible isOpen={isOverviewOpen} onToggle={handleOverviewToggle} />
           </div>
 
-          <div className="planArtistsSlot">
-            <FestivalArtistsCarousel
-              artists={FESTIVAL_ARTISTS}
-              title="Lineup"
-              hideDay
-            />
-          </div>
           {guided ? (
             <p className="planIntroHandoff">
               Ready to book? Start with an entry pass, then add stays, bus, and extras one step at a
