@@ -18,11 +18,12 @@
 .planOverviewToggle {
   position: relative;
   display: flex;
-  align-items: stretch;
-  gap: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   width: 100%;
   margin: 0;
-  padding: 0.15rem 0 0.85rem;
+  padding: 0.75rem 0;
   border: none;
   background: transparent;
   color: #031419;
@@ -36,25 +37,17 @@
   background: transparent;
 }
 
-.planOverviewToggleBody {
+.planOverviewToggleText {
   flex: 1 1 auto;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-}
-
-.planOverviewToggleTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  width: 100%;
+  gap: 0.15rem;
 }
 
 .planOverviewToggleLabel {
   font-size: 1.0625rem;
-  line-height: 1.25;
+  line-height: 1.3;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #031419;
@@ -63,17 +56,28 @@
 .planOverviewToggleAction {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.3rem;
   flex-shrink: 0;
   font-size: 0.8125rem;
-  line-height: 1.2;
+  line-height: 1.3;
   font-weight: 700;
   color: #8a1343;
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
-.planOverviewToggle:hover .planOverviewToggleAction {
-  color: #7b0f3a;
+.planOverviewToggle:hover .planOverviewToggleActionText {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.planOverviewToggleChevron {
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+
+.planOverviewCollapsibleOpen .planOverviewToggleChevron {
+  transform: rotate(180deg);
 }
 
 .planOverviewToggle:focus-visible {
@@ -84,7 +88,7 @@
 
 .planOverviewToggleHint {
   font-size: 0.8125rem;
-  line-height: 1.35;
+  line-height: 1.3;
   font-weight: 500;
   color: #536b75;
   white-space: nowrap;
@@ -95,8 +99,8 @@
 .planOverviewPanel {
   box-sizing: border-box;
   margin-top: 0;
-  padding: 0.35rem 0 0.85rem;
-  border-top: none;
+  padding: 0.35rem 0 0.5rem;
+  border-top: 1px solid #eef0f2;
   background: transparent;
 }
 
@@ -106,17 +110,17 @@
 
 @media (min-width: 901px) {
   .planOverviewToggle {
-    padding: 0.2rem 0 0.95rem;
+    padding: 0.8rem 0;
   }
 
   .planOverviewPanel {
-    padding: 0.5rem 0 1rem;
+    padding: 0.9rem 0 0.5rem;
   }
 }
 
 .planOverviewLineup {
   min-width: 0;
-  margin: 0 0 0.85rem;
+  margin: 0;
   padding: 0 0 0.95rem;
   border-bottom: 1px solid #eef0f2;
 }
