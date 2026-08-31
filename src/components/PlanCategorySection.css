@@ -21,8 +21,7 @@
 .groupChipsWrap {
   margin: 0 0 1.5rem;
   min-width: 0;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 0;
 }
 
 .groupFilterLabel {
@@ -293,7 +292,7 @@
 
   .groupChipsWrap {
     margin: 0 0 1.35rem;
-    padding-bottom: 0.85rem;
+    padding-bottom: 0;
   }
 
   .groupCarouselTitle {
