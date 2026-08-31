@@ -5,6 +5,7 @@ import { CartPanel } from '../components/CartPanel';
 import { FestivalGallery } from '../components/FestivalGallery';
 import { FestivalNavbar } from '../components/FestivalNavbar';
 import { OverviewCollapsible } from '../components/OverviewCollapsible';
+import { PlanCarouselFilter } from '../components/PlanCarouselFilter';
 import { PlanCategorySection } from '../components/PlanCategorySection';
 import { PlanCrossSellStrip } from '../components/PlanCrossSellStrip';
 import { PlanTabs } from '../components/PlanTabs';
@@ -12,6 +13,8 @@ import { useCart } from '../lib/cartContext';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
 import {
+  ALL_CAROUSELS,
+  getCarouselsForCategories,
   getCategoriesForStep,
   getStepIdFromHash,
   type PlanStepId,
@@ -55,16 +58,12 @@ function isTabsBarStickyNow() {
 }
 
 function getScrollTargetEl(tabId: string) {
+  const filter = document.querySelector<HTMLElement>('.planCarouselFilter');
+  if (filter) return filter;
   const categories = getCategoriesForStep(tabId);
   const firstId = categories[0]?.id;
   const section = firstId ? document.getElementById(firstId) : document.getElementById(tabId);
   if (!section) return null;
-  // Prefer the filters row if it exists; otherwise fall back to section top.
-  const chips = section.querySelector<HTMLElement>('.groupChipsWrap');
-  if (chips) return chips;
-
-  // Tabs without filters (e.g. Parking) should align to the first visible
-  // content block/title, not the section wrapper, to avoid awkward whitespace.
   const firstTitle = section.querySelector<HTMLElement>('.categorySectionTitle, .groupCarouselTitle');
   if (firstTitle) return firstTitle;
   const firstBlock = section.querySelector<HTMLElement>('.groupBlock');
@@ -208,9 +207,11 @@ export function PlanPage() {
   const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = useState<PlanStepId>(getTabFromHash);
   const [isOverviewOpen, setIsOverviewOpen] = useState(shouldOpenOverviewFromHash);
+  const [activeCarouselId, setActiveCarouselId] = useState(ALL_CAROUSELS);
   const hasInitialTabScrollRef = useRef(false);
   const hasCart = items.length > 0;
   const stepCategories = getCategoriesForStep(activeTab);
+  const stepCarousels = getCarouselsForCategories(stepCategories);
   const showCategoryTitles = stepCategories.length > 1;
 
   // Logo / home: land at the very top of the page (no section jump).
@@ -230,6 +231,10 @@ export function PlanPage() {
     },
     [activeTab],
   );
+
+  useEffect(() => {
+    setActiveCarouselId(ALL_CAROUSELS);
+  }, [activeTab]);
 
   const selectPlanTab = useCallback((tabId: string) => {
     const stepId = getStepIdFromHash(tabId);
@@ -318,11 +323,17 @@ export function PlanPage() {
         <div className="planMainShell">
           <div className="planMainColumn">
             <div className="planContentColumn">
+              <PlanCarouselFilter
+                value={activeCarouselId}
+                options={stepCarousels}
+                onChange={setActiveCarouselId}
+              />
               {stepCategories.map((category) => (
                 <PlanCategorySection
                   key={category.id}
                   category={category}
                   isActive
+                  visibleGroupId={activeCarouselId}
                   showTitle={showCategoryTitles}
                 />
               ))}
