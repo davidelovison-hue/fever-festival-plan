@@ -113,3 +113,39 @@
     padding: 0.5rem 0 1rem;
   }
 }
+
+.planOverviewLineup {
+  min-width: 0;
+  margin: 0 0 1.15rem;
+  padding: 0 0 0.95rem;
+  border-bottom: 1px solid #eef0f2;
+}
+
+.planOverviewLineup .festivalArtistsCarousel__head {
+  margin-bottom: 0.75rem;
+}
+
+.planOverviewLineup .festivalArtistsCarousel__title {
+  font-size: 1.0625rem;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #031419;
+}
+
+.planOverviewLineup .festivalArtistsCarousel__hint {
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #8a1343;
+}
+
+.planOverviewLineup .festivalArtistsCarousel__outer {
+  --artist-track-pad-top: 0.1rem;
+}
+
+.planOverviewLineup .festivalArtistsCarousel__track {
+  padding: 0.1rem 0 0.35rem;
+  margin: 0;
+  gap: 0.75rem;
+}

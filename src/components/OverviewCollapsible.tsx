@@ -1,3 +1,5 @@
+import { FESTIVAL_ARTISTS } from '../data/festivalArtists';
+import { FestivalArtistsCarousel } from './FestivalArtistsCarousel';
 import { OverviewSection } from './OverviewSection';
 import './OverviewCollapsible.css';
 
@@ -38,7 +40,7 @@ export function OverviewCollapsible({ isOpen, onToggle, id = 'overview' }: Overv
             </span>
           </span>
           <span className="planOverviewToggleHint">
-            Festival info, venue & more
+            Festival info, lineup, venue & more
           </span>
         </span>
       </button>
@@ -48,6 +50,9 @@ export function OverviewCollapsible({ isOpen, onToggle, id = 'overview' }: Overv
         className="planOverviewPanel"
         hidden={!isOpen}
       >
+        <div className="planOverviewLineup">
+          <FestivalArtistsCarousel artists={FESTIVAL_ARTISTS} title="Lineup" hideDay />
+        </div>
         <OverviewSection />
       </div>
     </section>

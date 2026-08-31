@@ -2,7 +2,6 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { useLocation } from 'react-router-dom';
 import { AddToCartToast } from '../components/AddToCartToast';
 import { CartPanel } from '../components/CartPanel';
-import { FestivalArtistsCarousel } from '../components/FestivalArtistsCarousel';
 import { FestivalGallery } from '../components/FestivalGallery';
 import { FestivalNavbar } from '../components/FestivalNavbar';
 import { OverviewCollapsible } from '../components/OverviewCollapsible';
@@ -12,7 +11,6 @@ import { PlanTabs } from '../components/PlanTabs';
 import { useCart } from '../lib/cartContext';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
-import { FESTIVAL_ARTISTS } from '../data/festivalArtists';
 import {
   getCategoriesForStep,
   getStepIdFromHash,
@@ -310,13 +308,6 @@ export function PlanPage() {
             <OverviewCollapsible isOpen={isOverviewOpen} onToggle={handleOverviewToggle} />
           </div>
 
-          <div className="planArtistsSlot">
-            <FestivalArtistsCarousel
-              artists={FESTIVAL_ARTISTS}
-              title="Lineup"
-              hideDay
-            />
-          </div>
         </div>
 
         <div className="planTabsScrollAnchor" aria-hidden="true" />
