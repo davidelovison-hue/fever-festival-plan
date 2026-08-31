@@ -170,7 +170,7 @@
   top: var(--festival-nav-height);
   z-index: 110;
   isolation: isolate;
-  background: #f2f3f3;
+  background: #fff;
   min-width: 0;
   box-sizing: border-box;
   width: 100%;
@@ -183,7 +183,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: #f2f3f3;
+  background: #fff;
   z-index: -1;
   pointer-events: none;
 }
