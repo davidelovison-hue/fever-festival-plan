@@ -25,58 +25,50 @@
   border-bottom: 1px solid #e8e8e8;
 }
 
-.groupChipsScroll {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 0.5rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: 0.35rem;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-  scrollbar-width: thin;
+.groupFilterLabel {
+  display: inline-block;
+  max-width: 100%;
+  min-width: 0;
 }
 
-.groupChipsScroll::-webkit-scrollbar {
-  height: 4px;
-}
-
-.groupChipsScroll::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
-  border-radius: 9999px;
-}
-
-.groupChip {
-  flex: 0 0 auto;
+.groupFilterSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: inline-block;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 8.5rem;
   font: inherit;
   font-size: var(--type-small-size);
   line-height: var(--type-small-line-height);
-  font-weight: var(--font-weight-regular);
-  padding: calc(0.55rem - 1px) calc(0.85rem - 1px) calc(0.5rem - 1px);
-  border-radius: 9999px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  color: #0a0a0a;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.groupChip:hover:not(:disabled) {
-  background: rgb(10 31 38 / 0.06);
-  border-color: #0a0a0a;
-}
-
-.groupChipSelected {
   font-weight: var(--font-weight-bold);
-  background: #0a1f26;
-  border-color: #0a1f26;
+  padding: 0.55rem 2.35rem 0.5rem 0.95rem;
+  border-radius: 9999px;
+  border: 1px solid #0a1f26;
+  background-color: #0a1f26;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 0.7rem 0.4rem;
   color: #fff;
+  cursor: pointer;
 }
 
-.groupChipSelected:hover:not(:disabled) {
-  background: #152a33;
+.groupFilterSelect:hover {
+  background-color: #152a33;
   border-color: #152a33;
-  color: #fff;
+}
+
+.groupFilterSelect:focus-visible {
+  outline: 2px solid #0079ca;
+  outline-offset: 2px;
+}
+
+.groupFilterSelect option {
+  color: #0a0a0a;
+  background-color: #fff;
+  font-weight: var(--font-weight-regular);
 }
 
 .groupStackAll {
