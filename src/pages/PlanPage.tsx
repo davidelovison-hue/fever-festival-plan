@@ -338,7 +338,7 @@ export function PlanPage() {
                   category={category}
                   isActive
                   visibleGroupId={activeCarouselId}
-                  showTitle={showCategoryTitles && category.title !== activeStepTitle}
+                  prefixCarouselTitles={showCategoryTitles && category.title !== activeStepTitle}
                 />
               ))}
               {activeTab === 'pass' ? <PlanCrossSellStrip onSelectTab={selectPlanTab} /> : null}
