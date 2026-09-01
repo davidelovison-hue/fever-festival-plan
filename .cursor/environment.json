@@ -1,4 +1,16 @@
 {
   "install": "npm install",
-  "start": "npm run dev"
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "npm run dev",
+      "description": "Vite dev server on port 5174. Restart this terminal rather than killing the process, so the forwarded port survives."
+    }
+  ],
+  "ports": [
+    {
+      "name": "vite dev server",
+      "port": 5174
+    }
+  ]
 }
