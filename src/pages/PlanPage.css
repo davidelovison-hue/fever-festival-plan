@@ -92,17 +92,32 @@
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  padding: 1rem 1rem 0.6rem;
+  padding: 1rem 1rem 0.35rem;
   background: #fff;
 }
 
 .planTicketsHeading {
+  position: relative;
   margin: 1.25rem 0 0;
-  font-size: 1.0625rem;
-  line-height: 1.3;
+  padding-bottom: 0.5rem;
+  font-size: 1.375rem;
+  line-height: 1.2;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: #031419;
+}
+
+/* Short brand rule, so the label reads as a section marker rather than
+   another body heading. */
+.planTicketsHeading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2.25rem;
+  height: 3px;
+  border-radius: 9999px;
+  background: #8a1343;
 }
 
 .planArtistsSlot {
@@ -271,7 +286,7 @@
     grid-area: intro;
     grid-column: 1 / -1;
     width: 100%;
-    padding: 1.15rem 0 0.6rem;
+    padding: 1.15rem 0 0.35rem;
   }
 
   .planOverviewSlot {
@@ -372,7 +387,7 @@
   }
 
   .planIntroBand {
-    padding: 0.95rem 1rem 0.55rem;
+    padding: 0.95rem 1rem 0.3rem;
   }
 
   .planHeroSlot--immersive {
