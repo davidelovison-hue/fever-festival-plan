@@ -18,6 +18,7 @@ import {
   getCategoriesForStep,
   getPlanStep,
   getStepIdFromHash,
+  shouldPrefixCategory,
   type PlanStepId,
 } from '../data/planCatalog';
 import './PlanPage.css';
@@ -212,10 +213,9 @@ export function PlanPage() {
   const hasInitialTabScrollRef = useRef(false);
   const hasCart = items.length > 0;
   const stepCategories = getCategoriesForStep(activeTab);
-  const stepCarousels = getCarouselsForCategories(stepCategories);
-  const showCategoryTitles = stepCategories.length > 1;
   // A category heading that repeats the selected tab adds nothing.
   const activeStepTitle = getPlanStep(activeTab)?.title;
+  const stepCarousels = getCarouselsForCategories(stepCategories, activeStepTitle);
 
   // Logo / home: land at the very top of the page (no section jump).
   useLayoutEffect(() => {
@@ -338,7 +338,11 @@ export function PlanPage() {
                   category={category}
                   isActive
                   visibleGroupId={activeCarouselId}
-                  prefixCarouselTitles={showCategoryTitles && category.title !== activeStepTitle}
+                  prefixCarouselTitles={shouldPrefixCategory(
+                    stepCategories,
+                    category,
+                    activeStepTitle,
+                  )}
                 />
               ))}
               {activeTab === 'pass' ? <PlanCrossSellStrip onSelectTab={selectPlanTab} /> : null}
