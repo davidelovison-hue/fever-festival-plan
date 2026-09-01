@@ -679,16 +679,41 @@ export type PlanCarouselOption = {
   categoryId: string;
 };
 
-export function getCarouselsForCategories(categories: PlanCategory[]): PlanCarouselOption[] {
-  return categories.flatMap((category) =>
-    category.groups
+/**
+ * Whether a category's carousels should carry the category name. Skipped when
+ * the step shows a single category, or when the category repeats the step.
+ */
+export function shouldPrefixCategory(
+  categories: PlanCategory[],
+  category: PlanCategory,
+  activeStepTitle?: string,
+): boolean {
+  return categories.length > 1 && category.title !== activeStepTitle;
+}
+
+/** Shared by the carousel headings and the filter options, so they cannot drift. */
+export function formatCarouselTitle(
+  categoryTitle: string,
+  groupTitle: string,
+  prefix: boolean,
+): string {
+  return prefix && groupTitle !== categoryTitle ? `${categoryTitle} - ${groupTitle}` : groupTitle;
+}
+
+export function getCarouselsForCategories(
+  categories: PlanCategory[],
+  activeStepTitle?: string,
+): PlanCarouselOption[] {
+  return categories.flatMap((category) => {
+    const prefix = shouldPrefixCategory(categories, category, activeStepTitle);
+    return category.groups
       .filter((group) => group.entities.length > 0)
       .map((group) => ({
         id: group.id,
-        label: group.title,
+        label: formatCarouselTitle(category.title, group.title, prefix),
         categoryId: category.id,
-      })),
-  );
+      }));
+  });
 }
 
 export function getStepIdFromHash(hash: string): PlanStepId {

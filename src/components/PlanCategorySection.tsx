@@ -1,5 +1,10 @@
 import type { ReactNode } from 'react';
-import { ALL_CAROUSELS, type PlanCategory, type PlanGroup } from '../data/planCatalog';
+import {
+  ALL_CAROUSELS,
+  formatCarouselTitle,
+  type PlanCategory,
+  type PlanGroup,
+} from '../data/planCatalog';
 import { EntityCard } from './EntityCard';
 import { GroupCarousel } from './GroupCarousel';
 import { OverviewSection } from './OverviewSection';
@@ -33,9 +38,7 @@ export function PlanCategorySection({
   const mobileGroupLayout = isFiltered ? 'filtered' : 'all';
 
   const carouselTitle = (group: PlanGroup) =>
-    prefixCarouselTitles && group.title !== category.title
-      ? `${category.title} - ${group.title}`
-      : group.title;
+    formatCarouselTitle(category.title, group.title, prefixCarouselTitles);
 
   const sectionVisible = isActive && !hideSection;
   const sectionClassName = sectionVisible
