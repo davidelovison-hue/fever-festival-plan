@@ -40,6 +40,14 @@ jobs:
           ref: cursor/forced-stepper-aab5
           path: forced
 
+      # Work-in-progress preview, so unreleased UI can be reviewed without a
+      # local dev server. Tracks whatever cursor/preview-aab5 points at.
+      - name: Checkout work-in-progress preview
+        uses: actions/checkout@v4
+        with:
+          ref: cursor/preview-aab5
+          path: preview
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -66,14 +74,23 @@ jobs:
           npx tsc
           VITE_GUIDED_PLAN=true npx vite build --base /fever-festival-plan/ForcedStepper/
 
+      - name: Build work-in-progress preview
+        working-directory: preview
+        run: |
+          npm ci
+          npx tsc
+          npx vite build --base /fever-festival-plan/preview/
+
       - name: Combine sites
         run: |
           set -euo pipefail
           cp -R stepper/dist original/dist/stepper
           cp -R forced/dist original/dist/ForcedStepper
+          cp -R preview/dist original/dist/preview
           touch original/dist/.nojekyll
           cp original/dist/stepper/index.html original/dist/stepper/404.html
           cp original/dist/ForcedStepper/index.html original/dist/ForcedStepper/404.html
+          cp original/dist/preview/index.html original/dist/preview/404.html
           cat > original/dist/404.html << 'EOF'
           <!DOCTYPE html>
           <html lang="en">
@@ -85,19 +102,25 @@ jobs:
               (function () {
                 var forcedPrefix = '/fever-festival-plan/ForcedStepper';
                 var stepperPrefix = '/fever-festival-plan/stepper';
+                var previewPrefix = '/fever-festival-plan/preview';
                 var path = location.pathname || '';
                 var isForced = path === forcedPrefix || path.indexOf(forcedPrefix + '/') === 0;
                 var isStepper = path === stepperPrefix || path.indexOf(stepperPrefix + '/') === 0;
+                var isPreview = path === previewPrefix || path.indexOf(previewPrefix + '/') === 0;
                 var indexUrl = isForced
                   ? forcedPrefix + '/index.html'
                   : isStepper
                     ? stepperPrefix + '/index.html'
-                    : '/fever-festival-plan/index.html';
+                    : isPreview
+                      ? previewPrefix + '/index.html'
+                      : '/fever-festival-plan/index.html';
                 var fallback = isForced
                   ? forcedPrefix + '/'
                   : isStepper
                     ? stepperPrefix + '/'
-                    : '/fever-festival-plan/';
+                    : isPreview
+                      ? previewPrefix + '/'
+                      : '/fever-festival-plan/';
                 fetch(indexUrl, { cache: 'no-store' })
                   .then(function (r) { return r.text(); })
                   .then(function (html) {
