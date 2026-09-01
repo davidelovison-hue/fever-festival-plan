@@ -22,6 +22,7 @@ import {
   getPlanStep,
   getPlanStepIndex,
   getStepIdFromHash,
+  shouldPrefixCategory,
   type PlanStepId,
 } from '../data/planCatalog';
 import './PlanPage.css';
@@ -213,9 +214,10 @@ export function PlanPage({ guided = false }: { guided?: boolean }) {
   const hasCart = items.length > 0;
   const stepIndex = getPlanStepIndex(activeStep);
   const stepCategories = getCategoriesForStep(activeStep);
-  const stepCarousels = getCarouselsForCategories(stepCategories);
   const isLastStep = stepIndex >= LAST_STEP_INDEX;
-  const showCategoryTitles = stepCategories.length > 1;
+  // A category heading that repeats the selected step adds nothing.
+  const activeStepTitle = getPlanStep(activeStep)?.title;
+  const stepCarousels = getCarouselsForCategories(stepCategories, activeStepTitle);
 
   useEffect(() => {
     rememberPlanOrigin(location.pathname);
@@ -368,9 +370,11 @@ export function PlanPage({ guided = false }: { guided?: boolean }) {
                   category={category}
                   isActive
                   visibleGroupId={activeCarouselId}
-                  prefixCarouselTitles={
-                    showCategoryTitles && category.title !== getPlanStep(activeStep)?.title
-                  }
+                  prefixCarouselTitles={shouldPrefixCategory(
+                    stepCategories,
+                    category,
+                    activeStepTitle,
+                  )}
                   footer={
                     !guided && category.id === 'acceso' ? (
                       <PlanCrossSellStrip onSelectTab={(id) => goToStep(getStepIdFromHash(id), true)} />
