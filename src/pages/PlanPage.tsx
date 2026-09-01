@@ -17,6 +17,7 @@ import {
   PLAN_STEPS,
   getCarouselsForCategories,
   getCategoriesForStep,
+  getPlanStep,
   getPlanStepIndex,
   getStepIdFromHash,
   type PlanStepId,
@@ -213,6 +214,8 @@ export function PlanPage() {
   const stepCarousels = getCarouselsForCategories(stepCategories);
   const isLastStep = stepIndex >= LAST_STEP_INDEX;
   const showCategoryTitles = stepCategories.length > 1;
+  // A category heading that repeats the selected step adds nothing.
+  const activeStepTitle = getPlanStep(activeStep)?.title;
 
   useLayoutEffect(() => {
     if (location.pathname !== '/') return;
@@ -350,7 +353,7 @@ export function PlanPage() {
                   category={category}
                   isActive
                   visibleGroupId={activeCarouselId}
-                  showTitle={showCategoryTitles}
+                  prefixCarouselTitles={showCategoryTitles && category.title !== activeStepTitle}
                   footer={
                     category.id === 'acceso' ? (
                       <PlanCrossSellStrip onSelectTab={(id) => goToStep(getStepIdFromHash(id), true)} />

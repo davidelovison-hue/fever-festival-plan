@@ -8,7 +8,8 @@ import './PlanCategorySection.css';
 type PlanCategorySectionProps = {
   category: PlanCategory;
   isActive?: boolean;
-  showTitle?: boolean;
+  /** Carry the category name in each carousel title instead of a heading row. */
+  prefixCarouselTitles?: boolean;
   visibleGroupId?: string;
   footer?: ReactNode;
 };
@@ -16,7 +17,7 @@ type PlanCategorySectionProps = {
 export function PlanCategorySection({
   category,
   isActive = true,
-  showTitle = false,
+  prefixCarouselTitles = false,
   visibleGroupId = ALL_CAROUSELS,
   footer,
 }: PlanCategorySectionProps) {
@@ -28,8 +29,13 @@ export function PlanCategorySection({
     : null;
   const hideSection = isFiltered && !selectedGroup;
   const groupsToShow = selectedGroup ? [selectedGroup] : groups;
-  const showCarouselTitle = groups.length > 1 || Boolean(selectedGroup);
+  const showCarouselTitle = prefixCarouselTitles || groups.length > 1 || Boolean(selectedGroup);
   const mobileGroupLayout = isFiltered ? 'filtered' : 'all';
+
+  const carouselTitle = (group: PlanGroup) =>
+    prefixCarouselTitles && group.title !== category.title
+      ? `${category.title} - ${group.title}`
+      : group.title;
 
   const sectionVisible = isActive && !hideSection;
   const sectionClassName = sectionVisible
@@ -64,12 +70,12 @@ export function PlanCategorySection({
 
   const renderGroup = (group: PlanGroup, withTitle: boolean) => (
     <div key={group.id} className="groupBlock">
-      {withTitle ? <h3 className="groupCarouselTitle">{group.title}</h3> : null}
+      {withTitle ? <h3 className="groupCarouselTitle">{carouselTitle(group)}</h3> : null}
       <GroupCarousel
         mobileGroupLayout={mobileGroupLayout}
         layout={equalRow ? 'equalRow' : 'default'}
         itemCount={group.entities.length}
-        ariaLabel={group.title}
+        ariaLabel={carouselTitle(group)}
       >
         {group.entities.map((entity) => (
           <EntityCard key={entity.id} entity={entity} />
@@ -82,16 +88,10 @@ export function PlanCategorySection({
     <section
       id={category.id}
       className={sectionClassName}
-      aria-labelledby={showTitle && sectionVisible && !selectedGroup ? `${category.id}-heading` : undefined}
-      aria-label={showTitle && sectionVisible && !selectedGroup ? undefined : category.title}
+      aria-label={category.title}
       aria-hidden={!sectionVisible}
       hidden={!sectionVisible}
     >
-      {showTitle && sectionVisible && !selectedGroup ? (
-        <h3 className="categorySectionTitle" id={`${category.id}-heading`}>
-          {category.title}
-        </h3>
-      ) : null}
       {groupsToShow.length > 1 ? (
         <div className="groupStackAll">{groupsToShow.map((group) => renderGroup(group, true))}</div>
       ) : groupsToShow[0] ? (
