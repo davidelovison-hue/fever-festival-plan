@@ -368,10 +368,8 @@ export function PlanPage({ guided = false }: { guided?: boolean }) {
                   category={category}
                   isActive
                   visibleGroupId={activeCarouselId}
-                  showTitle={
-                    guided
-                      ? showCategoryTitles && category.title !== getPlanStep(activeStep)?.title
-                      : showCategoryTitles
+                  prefixCarouselTitles={
+                    showCategoryTitles && category.title !== getPlanStep(activeStep)?.title
                   }
                   footer={
                     !guided && category.id === 'acceso' ? (
