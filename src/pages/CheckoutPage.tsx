@@ -34,7 +34,7 @@ export function CheckoutPage() {
   )
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
+    return <Navigate to={eventId ? planPath('pass') : '/'} replace />
   }
 
   if (checkoutRequiresPmrProof(data) && !checkoutHasPmrProof(data)) {

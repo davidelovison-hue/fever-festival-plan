@@ -48,15 +48,15 @@ export function OverviewSection() {
     <div className="overview">
       <div className="narrow">
         <p className="intro">
-          Bahidorá is a boutique music festival on the rivers of Las Estacas, Morelos — three days of
-          electronic, live and tropical sounds in an open-air nature park. Swim by day, dance at
-          Sonorama, El Cubo and La Estación by night.{' '}
-          <strong className="introBold">Get your tickets now for the 2027 edition!</strong>
+          Reserva una mesa en la sala principal y vive la noche con acceso preferente, servicio en
+          mesa y zonas exclusivas. Elige tu categoría en el mapa — pista, palco, VIP, DJ booth o
+          backstage — y completa el pago en el mismo funnel.{' '}
+          <strong className="introBold">Prototipo local: no se procesan pagos reales.</strong>
         </p>
 
         <section className="block" aria-labelledby="overview-general">
           <h2 id="overview-general" className="heading">
-            General Info
+            Información general
           </h2>
           <ul className="infoList">
             {OVERVIEW_INFO.map((item) => (
@@ -76,56 +76,38 @@ export function OverviewSection() {
       <div className="narrow">
         <section className="block" aria-labelledby="overview-description">
           <h2 id="overview-description" className="heading">
-            Description
+            Descripción
           </h2>
           <p className="bodyText">
-            Browse Entry pass, Bundles, Camping, Glamping & Hotel, Bus & Parking, and Extra in
-            the tabs above. Tickets are personalized before the event. Payment issues:{' '}
-            <a href="mailto:boletaje@volveraflotar.com" className="link">
-              boletaje@volveraflotar.com
-            </a>
-            . By continuing, you agree to our{' '}
-            <a href="https://feverup.com" className="link" target="_blank" rel="noopener noreferrer">
-              Privacy Policy
-            </a>
-            .
+            Usa la pestaña Mesas para explorar el mapa y las cards por zona. Añade packs de botellas,
+            parking u extras si lo necesitas. El carrito y el checkout reutilizan el flujo Gaerten
+            del prototipo.
           </p>
         </section>
 
         <section className="block" aria-labelledby="overview-help">
           <h2 id="overview-help" className="headingWithIcon">
             <HelpIcon />
-            Need help?
+            ¿Necesitas ayuda?
           </h2>
           <p className="bodyText">
-            Visit the official site at{' '}
-            <a href="https://bahidora.com/" className="link" target="_blank" rel="noopener noreferrer">
-              bahidora.com
-            </a>{' '}
-            or contact support via your client area.
+            Este es un prototipo de demostración. Para dudas de producto, contacta al equipo Fever
+            / Davide.
           </p>
         </section>
 
         <section className="block" aria-labelledby="overview-venue">
           <h2 id="overview-venue" className="headingWithIcon">
             <VenueIcon />
-            About the venue
+            Sobre el venue
           </h2>
           <div className="venueGrid venueGrid--textOnly">
             <div className="venueText">
-              <h3 className="subheading">Parque Las Estacas</h3>
+              <h3 className="subheading">Sala Principal</h3>
               <p className="bodyText">
-                A natural park of rivers, springs and jungle in Tlaltizapán, Morelos — about 90 minutes
-                from Mexico City. Stages sit among swimming holes, camping and glamping.
+                Club nocturno con pista, palcos elevados, zona VIP Cristal/Cielo, DJ booth y
+                backstage. El mapa isométrico muestra las zonas reservables.
               </p>
-              <a
-                href="https://bahidora.com/"
-                className="link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Read more
-              </a>
             </div>
           </div>
         </section>
@@ -133,20 +115,18 @@ export function OverviewSection() {
         <section className="block" aria-labelledby="overview-getting">
           <h2 id="overview-getting" className="headingWithIcon">
             <LocationIcon />
-            Getting there
+            Cómo llegar
           </h2>
           <div className="gettingGrid">
             <div className="gettingAddress">
-              <h3 className="subheading">Las Estacas</h3>
-              <p className="addressLines">
-                {`Parque Las Estacas\nTlaltizapán, Morelos\nMexico`}
-              </p>
+              <h3 className="subheading">Madrid</h3>
+              <p className="addressLines">{`Sala Principal\nMadrid\nEspaña`}</p>
             </div>
             <div className="mapWrap">
               <iframe
-                title="Venue location map"
+                title="Mapa del venue"
                 className="mapIframe"
-                src="https://maps.google.com/maps?q=Parque+Las+Estacas+Tlaltizapan+Morelos&z=13&output=embed&hl=en"
+                src="https://maps.google.com/maps?q=Madrid+Spain&z=12&output=embed&hl=es"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />

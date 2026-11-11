@@ -27,7 +27,7 @@ export function buildLoginCheckoutState(
     serviceFee: 0,
     total: 0,
     returnTab: 'general',
-    returnHash: 'acceso',
+    returnHash: 'pass',
     ...extras,
   };
 }

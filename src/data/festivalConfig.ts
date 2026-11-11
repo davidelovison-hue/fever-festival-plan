@@ -5,15 +5,13 @@ export type PlanCategory = {
 
 export const PLAN_CATEGORIES: PlanCategory[] = [
   { id: 'overview', title: 'Overview' },
-  { id: 'acceso', title: 'Entry pass' },
-  { id: 'bundles', title: 'Bundles' },
-  { id: 'camping', title: 'Camping' },
-  { id: 'glamping', title: 'Glamping & Hotel' },
-  { id: 'transport', title: 'Bus & Parking' },
+  { id: 'mesas', title: 'Mesas' },
+  { id: 'bundles', title: 'Packs' },
+  { id: 'transport', title: 'Parking' },
   { id: 'extra', title: 'Extra' },
 ];
 
-/** Default plan tab (Entry pass). */
+/** Default plan tab (Mesas). */
 export const DEFAULT_PLAN_TAB = 'pass';
 
 const BASE = import.meta.env.BASE_URL;
@@ -28,23 +26,23 @@ export const HERO_GRID_IMAGES = [
 export const GALLERY_IMAGES = [
   {
     src: `${BASE}festival-poster.jpg`,
-    alt: 'Bahidorá 2027 — Las Estacas, Morelos',
+    alt: 'Mesas — Sala Principal',
   },
   {
     src: HERO_GRID_IMAGES[0],
-    alt: 'River and spring at Las Estacas',
+    alt: 'Ambiente VIP de la sala',
   },
   {
     src: HERO_GRID_IMAGES[1],
-    alt: 'Outdoor stage in the jungle',
+    alt: 'Pista principal',
   },
   {
     src: HERO_GRID_IMAGES[2],
-    alt: 'Crowd at Bahidorá at sunset',
+    alt: 'Público en la noche',
   },
   {
     src: HERO_GRID_IMAGES[3],
-    alt: 'Campsite by the river',
+    alt: 'Zona lounge',
   },
 ];
 
@@ -66,31 +64,31 @@ export const AVATAR_URL =
 export const VENUE_IMAGE = `${BASE}hero-grid-1.jpg`;
 
 export const HERO_FACTS = [
-  { label: 'Date', value: '13–15 Feb' },
-  { label: 'Duration', value: '3 days' },
-  { label: 'Format', value: 'Outdoor' },
-  { label: 'City', value: 'Morelos' },
+  { label: 'Fecha', value: '15 May' },
+  { label: 'Inicio', value: '20:00' },
+  { label: 'Fin', value: '03:00' },
+  { label: 'Edad', value: '18+' },
 ] as const;
 
 export const OVERVIEW_INFO = [
   {
     icon: '📅',
-    label: 'Date',
-    text: '13–15 February 2027 (Friday–Sunday)',
+    label: 'Fecha',
+    text: '15 de mayo — de 20:00 a 03:00',
   },
   {
     icon: '📍',
-    label: 'Location',
-    text: 'Parque Las Estacas — Tlaltizapán, Morelos, Mexico',
+    label: 'Ubicación',
+    text: 'Sala Principal — Madrid',
   },
   {
     icon: '🔞',
-    label: 'Age',
-    text: '18+ with valid government-issued ID required at the gate.',
+    label: 'Edad',
+    text: '18+ con documento de identidad válido en la entrada.',
   },
   {
-    icon: '♿',
-    label: 'Accessibility',
-    text: 'Contact boletaje@volveraflotar.com for access requirements before the event.',
+    icon: '🪑',
+    label: 'Mesas',
+    text: 'Reserva tu mesa por zona: pista, palco, VIP, DJ booth y backstage.',
   },
 ];

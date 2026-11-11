@@ -108,7 +108,7 @@ export function FestivalGallery({ onBuyTickets }: FestivalGalleryProps) {
                   className="eventMediaHero__buyBtn"
                   onClick={onBuyTickets}
                 >
-                  Buy tickets
+                  Reservar mesa
                 </button>
               ) : null}
             </div>

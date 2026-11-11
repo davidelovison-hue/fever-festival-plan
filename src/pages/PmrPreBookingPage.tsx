@@ -87,7 +87,7 @@ export function PmrPreBookingPage() {
   const [fileName, setFileName] = useState(data?.pmrProofFileName ?? '');
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />;
+    return <Navigate to={eventId ? planPath('pass') : '/'} replace />;
   }
 
   if (!checkoutRequiresPmrProof(data)) {

@@ -22,7 +22,7 @@ export function ensureDemoOrder(): OrderConfirmationState | null {
     serviceFee,
     total,
     returnTab: 'general',
-    returnHash: 'acceso',
+    returnHash: 'pass',
     email: session?.email ?? 'guest@feverup.com',
     guest: {
       fullName: session?.name ?? 'Demo Guest',

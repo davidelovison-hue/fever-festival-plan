@@ -1,0 +1,66 @@
+.venueMap {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0.25rem 0.5rem 0.5rem;
+  box-sizing: border-box;
+}
+
+.venueMapSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.venueMapRoom {
+  transition: fill 0.2s ease;
+}
+
+.venueMapZone polygon {
+  cursor: pointer;
+  transition:
+    fill 0.2s ease,
+    stroke 0.2s ease,
+    stroke-width 0.2s ease,
+    filter 0.2s ease,
+    transform 0.2s ease;
+  outline: none;
+}
+
+.venueMapZone polygon:hover,
+.venueMapZone polygon:focus-visible {
+  stroke: #0a1f26;
+  stroke-width: 2;
+  filter: brightness(1.05);
+}
+
+.venueMapZone--active polygon {
+  stroke: #0079ca;
+  stroke-width: 2.5;
+}
+
+.venueMapLabel {
+  font-family: 'Montserrat', 'Muli', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  fill: #2a343c;
+  text-transform: uppercase;
+}
+
+.venueMapLabel--onDark {
+  fill: #f7f8fa;
+}
+
+@media (max-width: 900px) {
+  .venueMap {
+    padding: 0 0 0.25rem;
+  }
+
+  .venueMapLabel {
+    font-size: 9px;
+  }
+}

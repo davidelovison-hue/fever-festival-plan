@@ -87,8 +87,8 @@ export function ConnectPage() {
 
   const verifyFooterColumns = useMemo(() => {
     if (!eventId) return []
-    const eventTitle = event?.title ?? 'Bahidorá 2027'
-    const ticketsHref = planPath(data?.returnHash ?? 'acceso')
+    const eventTitle = event?.title ?? 'Mesas — Sala Principal'
+    const ticketsHref = planPath(data?.returnHash ?? 'pass')
     return [
       {
         title: 'Tickets',
@@ -113,7 +113,7 @@ export function ConnectPage() {
   }, [event?.title, eventId])
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
+    return <Navigate to={eventId ? planPath('pass') : '/'} replace />
   }
 
   const trimmedEmail = email.trim()
