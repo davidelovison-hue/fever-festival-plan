@@ -9,8 +9,8 @@ const CROSS_SELL_LINKS = PLAN_STEPS.filter((step) => step.id !== 'pass');
 
 export function PlanCrossSellStrip({ onSelectTab }: PlanCrossSellStripProps) {
   return (
-    <nav className="planCrossSell" aria-label="Also available">
-      <p className="planCrossSellLabel">Also available:</p>
+    <nav className="planCrossSell" aria-label="También disponible">
+      <p className="planCrossSellLabel">También disponible:</p>
       <ul className="planCrossSellList">
         {CROSS_SELL_LINKS.map((item, index) => (
           <li key={item.id} className="planCrossSellItem">

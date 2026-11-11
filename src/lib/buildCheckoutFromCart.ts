@@ -11,7 +11,7 @@ function lineLabel(item: CartItem): string {
 
 export function buildCheckoutFromCart(
   items: CartItem[],
-  returnHash = 'acceso',
+  returnHash = 'pass',
 ): EventCheckoutState | null {
   if (items.length === 0) return null;
 

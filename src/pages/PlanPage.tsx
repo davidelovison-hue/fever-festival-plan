@@ -9,6 +9,7 @@ import { PlanCarouselFilter } from '../components/PlanCarouselFilter';
 import { PlanCategorySection } from '../components/PlanCategorySection';
 import { PlanCrossSellStrip } from '../components/PlanCrossSellStrip';
 import { PlanTabs } from '../components/PlanTabs';
+import { TableMapSelection } from '../components/TableMapSelection';
 import { useCart } from '../lib/cartContext';
 import { scrollPageToTop } from '../lib/scrollPageToTop';
 import { useIsMobile } from '../lib/useIsMobile';
@@ -140,7 +141,7 @@ function getTicketSectionScrollTop() {
   const fromTabs = getPlanTabsScrollTop();
   if (fromTabs != null) return fromTabs;
 
-  const section = document.getElementById('acceso');
+  const section = document.getElementById('mesas');
   if (!section) return null;
   const nav = document.querySelector<HTMLElement>('.planStickyNav');
   const navH = nav?.getBoundingClientRect().height ?? 0;
@@ -316,7 +317,7 @@ export function PlanPage() {
             <OverviewCollapsible isOpen={isOverviewOpen} onToggle={handleOverviewToggle} />
           </div>
 
-          <h2 className="planTicketsHeading">Tickets</h2>
+          <h2 className="planTicketsHeading">Mesas y extras</h2>
         </div>
 
         <div className="planTabsScrollAnchor" aria-hidden="true" />
@@ -327,24 +328,30 @@ export function PlanPage() {
         <div className="planMainShell">
           <div className="planMainColumn">
             <div className="planContentColumn">
-              <PlanCarouselFilter
-                value={activeCarouselId}
-                options={stepCarousels}
-                onChange={setActiveCarouselId}
-              />
-              {stepCategories.map((category) => (
-                <PlanCategorySection
-                  key={category.id}
-                  category={category}
-                  isActive
-                  visibleGroupId={activeCarouselId}
-                  prefixCarouselTitles={shouldPrefixCategory(
-                    stepCategories,
-                    category,
-                    activeStepTitle,
-                  )}
-                />
-              ))}
+              {activeTab === 'pass' ? (
+                <TableMapSelection isActive />
+              ) : (
+                <>
+                  <PlanCarouselFilter
+                    value={activeCarouselId}
+                    options={stepCarousels}
+                    onChange={setActiveCarouselId}
+                  />
+                  {stepCategories.map((category) => (
+                    <PlanCategorySection
+                      key={category.id}
+                      category={category}
+                      isActive
+                      visibleGroupId={activeCarouselId}
+                      prefixCarouselTitles={shouldPrefixCategory(
+                        stepCategories,
+                        category,
+                        activeStepTitle,
+                      )}
+                    />
+                  ))}
+                </>
+              )}
               {activeTab === 'pass' ? <PlanCrossSellStrip onSelectTab={selectPlanTab} /> : null}
             </div>
             {isMobile ? <AddToCartToast variant="mobile" /> : null}

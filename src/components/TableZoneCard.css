@@ -1,0 +1,204 @@
+.tableZoneCard {
+  --tz-border: #d1d5db;
+  --tz-ink: #0a1f26;
+  --tz-muted: #536b75;
+  --tz-accent: #0079ca;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--tz-border);
+  overflow: hidden;
+  scroll-snap-align: start;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.tableZoneCard--highlighted {
+  border-color: var(--tz-accent);
+  box-shadow: 0 0 0 2px rgb(0 121 202 / 0.22);
+}
+
+.tableZoneCard--inCart {
+  border-color: #0a1f26;
+}
+
+.tableZoneCard__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: #0a1f26;
+  overflow: hidden;
+}
+
+.tableZoneCard__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tableZoneCard__tag {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+  display: inline-block;
+  padding: 0.15rem 0.35rem;
+  border-radius: 3px;
+  font-size: 0.625rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: #fff;
+  border: 1px solid rgb(0 121 202 / 0.45);
+  color: var(--tz-accent);
+}
+
+.tableZoneCard__tag--fast {
+  color: #c2410c;
+  border-color: #ea580c;
+}
+
+.tableZoneCard__tag--limited {
+  color: #6d28d9;
+  border-color: #7c3aed;
+}
+
+.tableZoneCard__tag--sold {
+  color: #8b95a5;
+  border-color: #d1d5db;
+  background: #f3f4f6;
+}
+
+.tableZoneCard__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem 1rem;
+  min-height: 0;
+}
+
+.tableZoneCard__copy {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.tableZoneCard__title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--tz-ink);
+}
+
+.tableZoneCard__capacity {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  font-weight: 600;
+  color: var(--tz-muted);
+}
+
+.tableZoneCard__description {
+  margin: 0.15rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--tz-ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tableZoneCard__includes {
+  margin-top: 0.35rem;
+}
+
+.tableZoneCard__includesLabel {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--tz-muted);
+}
+
+.tableZoneCard__includesList {
+  margin: 0;
+  padding: 0 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--tz-ink);
+}
+
+.tableZoneCard__footer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: auto;
+}
+
+.tableZoneCard__price {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  color: var(--tz-ink);
+}
+
+.tableZoneCard__priceFrom {
+  font-weight: 500;
+  color: var(--tz-muted);
+}
+
+.tableZoneCard__priceAmount {
+  font-weight: 700;
+}
+
+.tableZoneCard__select {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--tz-ink);
+  background: #fff;
+  color: var(--tz-ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.tableZoneCard__select:hover {
+  background: #f3f5f7;
+}
+
+.tableZoneCard__select--active {
+  background: var(--tz-ink);
+  color: #fff;
+  border-color: var(--tz-ink);
+}
+
+.tableZoneCard__select--active:hover {
+  background: #163039;
+}

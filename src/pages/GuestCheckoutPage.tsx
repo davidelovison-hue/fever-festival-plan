@@ -104,7 +104,7 @@ export function GuestCheckoutPage() {
   }
 
   if (!eventId || !data) {
-    return <Navigate to={eventId ? planPath('acceso') : '/'} replace />
+    return <Navigate to={eventId ? planPath('pass') : '/'} replace />
   }
 
   if (checkoutRequiresPmrProof(data) && !checkoutHasPmrProof(data)) {
@@ -272,7 +272,7 @@ export function GuestCheckoutPage() {
                   onChange={(e) => update('marketing', e.target.checked)}
                 />
                 <span>
-                  I agree to receive news and recommendations from Bahidorá and its partners.
+                  Acepto recibir novedades y recomendaciones de Fever y sus partners.
                 </span>
               </label>
 

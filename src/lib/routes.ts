@@ -6,7 +6,7 @@ export function planPath(hash?: string): string {
 
 export function eventPath(eventId: string, hash?: string): string {
   void eventId;
-  return planPath(hash ?? 'acceso');
+  return planPath(hash ?? 'pass');
 }
 
 export function connectPath(eventId: string): string {

@@ -54,7 +54,7 @@ export function AddonCheckoutPrompt({
         aria-labelledby={titleId}
       >
         <h2 id={titleId} className="addonCheckoutPrompt__title">
-          Add camping, stays, or extras?
+          ¿Añadir packs, parking u extras?
         </h2>
         <div className="addonCheckoutPrompt__options">
           {PLAN_STEPS.filter((step) => step.id !== 'pass').map((step, index) => (
@@ -70,7 +70,7 @@ export function AddonCheckoutPrompt({
           ))}
         </div>
         <button type="button" className="addonCheckoutPrompt__skip" onClick={onContinueCheckout}>
-          No thanks, continue to checkout
+          No, gracias — continuar al pago
         </button>
       </div>
     </div>

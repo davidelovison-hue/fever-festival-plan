@@ -1,18 +1,14 @@
-# Fever Festival Plan
+# Fever Festival Plan — Table funnel prototype
 
-Reusable festival ticketing prototype scaffold (same structure as Les Ardentes plan).
+B2C table-booking funnel built on the Gaerten / festival plan scaffold.
 
-## Sample festival
+## Prototype focus
 
-**Bahidorá 2027** — [bahidora.com](https://bahidora.com/) — swap branding in:
-
-- `src/data/festivalConfig.ts` — media, overview info, tabs
-- `src/data/festivalArtists.ts` — lineup carousel
-- `src/lib/festivalEvent.ts` — event id, title, logo path
-- `src/data/planCatalog.ts` — Acceso, Bundles, Camping, Glamping & Hotel, Autobús & Estacionamiento, Extra
-- `public/` — logo (`festival-logo.png`), poster, hero video
-
-Prices are in **MXN**.
+- **Mesas** step: interactive isometric venue map + horizontal category cards
+- Click a map zone to highlight / scroll to the matching card
+- **Seleccionar** adds the table to the existing Gaerten cart drawer
+- Packs / Parking / Extra tabs + checkout continuity unchanged in structure
+- Mock EUR pricing — no real payments
 
 ## Commands
 
@@ -20,9 +16,9 @@ Prices are in **MXN**.
 npm install
 npm run dev      # http://localhost:5174
 npm run build
-npm run deploy   # GitHub Pages → fever-festival-plan
+npm run preview
 ```
 
-## Live URL
+## Live URL (GitHub Pages, if deployed)
 
 https://davidelovison-hue.github.io/fever-festival-plan/
